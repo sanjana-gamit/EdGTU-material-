@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Notes - GTU Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="nav-wrap">
+    <div class="nav container">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="GTU"/>GTU Student Portal</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="study-material.html" class="active">Study Material</a>
+        <a href="ai-tools.html">AI Tools</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin-login.html" class="btn btn-outline">Admin</a>
+      </nav>
+      <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Notes</h1>
+    <div id="notes-list" class="materials-list"></div>
+  </main>
+
+  <script src="js/main.js"></script>
+  <script>
+    // filter type to 'notes'
+    document.addEventListener('DOMContentLoaded', () => loadMaterials('notes', 'notes-list'));
+  </script>
+</body>
+</html>
