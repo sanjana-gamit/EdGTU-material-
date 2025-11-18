@@ -1,88 +1,110 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GTU Student Portal</title>
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Google Font (Professional GTU look) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  <header class="nav-wrap">
-    <div class="nav container">
-      <a href="index.html" class="brand"><img src="assets/logo.png" alt="GTU"/>GTU Student Portal</a>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="study-material.html">Study Material</a>
-        <a href="ai-tools.html">AI Tools</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="admin-login.html" class="btn btn-outline">Admin</a>
-      </nav>
-      <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+
+<!-- ================= HEADER ================= -->
+<header class="nav-wrap">
+  <div class="nav container">
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="GTU">
+      <span>GTU Student Portal</span>
+    </a>
+
+    <nav class="nav-links" id="menu">
+      <a href="index.html" class="active">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="ai-tools.html">AI Tools</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin-login.html" class="btn-admin">Admin</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle">☰</button>
+  </div>
+</header>
+
+<!-- ================= HERO SECTION ================= -->
+<section class="hero">
+  <div class="hero-content container">
+    <div class="text">
+      <h1>GTU Student Portal</h1>
+      <p>Access high-quality GTU notes, PYQs, books, syllabus & useful study tools — all in one place.</p>
+      <a href="study-material.html" class="btn-primary">Explore Materials</a>
     </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <div class="hero-inner container">
-        <div class="hero-text">
-          <h1>GTU Student Portal</h1>
-          <p>Your one-stop hub for GTU notes, PDFs, questions, books and playlists — curated for students.</p>
-          <a href="study-material.html" class="btn">Browse Materials</a>
-        </div>
-        <div class="hero-slider">
-          <div class="slider" id="slider">
-            <img src="assets/slide1.jpg" alt="slide" class="slide active">
-            <img src="assets/slide2.jpg" alt="slide" class="slide">
-            <img src="assets/slide3.jpg" alt="slide" class="slide">
-          </div>
-          <div class="slider-controls">
-            <button id="prev">◀</button>
-            <button id="next">▶</button>
-          </div>
-        </div>
+    <div class="hero-slider">
+      <div class="slider" id="slider">
+        <img src="assets/slide1.jpg" class="slide active">
+        <img src="assets/slide2.jpg" class="slide">
+        <img src="assets/slide3.jpg" class="slide">
       </div>
-    </section>
 
-    <section class="container features">
-      <div class="card">
-        <h3>Structured</h3>
-        <p>Materials grouped by type: Notes, PDFs, Books, PYQ, Syllabus & Playlists.</p>
-      </div>
-      <div class="card">
-        <h3>Admin Friendly</h3>
-        <p>Admins can update `materials.json` in the repo or use the admin dashboard for local testing.</p>
-      </div>
-      <div class="card">
-        <h3>AI Tools</h3>
-        <p>Quick links to ChatGPT, Google Gemini and other AI helpers for study assistance.</p>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <h4>GTU Portal</h4>
-        <p>Created for GTU students. Use responsibly and share resources with your classmates.</p>
-      </div>
-      <div>
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="study-material.html">Study Material</a></li>
-          <li><a href="ai-tools.html">AI Tools</a></li>
-          <li><a href="admin-login.html">Admin</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <p>Email: gtu.portal@example.com</p>
+      <div class="slider-controls">
+        <button id="prev">◀</button>
+        <button id="next">▶</button>
       </div>
     </div>
-    <div class="footer-bottom">© 2025 GTU Student Portal</div>
-  </footer>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="container features">
+  <div class="feature-card">
+    <h3>Organized & Clean</h3>
+    <p>Semester-wise & subject-wise materials for easy access.</p>
+  </div>
+
+  <div class="feature-card">
+    <h3>Admin Dashboard</h3>
+    <p>Admins can upload or edit content easily.</p>
+  </div>
+
+  <div class="feature-card">
+    <h3>AI Tools Ready</h3>
+    <p>Instant access to ChatGPT, Gemini & Code tools.</p>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+
+    <div>
+      <h4>GTU Student Portal</h4>
+      <p>A simple, fast & free resource hub for all GTU students.</p>
+    </div>
+
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="study-material.html">Study Materials</a></li>
+        <li><a href="ai-tools.html">AI Tools</a></li>
+        <li><a href="admin-login.html">Admin Login</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Contact</h4>
+      <p>Email: gtu.portal@example.com</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © 2025 GTU Student Portal — All Rights Reserved
+  </div>
+</footer>
 
 <script src="js/main.js"></script>
+
 </body>
 </html>
