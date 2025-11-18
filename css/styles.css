@@ -1,0 +1,71 @@
+.page-title {
+    text-align: center;
+    font-size: 2.3rem;
+    font-weight: 700;
+    margin-top: 30px;
+    color: #004C98;
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #555;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.contact-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.icon {
+    font-size: 2.6rem;
+    color: #004C98;
+    margin-bottom: 10px;
+}
+
+.link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #004C98;
+    font-weight: 600;
+}
+
+.ref-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.ref-card {
+    background: #004C98;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background .3s ease;
+}
+
+.ref-card:hover {
+    background: #003875;
+}
