@@ -2,33 +2,152 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Admin Login - GTU Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Login – GTU Portal</title>
+
   <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    :root{
+      --gtu-blue:#003366;
+      --gtu-light:#e6f0ff;
+      --gtu-red:#cc0000;
+      --white:#fff;
+      --gray:#777;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:var(--gtu-light);
+    }
+
+    header{
+      background:var(--gtu-blue);
+      padding:15px 0;
+      color:white;
+      box-shadow:0 3px 8px rgba(0,0,0,0.2);
+    }
+
+    .container{
+      width:90%;
+      max-width:1100px;
+      margin:auto;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:white;
+      text-decoration:none;
+      font-size:20px;
+      font-weight:bold;
+    }
+
+    .brand img{
+      width:40px;
+    }
+
+    .login-box{
+      max-width:400px;
+      margin:60px auto;
+      background:white;
+      padding:30px;
+      border-radius:10px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .login-box h2{
+      text-align:center;
+      color:var(--gtu-blue);
+    }
+
+    label{
+      display:block;
+      margin:10px 0 5px;
+      font-weight:bold;
+    }
+
+    input{
+      width:100%;
+      padding:10px;
+      border:1px solid #ccc;
+      border-radius:6px;
+      font-size:16px;
+    }
+
+    button{
+      margin-top:15px;
+      width:100%;
+      padding:12px;
+      background:var(--gtu-blue);
+      border:none;
+      color:white;
+      font-size:16px;
+      border-radius:8px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    button:hover{
+      background:#00264d;
+    }
+
+    footer{
+      margin-top:50px;
+      background:#00284d;
+      color:white;
+      padding:20px 0;
+      text-align:center;
+      font-size:14px;
+    }
+  </style>
 </head>
+
 <body>
-  <header class="nav-wrap">
-    <div class="nav container">
-      <a href="index.html" class="brand"><img src="assets/logo.png" alt="GTU"/>GTU Student Portal</a>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-      </nav>
-      <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+
+  <header>
+    <div class="container">
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="GTU">
+        GTU Student Portal
+      </a>
     </div>
   </header>
 
-  <main class="container auth">
-    <h1>Admin Login</h1>
-    <div class="card">
-      <label>Username</label>
-      <input id="adminUser" placeholder="admin" />
-      <label>Password</label>
-      <input id="adminPass" type="password" placeholder="password" />
-      <button onclick="loginAdmin()">Login</button>
-      <p class="muted">For GitHub Pages production, update `materials.json` via the repository. This admin login is client-side for convenience/testing only.</p>
-    </div>
-  </main>
+  <div class="login-box">
+    <h2>Admin Login</h2>
 
-  <script src="js/admin.js"></script>
+    <label>Username</label>
+    <input id="adminUser" placeholder="admin123">
+
+    <label>Password</label>
+    <input id="adminPass" type="password" placeholder="••••••••">
+
+    <button onclick="loginAdmin()">Login</button>
+
+    <p style="font-size:12px;color:var(--gray);margin-top:15px;">
+      * Admin Login is local for GitHub Pages (client-side).
+    </p>
+  </div>
+
+  <footer>
+    © 2025 GTU Study Portal • Designed for Students • All Rights Reserved
+  </footer>
+
+<script>
+function loginAdmin() {
+  let u = document.getElementById("adminUser").value;
+  let p = document.getElementById("adminPass").value;
+
+  if(u === "admin" && p === "password"){
+      window.location.href = "admin-dashboard.html";
+  } else {
+      alert("Invalid Login! Try again.");
+  }
+}
+</script>
+
 </body>
 </html>
