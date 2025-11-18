@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Study Material - GTU Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="nav-wrap">
+    <div class="nav container">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="GTU"/>GTU Student Portal</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="study-material.html" class="active">Study Material</a>
+        <a href="ai-tools.html">AI Tools</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin-login.html" class="btn btn-outline">Admin</a>
+      </nav>
+      <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Study Material</h1>
+    <p class="lead">Browse by category and subject. Materials are managed by admins (materials.json).</p>
+
+    <section class="material-categories">
+      <a class="cat" href="notes.html">Notes</a>
+      <a class="cat" href="pdf.html">PDFs</a>
+      <a class="cat" href="books.html">GTU Books</a>
+      <a class="cat" href="syllabus.html">Syllabus</a>
+      <a class="cat" href="pyq.html">Previous Year Papers</a>
+      <a class="cat" href="playlist.html">Playlists</a>
+    </section>
+
+    <section id="materials-list" class="materials-list">
+      <!-- Materials will be loaded here from materials.json -->
+    </section>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
