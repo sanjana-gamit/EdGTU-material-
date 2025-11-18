@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Login - GTU Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="nav-wrap">
+    <div class="nav container">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="GTU"/>GTU Student Portal</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+      </nav>
+      <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main class="container auth">
+    <h1>Admin Login</h1>
+    <div class="card">
+      <label>Username</label>
+      <input id="adminUser" placeholder="admin" />
+      <label>Password</label>
+      <input id="adminPass" type="password" placeholder="password" />
+      <button onclick="loginAdmin()">Login</button>
+      <p class="muted">For GitHub Pages production, update `materials.json` via the repository. This admin login is client-side for convenience/testing only.</p>
+    </div>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
