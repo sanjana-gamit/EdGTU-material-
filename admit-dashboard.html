@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin Dashboard - GTU Portal</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="nav-wrap">
+    <div class="nav container">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="GTU"/>GTU Student Portal</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+      </nav>
+      <button class="nav-toggle" aria-label="toggle navigation">☰</button>
+    </div>
+  </header>
+
+  <main class="container admin">
+    <h1>Admin Dashboard</h1>
+    <div class="card">
+      <label>Subject Code</label>
+      <input id="m_code" placeholder="e.g. 3150710" />
+      <label>Subject Title</label>
+      <input id="m_title" placeholder="e.g. Computer Networks" />
+      <label>Material Type</label>
+      <select id="m_type">
+        <option value="notes">Notes</option>
+        <option value="pdf">PDF</option>
+        <option value="book">book</option>
+        <option value="syllabus">syllabus</option>
+        <option value="pyq">pyq</option>
+        <option value="playlist">playlist</option>
+      </select>
+      <label>Material Name</label>
+      <input id="m_name" placeholder="e.g. Lecture 1 Notes" />
+      <label>Material Link</label>
+      <input id="m_link" placeholder="https://..." />
+      <div class="row gap">
+        <button onclick="adminAddMaterial()" class="btn">Add Material</button>
+        <a href="materials.json" class="btn btn-outline" target="_blank">Open materials.json</a>
+      </div>
+      <p class="muted">Note: GitHub Pages is static. To make materials permanent for everyone, edit `materials.json` in the repository (or upload files to `assets/` and link them in materials.json).</p>
+
+      <h3>Preview (local)</h3>
+      <pre id="preview" class="preview"></pre>
+    </div>
+  </main>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
