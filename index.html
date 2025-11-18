@@ -91,5 +91,29 @@
   }
 
   displayMaterials();
-</script></body>
+</script>  <!-- Admin Login Page -->  <section id="admin-login" class="hidden p-4">
+    <h2>Admin Login</h2>
+    <input type="text" id="adminUser" placeholder="Username" />
+    <input type="password" id="adminPass" placeholder="Password" />
+    <button onclick="loginAdmin()">Login</button>
+  </section>  <!-- Admin Dashboard -->  <section id="admin-dashboard" class="hidden p-4">
+    <h2>Upload Study Material</h2>
+    <input type="text" id="title" placeholder="Title" />
+    <input type="url" id="link" placeholder="Material Link (PDF/Video/etc.)" />
+    <select id="type">
+      <option value="pdf">PDF</option>
+      <option value="notes">Notes</option>
+      <option value="playlist">Playlist</option>
+      <option value="book">GTU Book</option>
+      <option value="syllabus">Syllabus</option>
+      <option value="pyq">Previous Year Paper</option>
+    </select>
+    <button onclick="addMaterial()">Add Material</button><h3>Uploaded Materials:</h3>
+<ul id="materialList"></ul>
+
+  </section>  <!-- Slideshow Banner -->  <div class="slideshow">
+    <img src="slide1.jpg" class="slide active" />
+    <img src="slide2.jpg" class="slide" />
+    <img src="slide3.jpg" class="slide" />
+  </div></body>
 </html>
