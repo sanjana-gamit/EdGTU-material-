@@ -3,18 +3,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About - GTU Portal</title>
+  <title>About - GTU Portal (Premium)</title>
+
+  <!-- GTU main stylesheet -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Additional about page styles (optional separate file) -->
+  <link rel="stylesheet" href="css/about.css">
+
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <!-- NAVBAR -->
+  <!-- HEADER (reuse your site header structure) -->
   <header class="nav-wrap">
     <div class="nav container">
-      <a href="index.html" class="brand">
-        <img src="assets/logo.png" alt="GTU"/> GTU Student Portal
-      </a>
-
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="GTU"/>GTU Student Portal</a>
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="study-material.html">Study Material</a>
@@ -23,100 +34,165 @@
         <a href="contact.html">Contact</a>
         <a href="admin-login.html" class="btn btn-outline">Admin</a>
       </nav>
-
       <button class="nav-toggle" aria-label="toggle navigation">☰</button>
     </div>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <main class="container">
-    <h1>About This Portal</h1>
-    <p>This portal aims to help GTU students access complete study materials – lecture notes, GTU books, previous year question papers, videos, playlists, and unit-wise resources.  
-    It is designed to keep everything in one place, clean and easy to use.</p>
+  <!-- HERO / LEAD -->
+  <section class="about-hero" style="background:linear-gradient(180deg,var(--gtu-blue),var(--gtu-dark));color:white;padding:44px 0;">
+    <div class="container" data-aos="fade-up">
+      <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <h1 style="margin:0 0 10px;font-size:28px">About This Portal — GTU Student Hub</h1>
+          <p style="margin:0;color: #dbe9ff;line-height:1.6">
+            A curated, student-first collection of GTU notes, books, PYQs, syllabus and playlists. Materials are validated and organized unit-wise to make revision faster. <strong>Admins manage materials via <code>materials.json</code></strong> (GitHub).
+          </p>
+        </div>
 
-    <hr>
+        <div style="width:180px;display:flex;justify-content:center;align-items:center">
+          <!-- small decorative card with emoji -->
+          <div class="hero-stat" data-aos="zoom-in" data-aos-delay="200">
+            <div class="stat-value" data-target="120">0</div>
+            <div class="stat-label">Materials</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Reference Websites -->
-    <h2>Reference Websites We Use</h2>
-    <p>We collect and organize verified GTU materials from trusted educational sources:</p>
+  <!-- ONE-BY-ONE INFO (animated list + emojis) -->
+  <section class="container about-features" style="padding:36px 0">
+    <h2 data-aos="fade-right">What we collect 📚</h2>
 
-    <ul>
-      <li><strong>GTU Official Website:</strong> Syllabus PDFs, circulars, academic calendar, and official notifications.</li>
-      <li><strong>GTU Study Mates:</strong> Unit-wise notes and student-friendly breakdown of concepts.</li>
-      <li><strong>Darshan University Study Material:</strong> One of the most accurate and detailed GTU resources for all subjects.</li>
-      <li><strong>GTU Study Material Websites:</strong> Additional references collected from secure online sources.</li>
-    </ul>
-
-    <hr>
-
-    <!-- Syllabus Section -->
-    <h2>GTU Syllabus Coverage</h2>
-    <p>We provide:</p>
-    <ul>
-      <li>Full <strong>semester-wise GTU syllabus</strong></li>
-      <li><strong>Unit-wise material</strong> mapped to the official syllabus</li>
-      <li>Year-wise paper patterns for better exam preparation</li>
-      <li><strong>PYQ (Previous Year Questions)</strong> with chapter mapping</li>
-    </ul>
-
-    <hr>
-
-    <!-- New Features Section -->
-    <h2>New Features Added</h2>
-    <ul>
-      <li>✔ AI Tools page (ChatGPT, Gemini, coding assistants)</li>
-      <li>✔ Admin panel to upload and update materials</li>
-      <li>✔ Study Material Auto-Filter (Unit-wise + Year-wise)</li>
-      <li>✔ Mobile-first responsive design</li>
-      <li>✔ New GTU Blue theme for better UI</li>
-      <li>✔ Search bar (coming soon)</li>
-      <li>✔ PDF viewer integration (coming soon)</li>
-    </ul>
-
-    <hr>
-
-    <h2>Goal of This Project</h2>
-    <p>
-      The goal is to provide **a complete study portal for GTU students**, built by students, for students.  
-      This website keeps all materials organized, verified, and accessible with clean UI and NO ads or complexity.
-    </p>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container footer-grid">
-
-      <div>
-        <h3>GTU Portal</h3>
-        <p>Your one-stop platform for semester notes, books, PYQs, and syllabus.</p>
+    <div class="features-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:20px">
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="50">
+        <div class="feature-emoji">📘</div>
+        <h3>GTU Books</h3>
+        <p>Official GTU books and recommended references for every subject.</p>
       </div>
 
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="150">
+        <div class="feature-emoji">📝</div>
+        <h3>Lecture Notes</h3>
+        <p>Unit-wise notes crafted for quick revision and classroom tests.</p>
+      </div>
+
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="250">
+        <div class="feature-emoji">📼</div>
+        <h3>Playlists</h3>
+        <p>Curated video playlists for conceptual lectures and solved examples.</p>
+      </div>
+
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="350">
+        <div class="feature-emoji">🧾</div>
+        <h3>Previous Year Papers</h3>
+        <p>Past exam papers with chapter mapping and important questions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE / ONE-BY-ONE INFO REVEAL -->
+  <section class="container about-timeline" style="padding:28px 0;">
+    <h2 data-aos="fade-right">How we verify & publish ✅</h2>
+    <div class="timeline" style="margin-top:18px">
+      <div class="timeline-item" data-aos="fade-left" data-aos-delay="80">
+        <div class="tl-step">1</div>
+        <div class="tl-body">
+          <h4>Collect (Sources)</h4>
+          <p>We gather materials from GTU official, Darshan, GTU Study Mates and verified contributors. 🔎</p>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-aos="fade-left" data-aos-delay="160">
+        <div class="tl-step">2</div>
+        <div class="tl-body">
+          <h4>Validate (Quality Check)</h4>
+          <p>Validation against GTU syllabus and cross-checks for accuracy & completeness. ✅</p>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-aos="fade-left" data-aos-delay="240">
+        <div class="tl-step">3</div>
+        <div class="tl-body">
+          <h4>Publish (materials.json)</h4>
+          <p>Admins update `materials.json` in the repo to publish for all users. 📤</p>
+        </div>
+      </div>
+
+      <div class="timeline-item" data-aos="fade-left" data-aos-delay="320">
+        <div class="tl-step">4</div>
+        <div class="tl-body">
+          <h4>Improve (Feedback)</h4>
+          <p>User feedback and corrections are applied regularly — we learn & update. 💬</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REFERENCES CARDS -->
+  <section class="container about-references" style="padding:28px 0;">
+    <h2 data-aos="fade-up">Reference Websites & Partners</h2>
+
+    <div class="refs" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px">
+      <a class="ref-card" data-aos="zoom-in" href="https://www.gtu.ac.in" target="_blank">🌐 GTU Official</a>
+      <a class="ref-card" data-aos="zoom-in" data-aos-delay="80" href="https://darshan.ac.in/gtu-study-material" target="_blank">📘 Darshan Material</a>
+      <a class="ref-card" data-aos="zoom-in" data-aos-delay="160" href="https://gtustudymate.in/" target="_blank">🎓 GTU Study Mates</a>
+    </div>
+  </section>
+
+  <!-- NEW FEATURES LIST (animated reveal one-by-one) -->
+  <section class="container about-newfeatures" style="padding:28px 0;">
+    <h2 data-aos="fade-right">New & Upcoming Features ✨</h2>
+    <ul class="new-features-list" style="margin-top:12px;list-style:none;padding:0">
+      <li data-aos="fade-up" data-aos-delay="80">✅ AI Tools integration — ChatGPT & Gemini quick links</li>
+      <li data-aos="fade-up" data-aos-delay="160">✅ Unit-wise mapping & chapter tagging</li>
+      <li data-aos="fade-up" data-aos-delay="240">✅ Search & filter (coming soon)</li>
+      <li data-aos="fade-up" data-aos-delay="320">✅ PDF viewer & inline preview (coming soon)</li>
+      <li data-aos="fade-up" data-aos-delay="400">✅ Firebase-backed admin uploads (optional)</li>
+    </ul>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:linear-gradient(90deg,rgba(11,94,215,0.95),rgba(7,59,138,0.95));color:white;padding:30px 0;margin-top:8px">
+    <div class="container" data-aos="fade-up">
+      <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;justify-content:space-between">
+        <div>
+          <h3 style="margin:0">Contribute or Report an Error</h3>
+          <p style="margin:4px 0 0;color:#cfe3ff">Found a broken link or better notes? Send us the link and we will verify.</p>
+        </div>
+        <div>
+          <a href="contact.html" class="btn" style="background:white;color:var(--gtu-dark)">Contact / Report</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER (reuse your site footer) -->
+  <footer class="site-footer" style="margin-top:28px">
+    <div class="container footer-grid">
       <div>
-        <h3>Quick Links</h3>
+        <h4>GTU Portal</h4>
+        <p>Made for students. Curated materials and helpful tools.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
         <ul>
           <li><a href="study-material.html">Study Material</a></li>
           <li><a href="ai-tools.html">AI Tools</a></li>
-          <li><a href="about.html">About Portal</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
-
       <div>
-        <h3>Official References</h3>
-        <ul>
-          <li><a href="https://www.gtu.ac.in" target="_blank">GTU Official</a></li>
-          <li><a href="https://darshan.ac.in/gtu-study-material" target="_blank">Darshan GTU Material</a></li>
-          <li><a href="https://gtustudymate.in" target="_blank">GTU Study Mates</a></li>
-        </ul>
+        <h4>Contact</h4>
+        <p><a href="mailto:gtu.portal@example.com">gtu.portal@example.com</a></p>
       </div>
-
     </div>
 
-    <div class="footer-bottom">
-      © 2025 GTU Student Portal – Made for Students, by Students.
-    </div>
+    <div class="footer-bottom">© 2025 GTU Student Portal</div>
   </footer>
 
-<script src="js/main.js"></script>
+  <!-- AOS + About JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="js/about.js"></script>
 </body>
-</html>
+    </html>
