@@ -46,3 +46,19 @@ body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:var(--surf
   .nav-toggle{display:block}
   .ai-grid{grid-template-columns:1fr}
 }
+/* Logo fix to match screenshot */
+.nav .brand img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    margin-right: 8px;
+    border-radius: 4px; /* optional */
+}
+
+/* Brand text spacing */
+.nav .brand {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
