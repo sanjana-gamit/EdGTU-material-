@@ -1,0 +1,95 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GTU Student Portal</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: auto; }
+    h1 { text-align: center; }
+    .admin-panel, .user-panel { background: #fff; padding: 20px; margin-top: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .input-box { margin-bottom: 10px; }
+    input, button, select { padding: 10px; width: 100%; margin-top: 5px; }
+    button { cursor: pointer; background: #007bff; border: none; color: white; border-radius: 5px; }
+    button:hover { background: #0056b3; }
+    .material-card { background: #fff; padding: 15px; margin-top: 10px; border-radius: 8px; border-left: 5px solid #007bff; }
+    .material-card a { color: #007bff; text-decoration: none; font-weight: bold; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>GTU Student Portal</h1>  <div class="admin-panel">
+    <h2>Admin Panel</h2>
+    <div class="input-box">
+      <label>Subject Code</label>
+      <input id="code" placeholder="e.g. 3150710" />
+    </div>
+    <div class="input-box">
+      <label>Subject Name</label>
+      <input id="name" placeholder="e.g. Computer Networks" />
+    </div>
+    <div class="input-box">
+      <label>Material Name</label>
+      <input id="mname" placeholder="e.g. CN Notes PDF" />
+    </div>
+    <div class="input-box">
+      <label>Material Link</label>
+      <input id="mlink" placeholder="Paste download/view link" />
+    </div>
+    <button onclick="addMaterial()">Add Material</button>
+  </div>  <div class="user-panel">
+    <h2>Student Material Section</h2>
+    <div id="materials"></div>
+  </div>
+</div><script>
+  function loadMaterials() {
+    let stored = localStorage.getItem("gtu_materials");
+    return stored ? JSON.parse(stored) : {};
+  }
+
+  function saveMaterials(data) {
+    localStorage.setItem("gtu_materials", JSON.stringify(data));
+  }
+
+  function addMaterial() {
+    let code = document.getElementById('code').value.trim();
+    let name = document.getElementById('name').value.trim();
+    let mname = document.getElementById('mname').value.trim();
+    let mlink = document.getElementById('mlink').value.trim();
+
+    if(!code || !name || !mname || !mlink) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    let data = loadMaterials();
+
+    if(!data[code]) data[code] = { title: name, materials: [] };
+
+    data[code].materials.push({ name: mname, link: mlink });
+    saveMaterials(data);
+    displayMaterials();
+    alert("Material added successfully!");
+  }
+
+  function displayMaterials() {
+    let data = loadMaterials();
+    let box = document.getElementById('materials');
+    box.innerHTML = "";
+
+    Object.keys(data).forEach(code => {
+      let sub = data[code];
+      let html = `<div class='material-card'><h3>${sub.title} (${code})</h3>`;
+
+      sub.materials.forEach(m => {
+        html += `<p><a href='${m.link}' target='_blank'>${m.name}</a></p>`;
+      });
+
+      html += `</div>`;
+      box.innerHTML += html;
+    });
+  }
+
+  displayMaterials();
+</script></body>
+</html>
