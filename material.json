@@ -1,0 +1,16 @@
+{
+  "3110005": {
+    "title": "Basic Electrical Engineering",
+    "materials": [
+      { "name": "Lecture Notes — Unit 1", "link": "https://example.com/bee_unit1.pdf", "type": "notes" },
+      { "name": "GTU Book", "link": "https://example.com/bee_book.pdf", "type": "book" }
+    ]
+  },
+  "3150710": {
+    "title": "Computer Networks",
+    "materials": [
+      { "name": "CN Important Questions", "link": "https://example.com/cn_pyq.pdf", "type": "pyq" },
+      { "name": "CN Lecture Playlist", "link": "https://youtube.com/playlist?list=abc", "type": "playlist" }
+    ]
+  }
+}
