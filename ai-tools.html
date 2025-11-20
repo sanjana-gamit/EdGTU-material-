@@ -4,12 +4,18 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AI Tools - GTU Portal</title>
+
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Lottie Animation CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
 </head>
 <body>
   <header class="nav-wrap">
     <div class="nav container">
-      <a href="index.html" class="brand"><img src="assets/logo.png" alt="GTU"/>GTU Student Portal</a>
+      <a href="index.html" class="brand">
+        <img src="assets/logo.png" alt="GTU"/> GTU Student Portal
+      </a>
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="study-material.html">Study Material</a>
@@ -22,28 +28,76 @@
     </div>
   </header>
 
+  <!-- Hero Animation -->
+  <section class="hero container">
+    <div id="aiAnimation" class="hero-animation"></div>
+    <h1>Explore Your AI Toolkit</h1>
+    <p>Smart tools to help GTU students study faster, learn deeper, and grind assignments like a pro.</p>
+  </section>
+
   <main class="container">
-    <h1>AI Tools</h1>
+    <h2 class="section-title">Popular AI Tools</h2>
+
     <div class="ai-grid">
+
       <div class="ai-card">
+        <img src="assets/chatgpt.png" class="ai-icon" alt="ChatGPT">
         <h3>ChatGPT</h3>
-        <p>OpenAI's ChatGPT. Use for explanations, code help, summaries.</p>
+        <p>OpenAI’s advanced assistant. Perfect for explanations, coding, notes, and more.</p>
         <a href="https://chat.openai.com/" target="_blank" class="btn">Open ChatGPT</a>
       </div>
 
       <div class="ai-card">
+        <img src="assets/gemini.png" class="ai-icon" alt="Google Gemini">
         <h3>Google Gemini</h3>
-        <p>Google's Gemini — experimental assistant for research and help.</p>
-        <a href="https://www.google.com/" target="_blank" class="btn">Open Gemini</a>
+        <p>Google’s powerful AI for research, writing, tasks, and brainstorming ideas.</p>
+        <a href="https://gemini.google.com/" target="_blank" class="btn">Open Gemini</a>
       </div>
 
       <div class="ai-card">
+        <img src="assets/notes.png" class="ai-icon" alt="Notes Generator">
         <h3>AI Notes Generator</h3>
-        <p>Simple note-taking helper (link to external tools or embed API later).</p>
-        <a href="#" class="btn btn-outline">Try sample</a>
+        <p>Create summarized notes instantly. Upload PDFs or type your topic.</p>
+        <a href="#" class="btn btn-outline">Try Demo</a>
       </div>
+
     </div>
   </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <img src="assets/logo.png" alt="GTU Logo" class="footer-logo">
+        <p>GTU Student Portal — Made for students, by students.</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+      </div>
+
+      <div class="footer-social">
+        <a href="#"><img src="assets/icons/instagram.svg" alt="Instagram"></a>
+        <a href="#"><img src="assets/icons/github.svg" alt="GitHub"></a>
+        <a href="#"><img src="assets/icons/linkedin.svg" alt="LinkedIn"></a>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2025 GTU Portal — All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Lottie Animation
+    var animation = lottie.loadAnimation({
+      container: document.getElementById('aiAnimation'),
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path: 'assets/ai.json' // Add your Lottie JSON file here
+    });
+  </script>
 
   <script src="js/main.js"></script>
 </body>
