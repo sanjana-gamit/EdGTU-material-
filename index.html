@@ -1,110 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GTU Student Portal</title>
-  <link rel="stylesheet" href="css/style.css">
 
-  <!-- Google Font (Professional GTU look) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GTU Student Portal</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Font (GTU Professional Look) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
-<header class="nav-wrap">
-  <div class="nav container">
-    <a href="index.html" class="brand">
-      <img src="assets/logo.png" alt="GTU">
-      <span>GTU Student Portal</span>
-    </a>
+    <!-- ================= HEADER ================= -->
+    <header class="nav-wrap">
+        <div class="nav container">
 
-    <nav class="nav-links" id="menu">
-      <a href="index.html" class="active">Home</a>
-      <a href="study-material.html">Study Material</a>
-      <a href="ai-tools.html">AI Tools</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="admin-login.html" class="btn-admin">Admin</a>
-    </nav>
+            <!-- Branding -->
+            <a href="index.html" class="brand">
+                <img src="assets/logo.png" alt="GTU Logo">
+                <span>GTU Student Portal</span>
+            </a>
 
-    <button class="nav-toggle" id="navToggle">☰</button>
-  </div>
-</header>
+            <!-- Navigation -->
+            <nav class="nav-links" id="menu">
+                <a href="index.html" class="active">Home</a>
+                <a href="study-material.html">Study Material</a>
+                <a href="ai-tools.html">AI Tools</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="admin-login.html" class="btn-admin">Admin</a>
+            </nav>
 
-<!-- ================= HERO SECTION ================= -->
-<section class="hero">
-  <div class="hero-content container">
-    <div class="text">
-      <h1>GTU Student Portal</h1>
-      <p>Access high-quality GTU notes, PYQs, books, syllabus & useful study tools — all in one place.</p>
-      <a href="study-material.html" class="btn-primary">Explore Materials</a>
-    </div>
+            <!-- Mobile Menu Toggle -->
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </div>
+    </header>
 
-    <div class="hero-slider">
-      <div class="slider" id="slider">
-        <img src="assets/slide1.jpg" class="slide active">
-        <img src="assets/slide2.jpg" class="slide">
-        <img src="assets/slide3.jpg" class="slide">
-      </div>
+    <!-- ================= HERO SECTION ================= -->
+    <section class="hero">
+        <div class="hero-content container">
 
-      <div class="slider-controls">
-        <button id="prev">◀</button>
-        <button id="next">▶</button>
-      </div>
-    </div>
-  </div>
-</section>
+            <!-- Hero Text -->
+            <div class="text">
+                <h1>GTU Student Portal</h1>
+                <p>Access high-quality GTU notes, PYQs, books, syllabus & useful study tools — all in one place.</p>
+                <a href="study-material.html" class="btn-primary">Explore Materials</a>
+            </div>
 
-<!-- ================= FEATURES ================= -->
-<section class="container features">
-  <div class="feature-card">
-    <h3>Organized & Clean</h3>
-    <p>Semester-wise & subject-wise materials for easy access.</p>
-  </div>
+            <!-- Hero Slider -->
+            <div class="hero-slider">
+                <div class="slider" id="slider">
+                    <img src="assets/slide1.jpg" class="slide active">
+                    <img src="assets/slide2.jpg" class="slide">
+                    <img src="assets/slide3.jpg" class="slide">
+                </div>
 
-  <div class="feature-card">
-    <h3>Admin Dashboard</h3>
-    <p>Admins can upload or edit content easily.</p>
-  </div>
+                <div class="slider-controls">
+                    <button id="prev">◀</button>
+                    <button id="next">▶</button>
+                </div>
+            </div>
 
-  <div class="feature-card">
-    <h3>AI Tools Ready</h3>
-    <p>Instant access to ChatGPT, Gemini & Code tools.</p>
-  </div>
-</section>
+        </div>
+    </section>
 
-<!-- ================= FOOTER ================= -->
-<footer class="site-footer">
-  <div class="container footer-grid">
+    <!-- ================= FEATURES ================= -->
+    <section class="container features">
+        <div class="feature-card">
+            <h3>Organized & Clean</h3>
+            <p>Semester-wise & subject-wise materials for easy access.</p>
+        </div>
 
-    <div>
-      <h4>GTU Student Portal</h4>
-      <p>A simple, fast & free resource hub for all GTU students.</p>
-    </div>
+        <div class="feature-card">
+            <h3>Admin Dashboard</h3>
+            <p>Admins can upload or edit content easily.</p>
+        </div>
 
-    <div>
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="study-material.html">Study Materials</a></li>
-        <li><a href="ai-tools.html">AI Tools</a></li>
-        <li><a href="admin-login.html">Admin Login</a></li>
-      </ul>
-    </div>
+        <div class="feature-card">
+            <h3>AI Tools Ready</h3>
+            <p>Instant access to ChatGPT, Gemini & Code tools.</p>
+        </div>
+    </section>
 
-    <div>
-      <h4>Contact</h4>
-      <p>Email: gtu.portal@example.com</p>
-    </div>
-  </div>
+    <!-- ================= FOOTER ================= -->
+    <footer class="site-footer">
 
-  <div class="footer-bottom">
-    © 2025 GTU Student Portal — All Rights Reserved
-  </div>
-</footer>
+        <div class="container footer-grid">
 
-<script src="js/main.js"></script>
+            <div>
+                <h4>GTU Student Portal</h4>
+                <p>A simple, fast & free resource hub for all GTU students.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="study-material.html">Study Materials</a></li>
+                    <li><a href="ai-tools.html">AI Tools</a></li>
+                    <li><a href="admin-login.html">Admin Login</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Contact</h4>
+                <p>Email: gtu.portal@example.com</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2025 GTU Student Portal — All Rights Reserved
+        </div>
+
+    </footer>
+
+    <!-- JS -->
+    <script src="js/main.js"></script>
 
 </body>
+
 </html>
