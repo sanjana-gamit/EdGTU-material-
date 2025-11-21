@@ -555,7 +555,7 @@ body {
 }
 /* ======= BACKGROUND IMAGE (FULL SCREEN) ======= */
 .bg {
-    background: url('../assets/gtu-bg.jpg') no-repeat center center/cover;
+    background: url('../assets/gtu.jpg') no-repeat center center/cover;
     background-attachment: fixed;
     position: relative;
 }
