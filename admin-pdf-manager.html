@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PDF Manager — EduBot GTU</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html"><img src="assets/logo.png" alt="GTU">EduBot GTU</a>
+    <div id="authActions"></div>
+  </header>
+
+  <main class="container">
+    <h1>PDF Manager (Admin)</h1>
+
+    <div class="card">
+      <label>Subject</label>
+      <input id="pdfSubject" placeholder="e.g., Computer Networks">
+      <label>Unit/Chapter</label>
+      <input id="pdfUnit" placeholder="Unit 1">
+      <label>Description</label>
+      <input id="pdfDesc" placeholder="Short description & tags">
+      <label>Choose PDF</label>
+      <input id="pdfFile" type="file" accept="application/pdf">
+      <div class="file-info" id="fileInfo"></div>
+      <div class="progress" id="uploadProgress" style="display:none"><div></div></div>
+
+      <div style="margin-top:12px">
+        <button id="uploadBtn" class="btn">Upload to Storage</button>
+        <button id="saveLocalBtn" class="btn secondary">Save to local JSON</button>
+      </div>
+      <div id="status" class="muted" style="margin-top:8px"></div>
+    </div>
+
+    <hr>
+
+    <h2>Uploaded PDFs</h2>
+    <div id="pdfList"></div>
+  </main>
+
+  <script type="module">
+    import { auth, db, storage } from './js/firebase-config.js';
+    import { ref, uploadBytesResumable, getDownloadURL } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js';
+    import { collection, addDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js';
+
+    const pdfFile = document.getElementById('pdfFile');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const fileInfo = document.getElementById('fileInfo');
+    const uploadProgress = document.getElementById('uploadProgress');
+    const pdfList = document.getElementById('pdfList');
+    const status = document.getElementById('status');
+
+    let selectedFile = null;
+    pdfFile.addEventListener('change', (e)=> {
+      selectedFile = e.target.files[0];
+      if(!selectedFile) return;
+      if(selectedFile.type !== 'application/pdf') { alert('Please select PDF'); pdfFile.value=''; return; }
+      fileInfo.textContent = `${selectedFile.name} (${(selectedFile.size/1024/1024).toFixed(2)} MB)`;
+    });
+
+    // Upload to Firebase Storage + add metadata to Firestore
+    uploadBtn.addEventListener('click', async ()=>{
+      if(!selectedFile){ alert('Select a PDF'); return; }
+      const subject = document.getElementById('pdfSubject').value.trim() || 'General';
+      const unit = document.getElementById('pdfUnit').value.trim() || 'General';
+      const desc = document.getElementById('pdfDesc').value.trim() || '';
+
+      const filename = `${Date.now()}_${selectedFile.name.replace(/\s+/g,'_')}`;
+      const storageRef = ref(storage, `pdfs/${filename}`);
+      const uploadTask = uploadBytesResumable(storageRef, selectedFile);
+
+      uploadProgress.style.display = 'block';
+      uploadTask.on('state_changed',
+        (snapshot) => {
+          const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          uploadProgress.firstElementChild.style.width = pct + '%';
+        },
+        (error) => { alert('Upload failed: '+error.message); },
+        async () => {
+          const url = await getDownloadURL(uploadTask.snapshot.ref);
+          // Save metadata to Firestore
+          await addDoc(collection(db, 'materials'), {
+            subject, unit, description: desc, link: url, type: 'PDF', created: new Date()
+          });
+          status.textContent = 'Upload complete and metadata saved.';
+          loadPdfList();
+        }
+      );
+    });
+
+    // Load PDFs from Firestore (simple list)
+    async function loadPdfList(){
+      pdfList.innerHTML = 'Loading...';
+      const q = await getDocs(collection(db, 'materials'));
+      pdfList.innerHTML = '';
+      q.forEach(doc => {
+        const d = doc.data();
+        const el = document.createElement('div');
+        el.className = 'card';
+        el.innerHTML = `<strong>${d.subject}</strong> — ${d.unit} • ${d.type || 'PDF'}<div style="margin-top:6px"><a href="${d.link}" target="_blank">Open PDF</a></div><div class="muted" style="margin-top:6px">${d.description || ''}</div>`;
+        pdfList.appendChild(el);
+      });
+    }
+
+    // require auth: redirect if not admin (simple)
+    onAuthStateChanged(auth, user => {
+      if(!user) {
+        document.getElementById('status').textContent = 'Please sign in as Admin to upload PDFs.';
+        // Optionally redirect to admin login or show login form
+      } else {
+        // Optionally check email or custom claim to allow
+        loadPdfList();
+      }
+    });
+  </script>
+</body>
+</html>
