@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Student Dashboard — EduBot GTU</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html"><img src="assets/logo.png" alt="GTU"> EduBot GTU</a>
+    <nav>
+      <a href="material-viewer.html">Study Materials</a>
+      <a href="ai-tools.html">AI Tools</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero card">
+      <h1>Welcome — GTU Student Portal</h1>
+      <p>Browse by Subject, Unit and quickly open PDF links & playlists.</p>
+    </section>
+
+    <section style="margin-top:16px">
+      <h2>Popular Subjects</h2>
+      <div id="subjectsGrid" style="display:flex;gap:12px;flex-wrap:wrap"></div>
+    </section>
+  </main>
+
+  <script>
+    // get materials from materials.json or Firestore (if configured)
+    async function loadMaterials(){
+      // try fetch static JSON first
+      try {
+        const res = await fetch('materials.json');
+        if(res.ok){
+          const list = await res.json();
+          renderSubjects(list);
+          return;
+        }
+      } catch(e){}
+      // fallback: try from Firestore (not implemented here)
+      renderSubjects([]);
+    }
+
+    function renderSubjects(list){
+      const grid = document.getElementById('subjectsGrid');
+      // group by subject
+      const groups = {};
+      list.forEach(m => {
+        const s = m.subject || 'General';
+        groups[s] = groups[s] || 0;
+        groups[s]++;
+      });
+      if(Object.keys(groups).length===0){
+        grid.innerHTML = '<div class="muted">No materials found. Ask admin to publish materials.json or upload to Firebase.</div>';
+        return;
+      }
+      grid.innerHTML = '';
+      Object.keys(groups).forEach(subject => {
+        const el = document.createElement('a');
+        el.className = 'card';
+        el.href = 'material-viewer.html?subject=' + encodeURIComponent(subject);
+        el.style.minWidth = '220px';
+        el.innerHTML = `<strong>${subject}</strong><div class="muted">${groups[subject]} items</div>`;
+        grid.appendChild(el);
+      });
+    }
+
+    loadMaterials();
+  </script>
+</body>
+</html>
