@@ -158,10 +158,32 @@
         </select>
       </div>
 
-      <div>
-        <label>Unit / Chapter</label>
-        <input id="unit">
-      </div>
+     <!-- PDF Upload Section (Add inside Add / Upload Material card) -->
+<div style="margin-top:16px">
+  <label><strong>Upload PDF File</strong></label>
+  <input type="file" id="pdfFile" accept="application/pdf" style="margin-top:6px">
+  <p class="muted">After selecting PDF, it will auto-generate a view link using Base64.</p>
+</div>
+
+<script>
+// Convert PDF to Base64 and auto-fill link
+const pdfInput = document.getElementById('pdfFile');
+
+pdfInput.addEventListener('change', function(){
+  const file = this.files[0];
+  if(!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const base64 = e.target.result;
+    // Set Base64 as link
+    document.getElementById('link').value = base64;
+    alert('PDF converted to Base64 and added to link field!');
+  };
+  reader.readAsDataURL(file);
+});
+</script>
+
 
       <div>
         <label>Link (URL / Drive / YouTube)</label>
