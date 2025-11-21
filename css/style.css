@@ -553,3 +553,63 @@ body {
     display: block;
   }
 }
+/* ======= BACKGROUND IMAGE (FULL SCREEN) ======= */
+.bg {
+    background: url('../assets/gtu-bg.jpg') no-repeat center center/cover;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 38, 90, 0.65); /* GTU Blue Overlay */
+    backdrop-filter: blur(4px);
+    z-index: -1;
+}
+
+/* ======= HEADER FROSTED GLASS EFFECT ======= */
+.glass-header {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ======= FOOTER FROSTED GLASS EFFECT ======= */
+.site-footer {
+    background: rgba(0, 33, 74, 0.50);
+    backdrop-filter: blur(10px);
+    color: white;
+    padding: 40px 0;
+}
+
+/* Footer bottom */
+.footer-bottom {
+    margin-top: 10px;
+    padding: 10px 0;
+    background: rgba(0, 18, 45, 0.60);
+    backdrop-filter: blur(8px);
+}
+
+/* Improve text readability on background */
+.hero .text h1,
+.hero .text p,
+.feature-card p,
+.feature-card h3 {
+    color: white !important;
+}
+
+.feature-card {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 20px;
+    transition: 0.4s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(0,150,255,0.5);
+}
