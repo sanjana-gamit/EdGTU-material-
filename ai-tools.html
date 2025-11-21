@@ -2,24 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Tools - EduBot GTU</title>
 
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Lottie Animation CDN -->
+  <!-- Lottie Animation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
 </head>
 
 <body>
+
   <!-- ================= NAVBAR ================= -->
   <header class="nav-wrap">
     <div class="nav container">
+
       <a href="index.html" class="brand">
-        <img src="assets/logo.png" alt="GTU" /> EduBot GTU
+        <img src="assets/logo.png" alt="GTU Logo" />
+        EduBot GTU
       </a>
 
-      <nav class="nav-links">
+      <nav class="nav-links" aria-label="Main Navigation">
         <a href="index.html">Home</a>
         <a href="study-material.html">Study Material</a>
         <a href="ai-tools.html" class="active">AI Tools</a>
@@ -28,61 +31,68 @@
         <a href="admin-login.html" class="btn btn-outline">Admin</a>
       </nav>
 
-      <button class="nav-toggle" aria-label="Toggle Navigation">☰</button>
+      <button class="nav-toggle" aria-label="Toggle Navigation Menu">☰</button>
+
     </div>
   </header>
 
   <!-- ================= HERO SECTION ================= -->
   <section class="hero container">
+
     <div id="aiAnimation" class="hero-animation"></div>
+
     <h1>Explore AI Toolkit</h1>
+
     <p>
-      Smart tools to help GTU students study faster, learn deeper, 
-      and grind assignments like a pro.
+      Smart tools to help GTU students study faster, learn deeper,
+      and finish assignments like a pro.
     </p>
+
   </section>
 
   <!-- ================= MAIN CONTENT ================= -->
   <main class="container">
+
     <h2 class="section-title">Popular AI Tools</h2>
 
     <div class="ai-grid">
 
+      <!-- ChatGPT -->
       <div class="ai-card">
-        <img src="assets/chatgpt.png" class="ai-icon" alt="ChatGPT">
+        <img src="assets/chatgpt.png" class="ai-icon" alt="ChatGPT Logo">
         <h3>ChatGPT</h3>
         <p>
-          OpenAI’s advanced assistant. Perfect for explanations, 
-          coding, notes, and more.
+          OpenAI’s assistant for explanations, coding, notes, and more.
         </p>
         <a href="https://chat.openai.com/" target="_blank" class="btn">
           Open ChatGPT
         </a>
       </div>
 
+      <!-- Gemini -->
       <div class="ai-card">
-        <img src="assets/gemini.png" class="ai-icon" alt="Google Gemini">
+        <img src="assets/gemini.png" class="ai-icon" alt="Google Gemini Logo">
         <h3>Google Gemini</h3>
         <p>
-          Google’s powerful AI for research, writing, tasks, 
-          and brainstorming ideas.
+          Google’s AI for writing, brainstorming, and research.
         </p>
         <a href="https://gemini.google.com/app?hl=en-IN" target="_blank" class="btn">
           Open Gemini
         </a>
       </div>
 
+      <!-- Notes Generator -->
       <div class="ai-card">
-        <img src="assets/notes.png" class="ai-icon" alt="Notes Generator">
+        <img src="assets/notes.png" class="ai-icon" alt="AI Notes Generator Icon">
         <h3>AI Notes Generator</h3>
         <p>
-          Create summarized notes instantly. Upload PDFs 
-          or type your topic.
+          Generate summarized study notes from PDFs or topics instantly.
         </p>
         <a href="#" class="btn btn-outline">Try Demo</a>
       </div>
 
     </div>
+
   </main>
 
   <!-- ================= FOOTER ================= -->
@@ -90,6 +100,7 @@
     <div class="footer-container">
 
       <h3>EduBot GTU</h3>
+
       <p class="tagline">
         Made for students, by students — Learn Smart. Study Fast. Score High.
       </p>
@@ -102,14 +113,14 @@
       </div>
 
       <div class="social-icons">
-        <a href="https://instagram.com/" target="_blank">
-          <img src="assets/icons/instagram.webp" alt="Instagram">
+        <a href="https://instagram.com/" target="_blank" aria-label="Instagram">
+          <img src="assets/icons/instagram.webp" alt="Instagram Icon">
         </a>
-        <a href="https://github.com/" target="_blank">
-          <img src="assets/icons/GitHub.png" alt="GitHub">
+        <a href="https://github.com/" target="_blank" aria-label="GitHub">
+          <img src="assets/icons/GitHub.png" alt="GitHub Icon">
         </a>
-        <a href="https://linkedin.com/" target="_blank">
-          <img src="assets/icons/linkedin.png" alt="LinkedIn">
+        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+          <img src="assets/icons/linkedin.png" alt="LinkedIn Icon">
         </a>
       </div>
 
@@ -121,15 +132,16 @@
   <!-- ================= SCRIPTS ================= -->
   <script>
     // Lottie Animation
-    var animation = lottie.loadAnimation({
-      container: document.getElementById('aiAnimation'),
-      renderer: 'svg',
+    lottie.loadAnimation({
+      container: document.getElementById("aiAnimation"),
+      renderer: "svg",
       loop: true,
       autoplay: true,
-      path: 'assets/ai.json' // Add your Lottie JSON file here
+      path: "assets/ai.json"
     });
   </script>
 
   <script src="js/main.js"></script>
+
 </body>
 </html>
