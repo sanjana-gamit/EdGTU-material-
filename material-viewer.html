@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Materials — EduBot GTU</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="index.html"><img src="assets/logo.png" alt="GTU"> EduBot GTU</a>
+  </header>
+  <main class="container">
+    <a href="student-dashboard.html" class="muted">← Back</a>
+    <h1 id="pageTitle">Materials</h1>
+    <div id="unitsArea"></div>
+  </main>
+
+<script>
+  function getQuery(){ return Object.fromEntries(new URLSearchParams(location.search)); }
+  async function load(){
+    const q = getQuery();
+    const subject = q.subject || '';
+    document.getElementById('pageTitle').textContent = subject ? subject : 'All Materials';
+    // try load static JSON
+    let list = [];
+    try { const res = await fetch('materials.json'); list = await res.json(); } catch(e){ list = []; }
+    if(subject) list = list.filter(x => x.subject === subject);
+    if(list.length===0) return document.getElementById('unitsArea').innerHTML = '<div class="muted">No materials found.</div>';
+    // group by unit
+    const groups = {};
+    list.forEach(m => { const k = m.unit || 'General'; (groups[k] = groups[k]||[]).push(m);});
+    const area = document.getElementById('unitsArea'); area.innerHTML='';
+    Object.keys(groups).forEach(unit=>{
+      const card = document.createElement('div'); card.className='card'; card.style.marginTop='12px';
+      card.innerHTML = `<h3>${unit} <span class="muted" style="font-size:14px">(${groups[unit].length})</span></h3>`;
+      groups[unit].forEach(it => {
+        const item = document.createElement('div');
+        item.style.padding='8px 12px';
+        item.innerHTML = `<strong>${it.subject}</strong> • <span class="muted">${it.type}</span> — <a href="${it.link}" target="_blank">Open</a>`;
+        card.appendChild(item);
+      });
+      area.appendChild(card);
+    });
+  }
+  load();
+</script>
+</body>
+</html>
