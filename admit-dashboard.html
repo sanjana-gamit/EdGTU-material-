@@ -389,247 +389,303 @@
   <div class="toast" id="toast">Saved</div>
 
 <script>
-/* =============================
-   Data store (localStorage)
-   ============================= */
-const STORAGE_KEY = 'gtu_materials_v1';
-const THEME_KEY = 'gtu_admin_theme_v1';
+document.addEventListener('DOMContentLoaded', () => {
 
-let materials = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  const STORAGE_KEY = 'gtu_materials_v1';
+  const THEME_KEY = 'gtu_admin_theme_v1';
 
-/* Helper: render table rows */
-function renderTable(filter=''){
+  // safe replaceAll fallback
+  function safeReplaceAll(str, find, replace) {
+    if (String.prototype.replaceAll) return str.replaceAll(find, replace);
+    return str.split(find).join(replace);
+  }
+
+  // helpers
+  function escapeHtml(s){
+    if(!s) return '';
+    return safeReplaceAll(s.toString(), '&', '&amp;')
+           .replace(/</g, '&lt;')
+           .replace(/>/g, '&gt;');
+  }
+  function escapeAttr(s){
+    if(!s) return '';
+    try { return encodeURI(s.toString()); }
+    catch(e){ return s.toString().replace(/"/g, '%22'); }
+  }
+
+  // load from storage safely
+  let materials = [];
+  try {
+    materials = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+    if(!Array.isArray(materials)) materials = [];
+  } catch(e){
+    materials = [];
+  }
+
+  // DOM refs (guarded)
   const tbody = document.querySelector('#materialsTable tbody');
-  tbody.innerHTML = '';
-  const list = materials.filter(m => {
-    if(!filter) return true;
-    const s = (m.subject + ' ' + m.unit + ' ' + m.type + ' ' + m.description).toLowerCase();
-    return s.includes(filter.toLowerCase());
-  });
-  list.forEach((m, idx) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${escapeHtml(m.subject)}</td>
-      <td>${escapeHtml(m.type)}</td>
-      <td>${escapeHtml(m.unit)}</td>
-      <td>${escapeHtml(m.description)}</td>
-      <td><a href="${escapeAttr(m.link)}" target="_blank" rel="noopener">Open</a></td>
-      <td class="actions">
-        <button class="edit" data-index="${idx}">✏️ Edit</button>
-        <button class="delete" data-index="${idx}">🗑️ Delete</button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-  document.getElementById('totalCount').textContent = materials.length;
-}
+  const totalCountEl = document.getElementById('totalCount');
+  const lastSavedEl = document.getElementById('lastSaved');
+  const toastEl = document.getElementById('toast');
 
-/* escape helpers */
-function escapeHtml(s){ return (s||'').toString().replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
-function escapeAttr(s){ return (s||'').toString().replaceAll('"','%22'); }
-
-/* save to localStorage */
-function saveStore(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(materials));
-  document.getElementById('lastSaved').textContent = new Date().toLocaleString();
-  showToast('Saved locally');
-}
-
-/* show toast */
-function showToast(msg='Saved'){
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.style.display='block';
-  setTimeout(()=> t.style.display='none', 2500);
-}
-
-/* form reset */
-function clearForm(){
-  ['subject','type','unit','link','description'].forEach(id => document.getElementById(id).value = '');
-}
-
-/* add single material */
-document.getElementById('uploadBtn').addEventListener('click', () => {
-  const subject = document.getElementById('subject').value.trim();
-  const type = document.getElementById('type').value.trim();
-  const unit = document.getElementById('unit').value.trim();
-  const link = document.getElementById('link').value.trim();
-  const description = document.getElementById('description').value.trim();
-
-  if(!subject || !link){
-    alert('Please provide at least subject and link.');
-    return;
+  function renderTable(filter=''){
+    if(!tbody) return;
+    tbody.innerHTML = '';
+    const list = materials.filter(m => {
+      if(!filter) return true;
+      const s = (m.subject + ' ' + m.unit + ' ' + m.type + ' ' + m.description).toLowerCase();
+      return s.includes(filter.toLowerCase());
+    });
+    list.forEach((m, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${escapeHtml(m.subject)}</td>
+        <td>${escapeHtml(m.type)}</td>
+        <td>${escapeHtml(m.unit)}</td>
+        <td>${escapeHtml(m.description)}</td>
+        <td><a href="${escapeAttr(m.link)}" target="_blank" rel="noopener">Open</a></td>
+        <td class="actions">
+          <button class="edit" data-index="${idx}">✏️ Edit</button>
+          <button class="delete" data-index="${idx}">🗑️ Delete</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+    if(totalCountEl) totalCountEl.textContent = materials.length;
   }
 
-  materials.unshift({subject,type,unit,link,description,created: new Date().toISOString()});
-  saveStore(); renderTable(); clearForm();
-});
-
-/* clear button */
-document.getElementById('clearBtn').addEventListener('click', clearForm);
-
-/* delete & edit events using event delegation */
-document.querySelector('#materialsTable tbody').addEventListener('click', (e) => {
-  const idx = e.target.dataset.index;
-  if(e.target.classList.contains('delete')){
-    if(confirm('Delete this material?')){
-      materials.splice(idx,1); saveStore(); renderTable();
+  function saveStore(){
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(materials));
+      if(lastSavedEl) lastSavedEl.textContent = new Date().toLocaleString();
+      showToast('Saved locally');
+    } catch(e){
+      console.error('Save failed', e);
+      showToast('Save failed');
     }
-  } else if(e.target.classList.contains('edit')){
-    openEditModal(idx);
   }
-});
 
-/* open edit modal */
-let currentEditIndex = null;
-function openEditModal(idx){
-  currentEditIndex = idx;
-  const m = materials[idx];
-  document.getElementById('editSubject').value = m.subject;
-  document.getElementById('editType').value = m.type;
-  document.getElementById('editUnit').value = m.unit;
-  document.getElementById('editLink').value = m.link;
-  document.getElementById('editDesc').value = m.description;
-  document.getElementById('modal').style.display = 'flex';
-}
+  function showToast(msg='Saved'){
+    if(!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.style.display = 'block';
+    setTimeout(()=> toastEl.style.display='none', 2200);
+  }
 
-/* save edit */
-document.getElementById('saveEdit').addEventListener('click', () => {
-  if(currentEditIndex===null) return;
-  const m = materials[currentEditIndex];
-  m.subject = document.getElementById('editSubject').value.trim();
-  m.type = document.getElementById('editType').value.trim();
-  m.unit = document.getElementById('editUnit').value.trim();
-  m.link = document.getElementById('editLink').value.trim();
-  m.description = document.getElementById('editDesc').value.trim();
-  saveStore(); renderTable(); closeModal();
-});
+  function clearForm(){
+    ['subject','type','unit','link','description'].forEach(id => {
+      const el = document.getElementById(id);
+      if(el) el.value = '';
+    });
+  }
 
-/* cancel edit */
-document.getElementById('cancelEdit').addEventListener('click', closeModal);
-document.getElementById('modal').addEventListener('click', (e) => { if(e.target.id==='modal') closeModal(); });
-function closeModal(){ document.getElementById('modal').style.display='none'; currentEditIndex=null; }
+  // attach listeners safely
+  const uploadBtn = document.getElementById('uploadBtn');
+  if(uploadBtn){
+    uploadBtn.addEventListener('click', () => {
+      const subject = (document.getElementById('subject') || {}).value?.trim() || '';
+      const type = (document.getElementById('type') || {}).value?.trim() || '';
+      const unit = (document.getElementById('unit') || {}).value?.trim() || '';
+      const link = (document.getElementById('link') || {}).value?.trim() || '';
+      const description = (document.getElementById('description') || {}).value?.trim() || '';
 
-/* delete all */
-document.getElementById('deleteAll').addEventListener('click', () => {
-  if(!confirm('Delete ALL materials? This cannot be undone locally.')) return;
-  materials = []; saveStore(); renderTable();
-});
+      if(!subject || !link){
+        alert('Please provide at least subject and link.');
+        return;
+      }
 
-/* search */
-document.getElementById('searchInput').addEventListener('input', (e) => {
-  renderTable(e.target.value);
-});
+      materials.unshift({subject,type,unit,link,description,created: new Date().toISOString()});
+      saveStore(); renderTable(); clearForm();
+    });
+  }
 
-/* export JSON (download materials.json) */
-document.getElementById('exportBtn').addEventListener('click', () => {
-  const dataStr = JSON.stringify(materials, null, 2);
-  const blob = new Blob([dataStr], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'materials.json'; document.body.appendChild(a); a.click();
-  a.remove(); URL.revokeObjectURL(url);
-  showToast('materials.json downloaded');
-});
+  const clearBtn = document.getElementById('clearBtn');
+  if(clearBtn) clearBtn.addEventListener('click', clearForm);
 
-/* import JSON file (load materials.json) */
-document.getElementById('importBtn').addEventListener('click', () => {
-  const input = document.createElement('input');
-  input.type='file'; input.accept='application/json';
-  input.onchange = (e) => {
-    const file = e.target.files[0];
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      try{
-        const j = JSON.parse(reader.result);
-        if(!Array.isArray(j)) throw new Error('Invalid format');
-        materials = j;
-        saveStore(); renderTable(); showToast('Imported materials.json');
-      }catch(err){ alert('Invalid JSON file.'); }
-    };
-    reader.readAsText(file);
-  };
-  input.click();
-});
+  // delegate clicks on table body
+  if(tbody){
+    tbody.addEventListener('click', (e) => {
+      const idx = e.target.dataset.index;
+      if(e.target.classList.contains('delete')){
+        if(confirm('Delete this material?')){
+          materials.splice(idx,1); saveStore(); renderTable();
+        }
+      } else if(e.target.classList.contains('edit')){
+        openEditModal(idx);
+      }
+    });
+  }
 
-/* bulk add demo (example using prompt) */
-document.getElementById('bulkAddBtn').addEventListener('click', () => {
-  const sample = [
-    {subject:'Analysis and Design of Algorithms', type:'Notes', unit:'Unit 3', link:'https://drive.google.com/example1', description:'Greedy algorithms summary'},
-    {subject:'Computer Networks', type:'PYQ', unit:'Unit 5', link:'https://drive.google.com/example2', description:'Important questions 2023-24'},
-    {subject:'Python for Data Science', type:'Playlist', unit:'N/A', link:'https://youtube.com/example', description:'Top video playlist'}
-  ];
-  materials = sample.concat(materials);
-  saveStore(); renderTable(); showToast('Bulk materials added');
-});
+  // modal edit
+  let currentEditIndex = null;
+  const modalBackdrop = document.getElementById('modal');
+  function openEditModal(idx){
+    currentEditIndex = Number(idx);
+    const m = materials[currentEditIndex];
+    if(!m) return;
+    ['Subject','Type','Unit','Link','Desc'].forEach(k => {
+      const el = document.getElementById('edit' + k);
+      if(el){
+        if(k === 'Desc') el.value = m.description;
+        else el.value = m[k.toLowerCase()] || '';
+      }
+    });
+    if(modalBackdrop) modalBackdrop.style.display = 'flex';
+  }
 
-/* preview button: open a quick modal-like window showing current form data */
-document.getElementById('previewBtn').addEventListener('click', () => {
-  const subject = document.getElementById('subject').value || '[subject]';
-  const type = document.getElementById('type').value || '[type]';
-  const unit = document.getElementById('unit').value || '[unit]';
-  const link = document.getElementById('link').value || '[link]';
-  const description = document.getElementById('description').value || '[description]';
-  alert(`Preview\n\nSubject: ${subject}\nType: ${type}\nUnit: ${unit}\nLink: ${link}\nDescription: ${description}`);
-});
+  const saveEditBtn = document.getElementById('saveEdit');
+  if(saveEditBtn){
+    saveEditBtn.addEventListener('click', () => {
+      if(currentEditIndex === null) return;
+      const subj = document.getElementById('editSubject')?.value?.trim() || '';
+      const typ = document.getElementById('editType')?.value?.trim() || '';
+      const unit = document.getElementById('editUnit')?.value?.trim() || '';
+      const link = document.getElementById('editLink')?.value?.trim() || '';
+      const desc = document.getElementById('editDesc')?.value?.trim() || '';
 
-/* sidebar navigation switching (show/hide sections) */
-document.querySelectorAll('.nav-item').forEach(it => {
-  it.addEventListener('click', () => {
-    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-    it.classList.add('active');
-    const section = it.dataset.section;
-    // simple switch: show add, manage, settings correspondingly
-    document.getElementById('section-add').style.display = section==='add' || section==='dashboard' ? 'block' : 'none';
-    document.getElementById('section-manage').style.display = section==='manage' || section==='dashboard' ? 'block' : 'none';
-    document.getElementById('section-settings').style.display = section==='settings' ? 'block' : 'none';
+      const m = materials[currentEditIndex];
+      if(!m) return;
+      m.subject = subj; m.type = typ; m.unit = unit; m.link = link; m.description = desc;
+      saveStore(); renderTable(); closeModal();
+    });
+  }
+
+  const cancelEditBtn = document.getElementById('cancelEdit');
+  if(cancelEditBtn) cancelEditBtn.addEventListener('click', closeModal);
+  if(modalBackdrop) modalBackdrop.addEventListener('click', (e) => { if(e.target.id === 'modal') closeModal(); });
+  function closeModal(){ if(modalBackdrop) modalBackdrop.style.display='none'; currentEditIndex=null; }
+
+  // delete all
+  const deleteAllBtn = document.getElementById('deleteAll');
+  if(deleteAllBtn) deleteAllBtn.addEventListener('click', () => {
+    if(!confirm('Delete ALL materials? This cannot be undone locally.')) return;
+    materials = []; saveStore(); renderTable();
   });
-});
 
-/* hamburger for small screens */
-document.getElementById('hamb').addEventListener('click', () => {
-  const sb = document.getElementById('sidebar');
-  if(sb.style.display === 'none' || getComputedStyle(sb).display === 'none'){
-    sb.style.display = 'flex';
-  } else {
-    sb.style.display = 'none';
+  // search
+  const searchInput = document.getElementById('searchInput');
+  if(searchInput) searchInput.addEventListener('input', (e) => renderTable(e.target.value));
+
+  // export
+  const exportBtn = document.getElementById('exportBtn');
+  if(exportBtn) exportBtn.addEventListener('click', () => {
+    try {
+      const dataStr = JSON.stringify(materials, null, 2);
+      const blob = new Blob([dataStr], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'materials.json'; document.body.appendChild(a); a.click();
+      a.remove(); URL.revokeObjectURL(url);
+      showToast('materials.json downloaded');
+    } catch(e){
+      showToast('Export failed');
+    }
+  });
+
+  // import
+  const importBtn = document.getElementById('importBtn');
+  if(importBtn) importBtn.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type='file'; input.accept='application/json';
+    input.onchange = (e) => {
+      const file = e.target.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try{
+          const j = JSON.parse(reader.result);
+          if(!Array.isArray(j)) throw new Error('Invalid format');
+          materials = j;
+          saveStore(); renderTable(); showToast('Imported materials.json');
+        }catch(err){ alert('Invalid JSON file.'); }
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  });
+
+  // bulk add
+  const bulkAddBtn = document.getElementById('bulkAddBtn');
+  if(bulkAddBtn) bulkAddBtn.addEventListener('click', () => {
+    const sample = [
+      {subject:'Analysis and Design of Algorithms', type:'Notes', unit:'Unit 3', link:'https://drive.google.com/example1', description:'Greedy algorithms summary'},
+      {subject:'Computer Networks', type:'PYQ', unit:'Unit 5', link:'https://drive.google.com/example2', description:'Important questions 2023-24'},
+      {subject:'Python for Data Science', type:'Playlist', unit:'N/A', link:'https://youtube.com/example', description:'Top video playlist'}
+    ];
+    materials = sample.concat(materials);
+    saveStore(); renderTable(); showToast('Bulk materials added');
+  });
+
+  // preview
+  const previewBtn = document.getElementById('previewBtn');
+  if(previewBtn) previewBtn.addEventListener('click', () => {
+    const subject = document.getElementById('subject')?.value || '[subject]';
+    const type = document.getElementById('type')?.value || '[type]';
+    const unit = document.getElementById('unit')?.value || '[unit]';
+    const link = document.getElementById('link')?.value || '[link]';
+    const description = document.getElementById('description')?.value || '[description]';
+    alert(`Preview\n\nSubject: ${subject}\nType: ${type}\nUnit: ${unit}\nLink: ${link}\nDescription: ${description}`);
+  });
+
+  // sidebar nav switching
+  document.querySelectorAll('.nav-item').forEach(it => {
+    it.addEventListener('click', () => {
+      document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+      it.classList.add('active');
+      const section = it.dataset.section;
+      const addSec = document.getElementById('section-add');
+      const manageSec = document.getElementById('section-manage');
+      const settingsSec = document.getElementById('section-settings');
+      if(addSec && manageSec && settingsSec){
+        addSec.style.display = (section==='add' || section==='dashboard') ? 'block' : 'none';
+        manageSec.style.display = (section==='manage' || section==='dashboard') ? 'block' : 'none';
+        settingsSec.style.display = section==='settings' ? 'block' : 'none';
+      }
+    });
+  });
+
+  // hamburger
+  const hamb = document.getElementById('hamb');
+  if(hamb){
+    hamb.addEventListener('click', () => {
+      const sb = document.getElementById('sidebar');
+      if(getComputedStyle(sb).display === 'none') sb.style.display = 'flex';
+      else sb.style.display = 'none';
+    });
   }
-});
 
-/* dark mode toggle */
-const darkToggle = document.getElementById('darkToggle');
-function applyTheme(isDark){
-  if(isDark) document.documentElement.classList.add('dark');
-  else document.documentElement.classList.remove('dark');
-  localStorage.setItem(THEME_KEY, isDark ? 'dark':'light');
-}
-darkToggle.addEventListener('change', () => { applyTheme(darkToggle.checked); });
-/* load theme preference */
-const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
-applyTheme(savedTheme==='dark');
-darkToggle.checked = savedTheme === 'dark';
-
-/* keyboard shortcuts: Ctrl+S to export */
-window.addEventListener('keydown', (e) => {
-  if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='s'){
-    e.preventDefault(); document.getElementById('exportBtn').click();
+  // dark mode
+  const darkToggle = document.getElementById('darkToggle');
+  function applyTheme(isDark){
+    if(isDark) document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
+    try { localStorage.setItem(THEME_KEY, isDark ? 'dark':'light'); } catch(e){}
   }
-});
+  if(darkToggle){
+    darkToggle.addEventListener('change', () => applyTheme(darkToggle.checked));
+    const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
+    applyTheme(savedTheme === 'dark');
+    darkToggle.checked = savedTheme === 'dark';
+  }
 
-/* helper: initial render */
-renderTable();
+  // ctrl/cmd + s export
+  window.addEventListener('keydown', (e) => {
+    if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='s'){
+      e.preventDefault(); const eb = document.getElementById('exportBtn'); if(eb) eb.click();
+    }
+  });
 
-/* initial visibility: dashboard means show both add & manage; hide settings */
-document.getElementById('section-settings').style.display = 'none';
+  // initial render
+  renderTable();
 
-/* small accessibility: focus outlines for keyboard */
-document.addEventListener('keydown', (e) => {
-  if(e.key==='Tab') document.body.classList.add('show-focus');
-});
+  // hide settings section by default
+  const settings = document.getElementById('section-settings');
+  if(settings) settings.style.display = 'none';
 
-/* export convenience: auto-save every 30s (local only) */
-setInterval(() => { saveStore(); }, 30000);
+  // auto-save
+  setInterval(() => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(materials)); } catch(e){} }, 30000);
 
+}); // DOMContentLoaded end
 </script>
 </body>
 </html>
