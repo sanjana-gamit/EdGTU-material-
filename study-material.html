@@ -3,13 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Study Material - GTU Portal</title>
+  <title>Study Material - EduBot GTU</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    body {
+      background: #f4f6fb;
+    }
+    footer {
+      background: #111;
+      color: #fff;
+      padding: 20px 0;
+      margin-top: 40px;
+      text-align: center;
+    }
+    .subject-card {
+      background: #fff;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .subject-card h3 {
+      margin-bottom: 10px;
+    }
+    .btn-download, .btn-view {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #fff;
+    }
+    .btn-download { background:#007bff; }
+    .btn-view { background:#28a745; }
+  </style>
 </head>
 <body>
   <header class="nav-wrap">
     <div class="nav container">
-      <a href="index.html" class="brand"><img src="assets/logo.png" alt="GTU"/>GTU Student Portal</a>
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="GTU"/>EduBot GTU</a>
       <nav class="nav-links">
         <a href="index.html">Home</a>
         <a href="study-material.html" class="active">Study Material</a>
@@ -36,9 +68,33 @@
     </section>
 
     <section id="materials-list" class="materials-list">
-      <!-- Materials will be loaded here from materials.json -->
+      <div class="subject-card">
+        <h3>Computer Networks</h3>
+        <p>GTU CN notes, PDF, and important topics for exam preparation.</p>
+        <a href="downloads/cn_notes.pdf" class="btn-download" download>Download</a>
+        <a href="downloads/cn_notes.pdf" class="btn-view" target="_blank">View</a>
+      </div>
+
+      <div class="subject-card">
+        <h3>ADA (Algorithm Design & Analysis)</h3>
+        <p>ADA full notes, solved examples, and previous year papers.</p>
+        <a href="downloads/ada_material.pdf" class="btn-download" download>Download</a>
+        <a href="downloads/ada_material.pdf" class="btn-view" target="_blank">View</a>
+      </div>
+
+      <div class="subject-card">
+        <h3>Python</h3>
+        <p>Python programming notes, lab manual, and GTU materials.</p>
+        <a href="downloads/python_notes.pdf" class="btn-download" download>Download</a>
+        <a href="downloads/python_notes.pdf" class="btn-view" target="_blank">View</a>
+      </div>
     </section>
   </main>
+
+  <footer>
+    <p>© 2025 EduBot GTU | Designed for Students</p>
+    <p>Email: sanjanabengamit123@gmail.com | Helpline: +91 9909771512</p>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
