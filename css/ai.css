@@ -1,0 +1,265 @@
+/* ----------------------------------------------------------
+   GTU BLUE THEME
+----------------------------------------------------------- */
+:root {
+  --gtu-blue: #0b4c9c;
+  --gtu-light-blue: #1976d2;
+  --gtu-dark-blue: #082f63;
+  --bg-light: #f5f9ff;
+  --text-dark: #1a1a1a;
+  --white: #ffffff;
+}
+
+/* ----------------------------------------------------------
+   GLOBAL STYLES
+----------------------------------------------------------- */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ----------------------------------------------------------
+   NAVBAR
+----------------------------------------------------------- */
+.nav-wrap {
+  background: var(--gtu-blue);
+  color: var(--white);
+  padding: 15px 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav .brand {
+  display: flex;
+  align-items: center;
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.nav .brand img {
+  width: 45px;
+  margin-right: 10px;
+}
+
+.nav-links a {
+  margin: 0 15px;
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links .active {
+  color: #ffea00;
+  transform: scale(1.1);
+}
+
+/* ----------------------------------------------------------
+   HERO SECTION
+----------------------------------------------------------- */
+.hero {
+  margin-top: 50px;
+  text-align: center;
+  position: relative;
+}
+
+.hero-animation {
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+/* TYPING ANIMATION */
+.hero h1 {
+  font-size: 42px;
+  color: var(--gtu-blue);
+  font-weight: 800;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--gtu-blue);
+  width: 0;
+  animation: typing 4s steps(40) forwards, blink 0.7s infinite;
+}
+
+@keyframes typing {
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+/* Floating Emojis Animation */
+.hero::after {
+  content: "🤖✨📘💡";
+  position: absolute;
+  font-size: 40px;
+  animation: floatEmojis 5s infinite alternate;
+  right: 10%;
+  top: 10%;
+  opacity: 0.6;
+}
+
+@keyframes floatEmojis {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-30px); }
+}
+
+/* ----------------------------------------------------------
+   SECTION TITLES
+----------------------------------------------------------- */
+.section-title {
+  margin-top: 50px;
+  text-align: center;
+  font-size: 32px;
+  color: var(--gtu-dark-blue);
+  font-weight: 700;
+}
+
+/* ----------------------------------------------------------
+   AI CARDS GRID
+----------------------------------------------------------- */
+.ai-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+/* CARD STYLE */
+.ai-card {
+  background: var(--white);
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(40px);
+  opacity: 0;
+}
+
+/* SCROLL REVEAL */
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ai-card.show {
+  animation: reveal 0.6s forwards;
+}
+
+/* CARD HOVER EFFECT */
+.ai-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+/* Glow Border on Hover */
+.ai-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
+  padding: 3px;
+  background: linear-gradient(45deg, var(--gtu-blue), cyan, #00eaff);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.ai-card:hover::before {
+  opacity: 1;
+}
+
+/* Card Images */
+.ai-icon {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+/* ----------------------------------------------------------
+   BUTTONS
+----------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background: var(--gtu-blue);
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background: var(--gtu-light-blue);
+  transform: scale(1.07);
+}
+
+/* Outline button */
+.btn-outline {
+  border: 2px solid var(--gtu-blue);
+  background: none;
+  color: var(--gtu-blue);
+}
+
+.btn-outline:hover {
+  background: var(--gtu-blue);
+  color: var(--white);
+}
+
+/* ----------------------------------------------------------
+   FOOTER
+----------------------------------------------------------- */
+.site-footer {
+  margin-top: 60px;
+  padding: 40px 20px;
+  background: var(--gtu-dark-blue);
+  color: var(--white);
+  text-align: center;
+}
+
+.footer-links a {
+  color: #d6e4ff;
+  margin: 0 15px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #ffeb3b;
+}
+
+/* ----------------------------------------------------------
+   RESPONSIVE
+----------------------------------------------------------- */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 30px;
+  }
+}
