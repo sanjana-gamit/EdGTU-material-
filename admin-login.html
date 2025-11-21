@@ -3,137 +3,243 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin Login – GTU Portal</title>
-
-  <link rel="stylesheet" href="css/style.css">
+  <title>Admin Login – EduBot GTU</title>
 
   <style>
-    :root{
-      --gtu-blue:#003366;
-      --gtu-light:#e6f0ff;
-      --gtu-red:#cc0000;
-      --white:#fff;
-      --gray:#777;
+    :root {
+      --gtu-blue: #003366;
+      --gtu-blue-dark: #00264d;
+      --gtu-light: #e6f0ff;
+      --gtu-red: #cc0000;
+      --white: #fff;
+      --gray: #777;
     }
 
-    body{
-      margin:0;
-      font-family:Arial, sans-serif;
-      background:var(--gtu-light);
+    body {
+      margin: 0;
+      font-family: "Poppins", Arial, sans-serif;
+      background: var(--gtu-light);
+      animation: fadeBody 1s ease-in-out;
     }
 
-    header{
-      background:var(--gtu-blue);
-      padding:15px 0;
-      color:white;
-      box-shadow:0 3px 8px rgba(0,0,0,0.2);
+    @keyframes fadeBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
-    .container{
-      width:90%;
-      max-width:1100px;
-      margin:auto;
+    /* ================= HEADER ================= */
+    header {
+      background: linear-gradient(135deg, #003366, #00264d);
+      padding: 15px 0;
+      color: white;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      color:white;
-      text-decoration:none;
-      font-size:20px;
-      font-weight:bold;
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .brand img{
-      width:40px;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: 600;
     }
 
-    .login-box{
-      max-width:400px;
-      margin:60px auto;
-      background:white;
-      padding:30px;
-      border-radius:10px;
-      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    .brand img {
+      width: 45px;
     }
 
-    .login-box h2{
-      text-align:center;
-      color:var(--gtu-blue);
+    /* Header Links */
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      position: relative;
     }
 
-    label{
-      display:block;
-      margin:10px 0 5px;
-      font-weight:bold;
+    nav a:hover::after {
+      content: "";
+      height: 3px;
+      width: 100%;
+      background: #fff;
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      border-radius: 10px;
     }
 
-    input{
-      width:100%;
-      padding:10px;
-      border:1px solid #ccc;
-      border-radius:6px;
-      font-size:16px;
+    /* ================= LOGIN BOX ================= */
+    .login-box {
+      max-width: 400px;
+      margin: 70px auto;
+      background: white;
+      padding: 35px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      animation: slideUp 0.9s ease;
     }
 
-    button{
-      margin-top:15px;
-      width:100%;
-      padding:12px;
-      background:var(--gtu-blue);
-      border:none;
-      color:white;
-      font-size:16px;
-      border-radius:8px;
-      cursor:pointer;
-      transition:0.3s;
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
-    button:hover{
-      background:#00264d;
+    .login-box h2 {
+      text-align: center;
+      color: var(--gtu-blue);
+      font-weight: 700;
+      margin-bottom: 10px;
     }
 
-    footer{
-      margin-top:50px;
-      background:#00284d;
-      color:white;
-      padding:20px 0;
-      text-align:center;
-      font-size:14px;
+    .login-box p.desc {
+      font-size: 13px;
+      text-align: center;
+      margin-top: -5px;
+      color: var(--gray);
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 5px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: var(--gtu-blue);
+      box-shadow: 0 0 6px rgba(0, 51, 102, 0.4);
+      outline: none;
+    }
+
+    button {
+      margin-top: 18px;
+      width: 100%;
+      padding: 13px;
+      background: var(--gtu-blue);
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background: var(--gtu-blue-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    /* ================= FOOTER ================= */
+    footer {
+      background: #00284d;
+      color: white;
+      padding: 25px 0;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 60px;
+      animation: fadeFoot 1.3s ease;
+    }
+
+    @keyframes fadeFoot {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    .footer-links {
+      margin: 10px 0;
+    }
+
+    .footer-links a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #cce0ff;
+      transition: 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+      text-decoration: underline;
     }
   </style>
+
 </head>
 
 <body>
 
+  <!-- ================= HEADER ================= -->
   <header>
     <div class="container">
       <a href="index.html" class="brand">
-        <img src="assets/logo.png" alt="GTU">
-        GTU Student Portal
+        <img src="assets/logo.png" alt="GTU"> EduBot GTU
       </a>
+
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="study-material.html">Study Material</a>
+        <a href="ai-tools.html">AI Tools</a>
+        <a href="contact.html">Contact</a>
+      </nav>
     </div>
   </header>
 
+  <!-- ================= LOGIN ================= -->
   <div class="login-box">
     <h2>Admin Login</h2>
+    <p class="desc">Secure login panel for GTU management</p>
 
     <label>Username</label>
-    <input id="adminUser" placeholder="admin123">
+    <input id="adminUser" placeholder="Enter admin username">
 
     <label>Password</label>
-    <input id="adminPass" type="password" placeholder="••••••••">
+    <input id="adminPass" type="password" placeholder="Enter password">
 
     <button onclick="loginAdmin()">Login</button>
 
-    <p style="font-size:12px;color:var(--gray);margin-top:15px;">
-      * Admin Login is local for GitHub Pages (client-side).
+    <p style="font-size:12px;color:var(--gray);margin-top:15px;text-align:center;">
+      * Admin panel is client-side only (GitHub Pages version)
     </p>
   </div>
 
+  <!-- ================= FOOTER ================= -->
   <footer>
-    © 2025 GTU Study Portal • Designed for Students • All Rights Reserved
+    <p>© 2025 GTU Study Portal</p>
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms & Conditions</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <p>Designed for Students • Learn Smart • Score High</p>
   </footer>
 
 <script>
