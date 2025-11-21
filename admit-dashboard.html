@@ -1,16 +1,12 @@
 <!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Admin Dashboard — EduBot GTU</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <style>
+  <title>Admin Dashboard — EduBot GTU</title>  <!-- GTU Themed Admin Dashboard (single-file) -->  <style>
     :root{
-      --gtu-blue: #003366;
+      --gtu-blue:#003366;
       --gtu-blue-2:#0059b3;
       --bg:#f3f7ff;
       --card:#ffffff;
@@ -18,674 +14,353 @@
       --success:#16a34a;
       --danger:#dc2626;
       --glass: rgba(255,255,255,0.65);
-      --shadow: 0 8px 30px rgba(2,6,23,0.08);
+      --shadow: 0 12px 40px rgba(2,6,23,0.08);
+      --accent: #0b5ed7;
     }
 
-    /* dark mode variables */
-    :root.dark{
-      --bg: #071025;
-      --card: #061226;
-      --muted: #94a3b8;
-      --glass: rgba(255,255,255,0.03);
-    }
+    /* Dark theme variables */
+    :root.dark{ --bg:#071025; --card:#061226; --muted:#94a3b8; --glass: rgba(255,255,255,0.03); }
 
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:"Poppins",system-ui,Arial,sans-serif;
-      background:var(--bg);
-      color: #071522;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      transition: background .25s ease, color .25s ease;
-    }
+    body{margin:0;font-family:Inter, Poppins, system-ui, Arial, sans-serif;background:var(--bg);color:#0b2545;}
 
-    /* layout */
-    .app {
-      display:flex;
-      min-height:100vh;
-      gap:20px;
-    }
+    /* Layout */
+    .app{display:grid;grid-template-columns:260px 1fr;gap:24px;min-height:100vh;padding:22px}
+    @media(max-width:900px){.app{grid-template-columns:1fr;}}
 
-    /* SIDEBAR */
-    .sidebar{
-      width:260px;
-      background:linear-gradient(180deg,var(--gtu-blue),var(--gtu-blue-2));
-      color:white;
-      padding:22px;
-      border-radius:12px;
-      box-shadow:var(--shadow);
-      flex-shrink:0;
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-      position:sticky;
-      top:20px;
-      height:calc(100vh - 40px);
-    }
-    .sidebar .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-weight:700;
-      font-size:18px;
-    }
-    .sidebar .brand img{width:40px;border-radius:6px}
-    .nav-group{margin-top:6px}
-    .nav-item{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      padding:10px 12px;
-      border-radius:8px;
-      cursor:pointer;
-      color:rgba(255,255,255,0.95);
-      text-decoration:none;
-      transition:background .18s, transform .12s;
-      font-weight:600;
-    }
-    .nav-item:hover{background:rgba(255,255,255,0.06); transform:translateY(-3px)}
-    .nav-item.active{background:rgba(0,0,0,0.12);}
+    /* Sidebar */
+    .sidebar{background:linear-gradient(180deg,var(--gtu-blue),var(--gtu-blue-2));color:white;padding:20px;border-radius:12px;box-shadow:var(--shadow);height:calc(100vh - 44px);position:sticky;top:22px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px}
+    .brand img{width:44px;height:44px;object-fit:cover;border-radius:6px}
+    .nav{margin-top:20px;display:flex;flex-direction:column;gap:8px}
+    .nav button{background:transparent;border:0;color:rgba(255,255,255,0.95);padding:10px;border-radius:8px;text-align:left;cursor:pointer;font-weight:600}
+    .nav button:hover{background:rgba(255,255,255,0.06);transform:translateX(4px)}
+    .nav button.active{background:rgba(0,0,0,0.12)}
 
-    .spacer{flex:1}
+    /* Header inside main */
+    .header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .header .left{display:flex;gap:12px;align-items:center}
+    .search{padding:10px 12px;border-radius:10px;border:1px solid #e6eefc;width:320px}
+    .actions{display:flex;gap:8px;align-items:center}
+    .btn{background:linear-gradient(90deg,var(--gtu-blue),var(--gtu-blue-2));color:white;padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+    .btn.secondary{background:transparent;color:var(--gtu-blue);border:1px solid rgba(11,37,69,0.08)}
 
-    /* topbar + content wrapper */
-    .main{
-      flex:1;
-      padding:28px;
-      display:flex;
-      flex-direction:column;
-      gap:18px;
-    }
+    /* Cards */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+    @media(max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:700px){.grid{grid-template-columns:1fr}}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:var(--shadow);transition:transform .18s,box-shadow .18s}
+    .card:hover{transform:translateY(-6px);box-shadow:0 22px 40px rgba(2,6,23,0.12)}
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-    }
+    .kpi{font-size:28px;font-weight:700;color:var(--gtu-blue)}
+    .kpi-sub{color:var(--muted);font-size:13px}
 
-    .topbar .title{
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-    .title h1{
-      margin:0;font-size:20px;color:var(--gtu-blue);
-    }
-    .top-actions{display:flex;gap:10px;align-items:center}
+    /* Form */
+    .form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+    @media(max-width:900px){.form{grid-template-columns:1fr}}
+    label{font-weight:600;margin-bottom:6px;font-size:14px}
+    input, select, textarea{padding:10px;border-radius:8px;border:1px solid #e6eefc;font-size:14px}
+    textarea{resize:vertical}
 
-    /* dark toggle */
-    .toggle {
-      display:inline-flex;align-items:center;gap:8px;background:var(--glass);padding:8px 12px;border-radius:999px;cursor:pointer;
-      border:1px solid rgba(255,255,255,0.06);
-    }
-    .toggle input{display:none}
+    /* Table */
+    .table-wrap{margin-top:18px;background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);overflow:auto}
+    table{width:100%;border-collapse:collapse;min-width:900px}
+    th,td{padding:12px 10px;border-bottom:1px solid rgba(11,37,69,0.06);text-align:left}
+    th{background:transparent;color:var(--muted);font-weight:700}
+    tr:hover td{background:linear-gradient(90deg,rgba(11,94,215,0.03),transparent)}
+    .actions button{margin-right:8px;padding:8px 10px;border-radius:8px;border:0;cursor:pointer}
+    .actions .edit{background:#fde68a}
+    .actions .del{background:#fecaca}
 
-    /* Responsive compact sidebar button */
-    .hamburger{
-      display:none;
-      background:var(--card);
-      border-radius:8px;padding:8px;cursor:pointer;
-      box-shadow:var(--shadow);
-    }
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:2000}
+    .modal{width:100%;max-width:720px;background:var(--card);padding:18px;border-radius:12px}
 
-    /* FORM CARD (floating card animation) */
-    .form-card{
-      background:var(--card);
-      padding:18px;
-      border-radius:12px;
-      box-shadow:var(--shadow);
-      transition:transform .25s ease, box-shadow .25s ease;
-      width:100%;
-      max-width:920px;
-    }
-    .form-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(2,6,23,0.12)}
+    /* footer */
+    footer{margin-top:20px;padding:18px;text-align:center;color:var(--muted);font-size:13px}
 
-    .form-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-    @media(max-width:880px){ .form-grid{grid-template-columns:1fr} .sidebar{display:none} .hamburger{display:block} }
-
-    label{display:block;font-weight:600;margin-bottom:6px}
-    .input{
-      width:100%;padding:10px;border-radius:8px;border:1px solid #d1d5db;background:transparent;font-size:14px;
-      transition:box-shadow .18s, border-color .18s;
-    }
-    .input:focus{outline:none;border-color:var(--gtu-blue); box-shadow:0 6px 18px rgba(3,77,164,0.12)}
-
-    /* glow effect */
-    .input.glow:focus{box-shadow:0 10px 30px rgba(3,77,164,0.18)}
-
-    .btn{
-      display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--gtu-blue),var(--gtu-blue-2));color:white;font-weight:700;cursor:pointer;
-      transition:transform .15s, box-shadow .15s;
-    }
-    .btn:hover{transform:translateY(-3px); box-shadow:0 14px 30px rgba(0,85,179,0.18)}
-
-    .btn.secondary{background:transparent;color:var(--gtu-blue);border:1px solid var(--gtu-blue)}
-
-    /* success toast */
-    .toast{
-      position:fixed; right:28px; bottom:28px; background:#0b3; color:white; padding:12px 16px; border-radius:10px; box-shadow:0 10px 30px rgba(2,6,23,0.2); display:none; z-index:1200;
-    }
-
-    /* table */
-    .card{
-      background:var(--card); padding:12px; border-radius:12px; box-shadow:var(--shadow);
-      overflow:auto;
-    }
-    table{width:100%; border-collapse:collapse; min-width:720px}
-    th, td {padding:10px 12px; text-align:left; border-bottom:1px solid rgba(0,0,0,0.06)}
-    th{background:transparent;color:var(--muted); font-weight:700; font-size:13px}
-    tr:hover td{background: linear-gradient(90deg, rgba(3,77,164,0.03), transparent)}
-    .small{font-size:13px;color:var(--muted)}
-
-    .actions button{margin-right:8px;padding:6px 8px;border-radius:8px;border:0;cursor:pointer;font-weight:600}
-    .actions .edit{background:#fde68a} .actions .delete{background:#fecaca}
-
-    /* modal */
-    .modal-backdrop{position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(2,6,23,0.5); z-index:2000}
-    .modal{width:100%;max-width:640px;background:var(--card); padding:18px;border-radius:12px; box-shadow:var(--shadow)}
-
-    /* utilities */
-    .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-    .right{margin-left:auto}
+    /* small utilities */
     .muted{color:var(--muted);font-size:13px}
-    .search{padding:8px 12px;border-radius:10px;border:1px solid #d1d5db; width:260px}
+    .tag{display:inline-block;background:#f1f8ff;color:var(--gtu-blue);padding:6px 8px;border-radius:999px;font-weight:700}
 
-    /* footer small */
-    .footer-sm{font-size:13px;color:var(--muted);margin-top:12px}
+    /* animations */
+    .fade-in{animation:fadeIn .6s ease both}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  </style></head>
+<body><div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar fade-in">
+    <div class="brand"><img src="assets/logo.png" alt="logo"> EduBot GTU</div><nav class="nav" aria-label="Main navigation">
+  <button class="nav-item active" data-section="dashboard">🏠 Dashboard</button>
+  <button class="nav-item" data-section="add">➕ Add Material</button>
+  <button class="nav-item" data-section="manage">🗂 Manage Materials</button>
+  <button class="nav-item" data-section="units">📚 Units</button>
+  <button class="nav-item" data-section="settings">⚙️ Settings</button>
+</nav>
 
-  </style>
-</head>
-<body>
+<div class="spacer"></div>
 
-  <div class="app">
+<div class="muted">Logged in as <strong>admin</strong></div>
+<div class="muted" style="margin-top:8px">Tip: export <code>materials.json</code> to update your GitHub repo.</div>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <div class="brand">
-        <img src="assets/logo.png" alt="GTU logo">
-        EduBot GTU
-      </div>
+  </aside>  <!-- MAIN -->  <main>
+    <div class="header">
+      <div class="left">
+        <h2 style="margin:0">Admin Dashboard</h2>
+        <div class="muted" style="margin-left:12px">GTU Portal • Manage study resources</div>
+      </div><div class="actions">
+    <input id="search" class="search" placeholder="Search subject, unit, type...">
+    <button id="importBtn" class="btn secondary">📥 Import JSON</button>
+    <button id="exportBtn" class="btn">📤 Export JSON</button>
+    <button id="darkToggle" class="btn secondary">🌙 Dark</button>
+  </div>
+</div>
 
-      <div class="nav-group" id="navGroup">
-        <a class="nav-item active" data-section="dashboard">🏠 Dashboard</a>
-        <a class="nav-item" data-section="add">➕ Add Material</a>
-        <a class="nav-item" data-section="manage">🗂 Manage Materials</a>
-        <a class="nav-item" data-section="settings">⚙️ Settings</a>
-      </div>
-
-      <div class="spacer"></div>
-
-      <div style="font-size:13px;color:rgba(255,255,255,0.9)">Logged in as <strong>admin</strong></div>
-      <div class="muted" style="font-size:12px">Pro tip: export `materials.json` to push changes to GitHub.</div>
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main">
-
-      <!-- TOPBAR -->
-      <div class="topbar">
-        <div class="title">
-          <div>
-            <h1>Admin Dashboard</h1>
-            <div class="muted">Manage GTU study materials • Add / Edit / Delete • Export JSON</div>
-          </div>
-        </div>
-
-        <div class="top-actions">
-          <input id="searchInput" class="search" placeholder="Search subject, unit, description">
-          <div class="row">
-            <label class="toggle" title="Toggle dark mode">
-              <input id="darkToggle" type="checkbox">
-              <span id="toggleLabel">🌙 Dark</span>
-            </label>
-
-            <button class="btn secondary" id="importBtn" title="Import materials.json">📥 Import JSON</button>
-            <button class="btn" id="exportBtn" title="Export materials.json">📤 Export JSON</button>
-
-            <button class="hamburger" id="hamb">☰</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- SECTION: add -->
-      <section id="section-add" style="display:block">
-
-        <!-- FORM CARD -->
-        <div class="form-card" role="region" aria-label="Add material form">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-            <div>
-              <strong style="font-size:16px">➕ Add New Material</strong>
-              <div class="muted" style="font-size:13px">Fill details and click Upload • Fields required</div>
-            </div>
-
-            <div class="row">
-              <button class="btn" id="bulkAddBtn">➕ Bulk Add</button>
-              <button class="btn secondary" id="clearBtn">🧹 Clear Form</button>
-            </div>
-          </div>
-
-          <div class="form-grid">
-            <div>
-              <label>Subject Name <span class="muted">📚</span></label>
-              <input id="subject" class="input glow" placeholder="e.g., Analysis and Design of Algorithms" />
-            </div>
-
-            <div>
-              <label>Material Type <span class="muted">📎</span></label>
-              <select id="type" class="input">
-                <option value="Notes">Notes</option>
-                <option value="PDF">PDF</option>
-                <option value="Book">GTU Book</option>
-                <option value="PYQ">Previous Year Paper</option>
-                <option value="Playlist">Playlist</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-
-            <div>
-              <label>Unit / Chapter <span class="muted">🔖</span></label>
-              <input id="unit" class="input" placeholder="Unit 1, Unit 2 or Chapter name" />
-            </div>
-
-            <div>
-              <label>Link (Google Drive / URL) <span class="muted">🔗</span></label>
-              <input id="link" class="input" placeholder="https://drive.google.com/..." />
-            </div>
-
-            <div style="grid-column: 1 / -1">
-              <label>Description <span class="muted">✍️</span></label>
-              <textarea id="description" class="input" rows="3" placeholder="Short description, semester, tags..."></textarea>
-            </div>
-
-          </div>
-
-          <div style="display:flex;gap:10px;margin-top:12px">
-            <button class="btn" id="uploadBtn">✅ Upload Material</button>
-            <button class="btn secondary" id="previewBtn">👁️ Preview</button>
-            <div class="right muted">Last saved: <span id="lastSaved">Never</span></div>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- SECTION: manage -->
-      <section id="section-manage" style="display:block">
-        <div class="card" style="margin-top:6px">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <strong>📂 Material Library</strong>
-            <div class="muted">Total items: <span id="totalCount">0</span></div>
-          </div>
-
-          <div style="overflow:auto">
-            <table id="materialsTable" aria-describedby="materials">
-              <thead>
-                <tr>
-                  <th>Subject</th>
-                  <th>Type</th>
-                  <th>Unit</th>
-                  <th>Description</th>
-                  <th>Link</th>
-                  <th class="small">Actions</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-
-          <div style="margin-top:12px;display:flex;gap:10px;align-items:center;">
-            <button class="btn secondary" id="deleteAll">🗑️ Delete All</button>
-            <div class="muted footer-sm">Tip: Use Export JSON to push updates to GitHub repo (materials.json)</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SECTION: settings -->
-      <section id="section-settings" style="display:block">
-        <div class="card" style="margin-top:6px">
-          <strong>⚙️ Settings</strong>
-          <div style="margin-top:12px" class="muted">
-            <p><strong>Dark Mode:</strong> Toggle the theme for admin console.</p>
-            <p><strong>Import/Export:</strong> Import a `materials.json` downloaded from repo to update the dashboard locally; export will generate a `materials.json` to download.</p>
-            <p><strong>Persistence:</strong> Changes are saved to your browser localStorage. To push to GitHub, export JSON and update the repo file manually.</p>
-          </div>
-        </div>
-      </section>
-
-      <div class="footer-sm">EduBot GTU — Admin Console • Built for GTU Students</div>
-
-    </main>
+<!-- KPIs -->
+<div class="grid">
+  <div class="card">
+    <div class="kpi" id="kpiCount">0</div>
+    <div class="kpi-sub">Total Materials</div>
   </div>
 
-  <!-- modal for edit -->
-  <div class="modal-backdrop" id="modal">
-    <div class="modal" role="dialog" aria-modal="true">
-      <h3>Edit Material</h3>
-      <div style="margin-top:8px">
+  <div class="card">
+    <div class="kpi" id="kpiPDF">0</div>
+    <div class="kpi-sub">PDFs / Books</div>
+  </div>
+
+  <div class="card">
+    <div class="kpi" id="kpiPlay">0</div>
+    <div class="kpi-sub">Playlists</div>
+  </div>
+</div>
+
+<!-- Add Form -->
+<section id="section-add" class="fade-in">
+  <div class="card" style="margin-top:14px">
+    <strong>➕ Add / Upload Material</strong>
+    <p class="muted">Add new study resources. Use import to bulk load materials.json.</p>
+
+    <div class="form" style="margin-top:12px">
+      <div>
         <label>Subject</label>
-        <input id="editSubject" class="input" />
-        <label>Type</label>
-        <input id="editType" class="input" />
-        <label>Unit</label>
-        <input id="editUnit" class="input" />
-        <label>Link</label>
-        <input id="editLink" class="input" />
-        <label>Description</label>
-        <textarea id="editDesc" class="input" rows="3"></textarea>
+        <input id="subject">
       </div>
 
-      <div style="display:flex;gap:8px;margin-top:12px;justify-content:flex-end">
-        <button class="btn secondary" id="cancelEdit">Cancel</button>
-        <button class="btn" id="saveEdit">Save Changes</button>
+      <div>
+        <label>Type</label>
+        <select id="type">
+          <option>Notes</option>
+          <option>PDF</option>
+          <option>Book</option>
+          <option>PYQ</option>
+          <option>Playlist</option>
+          <option>Other</option>
+        </select>
       </div>
+
+      <div>
+        <label>Unit / Chapter</label>
+        <input id="unit">
+      </div>
+
+      <div>
+        <label>Link (URL / Drive / YouTube)</label>
+        <input id="link">
+      </div>
+
+      <div style="grid-column:1 / -1">
+        <label>Description & Tags</label>
+        <textarea id="description" rows="3"></textarea>
+      </div>
+
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:12px">
+      <button id="uploadBtn" class="btn">✅ Upload Material</button>
+      <button id="clearBtn" class="btn secondary">🧹 Clear</button>
+      <div style="margin-left:auto" class="muted">Last saved: <span id="lastSaved">Never</span></div>
     </div>
   </div>
+</section>
 
-  <div class="toast" id="toast">Saved</div>
+<!-- Manage Table -->
+<section id="section-manage" class="fade-in">
+  <div class="table-wrap">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <strong>📂 Materials Library</strong>
+      <div class="muted">Total: <span id="totalCount">0</span></div>
+    </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
+    <table id="materialsTable">
+      <thead>
+        <tr><th>Subject</th><th>Type</th><th>Unit</th><th>Description</th><th>Link</th><th>Actions</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
 
-  const STORAGE_KEY = 'gtu_materials_v1';
-  const THEME_KEY = 'gtu_admin_theme_v1';
+    <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+      <button id="deleteAll" class="btn secondary">🗑️ Delete All</button>
+      <div class="muted">Tip: Export JSON and commit to GitHub to publish materials.</div>
+    </div>
+  </div>
+</section>
 
-  // safe replaceAll fallback
-  function safeReplaceAll(str, find, replace) {
-    if (String.prototype.replaceAll) return str.replaceAll(find, replace);
-    return str.split(find).join(replace);
-  }
+<!-- Units / Cards -->
+<section id="section-units" class="fade-in">
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+    <!-- Animated unit cards will be injected -->
+    <div id="unitsGrid" style="display:flex;gap:12px;flex-wrap:wrap"></div>
+  </div>
+</section>
 
-  // helpers
-  function escapeHtml(s){
-    if(!s) return '';
-    return safeReplaceAll(s.toString(), '&', '&amp;')
-           .replace(/</g, '&lt;')
-           .replace(/>/g, '&gt;');
-  }
-  function escapeAttr(s){
-    if(!s) return '';
-    try { return encodeURI(s.toString()); }
-    catch(e){ return s.toString().replace(/"/g, '%22'); }
-  }
+<!-- Settings -->
+<section id="section-settings" class="fade-in" style="display:none;margin-top:12px">
+  <div class="card">
+    <strong>⚙️ Settings</strong>
+    <p class="muted">Dark mode, Import/Export and local persistence are available.</p>
+  </div>
+</section>
 
-  // load from storage safely
-  let materials = [];
-  try {
-    materials = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    if(!Array.isArray(materials)) materials = [];
-  } catch(e){
-    materials = [];
-  }
+<footer>
+  <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
+    <a href="#" style="color:var(--gtu-blue);text-decoration:none;font-weight:700">Home</a>
+    <a href="#" class="muted">Study Material</a>
+    <a href="#" class="muted">GTU Official</a>
+    <a href="#" class="muted">Darshan Material</a>
+    <a href="#" class="muted">Contact</a>
+  </div>
+  <div style="margin-top:8px" class="muted">© 2025 EduBot GTU • Built for GTU Students</div>
+</footer>
 
-  // DOM refs (guarded)
-  const tbody = document.querySelector('#materialsTable tbody');
-  const totalCountEl = document.getElementById('totalCount');
-  const lastSavedEl = document.getElementById('lastSaved');
-  const toastEl = document.getElementById('toast');
+  </main>
+</div><!-- Edit Modal --><div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <h3>Edit Material</h3>
+    <div style="margin-top:8px">
+      <label>Subject</label>
+      <input id="editSubject">
+      <label>Type</label>
+      <input id="editType">
+      <label>Unit</label>
+      <input id="editUnit">
+      <label>Link</label>
+      <input id="editLink">
+      <label>Description</label>
+      <textarea id="editDesc" rows="3"></textarea>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+      <button id="cancelEdit" class="btn secondary">Cancel</button>
+      <button id="saveEdit" class="btn">Save</button>
+    </div>
+  </div>
+</div><!-- Toast --><div id="toast" style="position:fixed;right:18px;bottom:18px;background:var(--success);color:white;padding:10px 14px;border-radius:10px;display:none;box-shadow:var(--shadow)"></div><script>
+// Robust single-file admin dashboard script
+(function(){
+  const STORAGE_KEY = 'gtu_materials_v2';
+  const THEME_KEY = 'gtu_theme_v2';
 
-  function renderTable(filter=''){
-    if(!tbody) return;
-    tbody.innerHTML = '';
-    const list = materials.filter(m => {
-      if(!filter) return true;
-      const s = (m.subject + ' ' + m.unit + ' ' + m.type + ' ' + m.description).toLowerCase();
-      return s.includes(filter.toLowerCase());
-    });
-    list.forEach((m, idx) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td>${escapeHtml(m.subject)}</td>
-        <td>${escapeHtml(m.type)}</td>
-        <td>${escapeHtml(m.unit)}</td>
-        <td>${escapeHtml(m.description)}</td>
-        <td><a href="${escapeAttr(m.link)}" target="_blank" rel="noopener">Open</a></td>
-        <td class="actions">
-          <button class="edit" data-index="${idx}">✏️ Edit</button>
-          <button class="delete" data-index="${idx}">🗑️ Delete</button>
-        </td>
-      `;
-      tbody.appendChild(tr);
-    });
-    if(totalCountEl) totalCountEl.textContent = materials.length;
-  }
-
-  function saveStore(){
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(materials));
-      if(lastSavedEl) lastSavedEl.textContent = new Date().toLocaleString();
-      showToast('Saved locally');
-    } catch(e){
-      console.error('Save failed', e);
-      showToast('Save failed');
-    }
-  }
-
-  function showToast(msg='Saved'){
-    if(!toastEl) return;
-    toastEl.textContent = msg;
-    toastEl.style.display = 'block';
-    setTimeout(()=> toastEl.style.display='none', 2200);
-  }
-
-  function clearForm(){
-    ['subject','type','unit','link','description'].forEach(id => {
-      const el = document.getElementById(id);
-      if(el) el.value = '';
-    });
-  }
-
-  // attach listeners safely
+  // elements
+  const navButtons = document.querySelectorAll('.nav .nav-item');
+  const sections = {dashboard: null, add: document.getElementById('section-add'), manage: document.getElementById('section-manage'), units: document.getElementById('section-units'), settings: document.getElementById('section-settings')};
   const uploadBtn = document.getElementById('uploadBtn');
-  if(uploadBtn){
-    uploadBtn.addEventListener('click', () => {
-      const subject = (document.getElementById('subject') || {}).value?.trim() || '';
-      const type = (document.getElementById('type') || {}).value?.trim() || '';
-      const unit = (document.getElementById('unit') || {}).value?.trim() || '';
-      const link = (document.getElementById('link') || {}).value?.trim() || '';
-      const description = (document.getElementById('description') || {}).value?.trim() || '';
-
-      if(!subject || !link){
-        alert('Please provide at least subject and link.');
-        return;
-      }
-
-      materials.unshift({subject,type,unit,link,description,created: new Date().toISOString()});
-      saveStore(); renderTable(); clearForm();
-    });
-  }
-
   const clearBtn = document.getElementById('clearBtn');
-  if(clearBtn) clearBtn.addEventListener('click', clearForm);
+  const deleteAllBtn = document.getElementById('deleteAll');
+  const tableBody = document.querySelector('#materialsTable tbody');
+  const totalCount = document.getElementById('totalCount');
+  const kpiCount = document.getElementById('kpiCount');
+  const kpiPDF = document.getElementById('kpiPDF');
+  const kpiPlay = document.getElementById('kpiPlay');
+  const lastSaved = document.getElementById('lastSaved');
+  const toast = document.getElementById('toast');
+  const importBtn = document.getElementById('importBtn');
+  const exportBtn = document.getElementById('exportBtn');
+  const darkToggle = document.getElementById('darkToggle');
+  const searchInput = document.getElementById('search');
+  const unitsGrid = document.getElementById('unitsGrid');
+  const modal = document.getElementById('modal');
 
-  // delegate clicks on table body
-  if(tbody){
-    tbody.addEventListener('click', (e) => {
-      const idx = e.target.dataset.index;
-      if(e.target.classList.contains('delete')){
-        if(confirm('Delete this material?')){
-          materials.splice(idx,1); saveStore(); renderTable();
-        }
-      } else if(e.target.classList.contains('edit')){
-        openEditModal(idx);
-      }
-    });
-  }
+  // data
+  let materials = [];
+  let editIndex = null;
 
-  // modal edit
-  let currentEditIndex = null;
-  const modalBackdrop = document.getElementById('modal');
-  function openEditModal(idx){
-    currentEditIndex = Number(idx);
-    const m = materials[currentEditIndex];
-    if(!m) return;
-    ['Subject','Type','Unit','Link','Desc'].forEach(k => {
-      const el = document.getElementById('edit' + k);
-      if(el){
-        if(k === 'Desc') el.value = m.description;
-        else el.value = m[k.toLowerCase()] || '';
-      }
-    });
-    if(modalBackdrop) modalBackdrop.style.display = 'flex';
-  }
+  // safe helpers
+  function showToast(msg){ toast.textContent = msg; toast.style.display = 'block'; setTimeout(()=> toast.style.display='none',2200); }
+  function saveToStore(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(materials)); lastSaved.textContent = new Date().toLocaleString(); showToast('Saved locally'); updateKPIs(); }
+  function loadFromStore(){ try{ const raw = localStorage.getItem(STORAGE_KEY); materials = raw ? JSON.parse(raw) : []; if(!Array.isArray(materials)) materials = []; }catch(e){ materials = []; } }
 
-  const saveEditBtn = document.getElementById('saveEdit');
-  if(saveEditBtn){
-    saveEditBtn.addEventListener('click', () => {
-      if(currentEditIndex === null) return;
-      const subj = document.getElementById('editSubject')?.value?.trim() || '';
-      const typ = document.getElementById('editType')?.value?.trim() || '';
-      const unit = document.getElementById('editUnit')?.value?.trim() || '';
-      const link = document.getElementById('editLink')?.value?.trim() || '';
-      const desc = document.getElementById('editDesc')?.value?.trim() || '';
+  // render table
+  function renderTable(filter){ tableBody.innerHTML=''; const list = materials.filter(m => {
+    if(!filter) return true; const s = (m.subject+' '+m.unit+' '+m.type+' '+m.description).toLowerCase(); return s.includes(filter.toLowerCase());
+  });
+  list.forEach((m, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `\n      <td>${esc(m.subject)}</td>\n      <td>${esc(m.type)}</td>\n      <td>${esc(m.unit)}</td>\n      <td>${esc(m.description)}</td>\n      <td><a href="${encodeURI(m.link)}" target="_blank">Open</a></td>\n      <td class="actions"><button data-idx="${idx}" class="edit">✏️ Edit</button><button data-idx="${idx}" class="del">🗑️</button></td>\n    `;
+    tableBody.appendChild(tr);
+  }); totalCount.textContent = materials.length; updateKPIs(); }
 
-      const m = materials[currentEditIndex];
-      if(!m) return;
-      m.subject = subj; m.type = typ; m.unit = unit; m.link = link; m.description = desc;
-      saveStore(); renderTable(); closeModal();
-    });
-  }
+  // escape
+  function esc(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-  const cancelEditBtn = document.getElementById('cancelEdit');
-  if(cancelEditBtn) cancelEditBtn.addEventListener('click', closeModal);
-  if(modalBackdrop) modalBackdrop.addEventListener('click', (e) => { if(e.target.id === 'modal') closeModal(); });
-  function closeModal(){ if(modalBackdrop) modalBackdrop.style.display='none'; currentEditIndex=null; }
+  // update KPIs
+  function updateKPIs(){ kpiCount.textContent = materials.length; kpiPDF.textContent = materials.filter(m=> m.type.toLowerCase().includes('pdf') || m.type.toLowerCase().includes('book')).length; kpiPlay.textContent = materials.filter(m=> m.type.toLowerCase().includes('playlist')).length; }
+
+  // units grid
+  function renderUnits(){ unitsGrid.innerHTML=''; const groups = {}; materials.forEach(m=>{ const key = (m.unit||'General').trim(); if(!groups[key]) groups[key]=[]; groups[key].push(m); });
+    Object.keys(groups).forEach(u=>{
+      const card = document.createElement('div'); card.className='card'; card.style.minWidth='220px'; card.style.flex='1'; card.style.maxWidth='320px';
+      card.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><strong>${esc(u)}</strong><span class="tag">${groups[u].length}</span></div><div style="margin-top:8px" class="muted">Click to expand</div>`;
+      card.addEventListener('click', ()=>{ showUnitDetails(u, groups[u]); });
+      unitsGrid.appendChild(card);
+    }); }
+
+  function showUnitDetails(unitName, items){ const w = window.open('','_blank'); const html = `<!doctype html><html><head><title>${unitName}</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><h2>${unitName}</h2><ul>`+ items.map(i=>`<li><a href="${encodeURI(i.link)}" target="_blank">${esc(i.subject)} — ${esc(i.type)}</a></li>`).join('') + '</ul></body></html>'; w.document.write(html); }
+
+  // add material
+  if(uploadBtn) uploadBtn.addEventListener('click', ()=>{
+    const sub = document.getElementById('subject').value.trim(); const type = document.getElementById('type').value.trim(); const unit = document.getElementById('unit').value.trim(); const link = document.getElementById('link').value.trim(); const desc = document.getElementById('description').value.trim();
+    if(!sub || !link){ alert('Subject and Link are required'); return; }
+    materials.unshift({subject:sub,type,type,unit,link,description:desc,created:new Date().toISOString()}); saveToStore(); renderTable(searchInput.value||''); renderUnits(); document.getElementById('subject').value=''; document.getElementById('unit').value=''; document.getElementById('link').value=''; document.getElementById('description').value='';
+  });
+
+  // clear
+  if(clearBtn) clearBtn.addEventListener('click', ()=>{['subject','unit','link','description'].forEach(id=>document.getElementById(id).value=''); });
+
+  // table events
+  tableBody.addEventListener('click', (e)=>{
+    const idx = e.target.dataset.idx;
+    if(e.target.classList.contains('del')){ if(confirm('Delete item?')){ materials.splice(idx,1); saveToStore(); renderTable(searchInput.value||''); renderUnits(); } }
+    if(e.target.classList.contains('edit')){ editIndex = Number(idx); const m = materials[editIndex]; document.getElementById('editSubject').value=m.subject; document.getElementById('editType').value=m.type; document.getElementById('editUnit').value=m.unit; document.getElementById('editLink').value=m.link; document.getElementById('editDesc').value=m.description; modal.style.display='flex'; }
+  });
+
+  // modal actions
+  document.getElementById('cancelEdit').addEventListener('click', ()=>{ modal.style.display='none'; editIndex=null; });
+  document.getElementById('saveEdit').addEventListener('click', ()=>{
+    if(editIndex===null) return; const m = materials[editIndex]; m.subject=document.getElementById('editSubject').value.trim(); m.type=document.getElementById('editType').value.trim(); m.unit=document.getElementById('editUnit').value.trim(); m.link=document.getElementById('editLink').value.trim(); m.description=document.getElementById('editDesc').value.trim(); saveToStore(); renderTable(searchInput.value||''); renderUnits(); modal.style.display='none'; editIndex=null;
+  });
 
   // delete all
-  const deleteAllBtn = document.getElementById('deleteAll');
-  if(deleteAllBtn) deleteAllBtn.addEventListener('click', () => {
-    if(!confirm('Delete ALL materials? This cannot be undone locally.')) return;
-    materials = []; saveStore(); renderTable();
-  });
+  if(deleteAllBtn) deleteAllBtn.addEventListener('click', ()=>{ if(confirm('Delete ALL locally?')){ materials=[]; saveToStore(); renderTable(); renderUnits(); } });
 
-  // search
-  const searchInput = document.getElementById('searchInput');
-  if(searchInput) searchInput.addEventListener('input', (e) => renderTable(e.target.value));
+  // import/export JSON
+  if(exportBtn) exportBtn.addEventListener('click', ()=>{ const data = JSON.stringify(materials, null, 2); const blob = new Blob([data], {type:'application/json'}); const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='materials.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); showToast('materials.json downloaded'); });
 
-  // export
-  const exportBtn = document.getElementById('exportBtn');
-  if(exportBtn) exportBtn.addEventListener('click', () => {
-    try {
-      const dataStr = JSON.stringify(materials, null, 2);
-      const blob = new Blob([dataStr], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = 'materials.json'; document.body.appendChild(a); a.click();
-      a.remove(); URL.revokeObjectURL(url);
-      showToast('materials.json downloaded');
-    } catch(e){
-      showToast('Export failed');
-    }
-  });
-
-  // import
-  const importBtn = document.getElementById('importBtn');
-  if(importBtn) importBtn.addEventListener('click', () => {
-    const input = document.createElement('input');
-    input.type='file'; input.accept='application/json';
-    input.onchange = (e) => {
-      const file = e.target.files[0];
-      if(!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        try{
-          const j = JSON.parse(reader.result);
-          if(!Array.isArray(j)) throw new Error('Invalid format');
-          materials = j;
-          saveStore(); renderTable(); showToast('Imported materials.json');
-        }catch(err){ alert('Invalid JSON file.'); }
-      };
-      reader.readAsText(file);
-    };
-    input.click();
-  });
-
-  // bulk add
-  const bulkAddBtn = document.getElementById('bulkAddBtn');
-  if(bulkAddBtn) bulkAddBtn.addEventListener('click', () => {
-    const sample = [
-      {subject:'Analysis and Design of Algorithms', type:'Notes', unit:'Unit 3', link:'https://drive.google.com/example1', description:'Greedy algorithms summary'},
-      {subject:'Computer Networks', type:'PYQ', unit:'Unit 5', link:'https://drive.google.com/example2', description:'Important questions 2023-24'},
-      {subject:'Python for Data Science', type:'Playlist', unit:'N/A', link:'https://youtube.com/example', description:'Top video playlist'}
-    ];
-    materials = sample.concat(materials);
-    saveStore(); renderTable(); showToast('Bulk materials added');
-  });
-
-  // preview
-  const previewBtn = document.getElementById('previewBtn');
-  if(previewBtn) previewBtn.addEventListener('click', () => {
-    const subject = document.getElementById('subject')?.value || '[subject]';
-    const type = document.getElementById('type')?.value || '[type]';
-    const unit = document.getElementById('unit')?.value || '[unit]';
-    const link = document.getElementById('link')?.value || '[link]';
-    const description = document.getElementById('description')?.value || '[description]';
-    alert(`Preview\n\nSubject: ${subject}\nType: ${type}\nUnit: ${unit}\nLink: ${link}\nDescription: ${description}`);
-  });
-
-  // sidebar nav switching
-  document.querySelectorAll('.nav-item').forEach(it => {
-    it.addEventListener('click', () => {
-      document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-      it.classList.add('active');
-      const section = it.dataset.section;
-      const addSec = document.getElementById('section-add');
-      const manageSec = document.getElementById('section-manage');
-      const settingsSec = document.getElementById('section-settings');
-      if(addSec && manageSec && settingsSec){
-        addSec.style.display = (section==='add' || section==='dashboard') ? 'block' : 'none';
-        manageSec.style.display = (section==='manage' || section==='dashboard') ? 'block' : 'none';
-        settingsSec.style.display = section==='settings' ? 'block' : 'none';
-      }
-    });
-  });
-
-  // hamburger
-  const hamb = document.getElementById('hamb');
-  if(hamb){
-    hamb.addEventListener('click', () => {
-      const sb = document.getElementById('sidebar');
-      if(getComputedStyle(sb).display === 'none') sb.style.display = 'flex';
-      else sb.style.display = 'none';
-    });
-  }
+  if(importBtn) importBtn.addEventListener('click', ()=>{ const input=document.createElement('input'); input.type='file'; input.accept='application/json'; input.onchange = (e)=>{ const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = ()=>{ try{ const j = JSON.parse(r.result); if(!Array.isArray(j)) throw new Error('Invalid'); materials = j.concat(materials); saveToStore(); renderTable(); renderUnits(); showToast('Imported JSON'); }catch(err){ alert('Invalid JSON file'); } }; r.readAsText(f); }; input.click(); });
 
   // dark mode
-  const darkToggle = document.getElementById('darkToggle');
-  function applyTheme(isDark){
-    if(isDark) document.documentElement.classList.add('dark');
-    else document.documentElement.classList.remove('dark');
-    try { localStorage.setItem(THEME_KEY, isDark ? 'dark':'light'); } catch(e){}
-  }
-  if(darkToggle){
-    darkToggle.addEventListener('change', () => applyTheme(darkToggle.checked));
-    const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
-    applyTheme(savedTheme === 'dark');
-    darkToggle.checked = savedTheme === 'dark';
-  }
+  if(darkToggle) darkToggle.addEventListener('click', ()=>{ document.documentElement.classList.toggle('dark'); localStorage.setItem(THEME_KEY, document.documentElement.classList.contains('dark')?'dark':'light'); });
 
-  // ctrl/cmd + s export
-  window.addEventListener('keydown', (e) => {
-    if((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='s'){
-      e.preventDefault(); const eb = document.getElementById('exportBtn'); if(eb) eb.click();
-    }
-  });
+  // search
+  if(searchInput) searchInput.addEventListener('input', ()=> renderTable(searchInput.value));
 
-  // initial render
-  renderTable();
+  // nav switching
+  navButtons.forEach(btn=> btn.addEventListener('click', ()=>{ navButtons.forEach(b=>b.classList.remove('active')); btn.classList.add('active'); const sec = btn.dataset.section; for(const s in sections) if(sections[s]) sections[s].style.display = (s===sec || sec==='dashboard' && (s==='add' || s==='manage')) ? 'block' : 'none'; }));
 
-  // hide settings section by default
-  const settings = document.getElementById('section-settings');
-  if(settings) settings.style.display = 'none';
+  // keyboard shortcut Cmd/Ctrl+S => export
+  window.addEventListener('keydown',(e)=>{ if((e.ctrlKey||e.metaKey)&& e.key.toLowerCase()==='s'){ e.preventDefault(); exportBtn.click(); } });
 
-  // auto-save
-  setInterval(() => { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(materials)); } catch(e){} }, 30000);
+  // initial load
+  loadFromStore(); renderTable(); renderUnits(); updateKPIs();
 
-}); // DOMContentLoaded end
-</script>
-</body>
+})();
+</script></body>
 </html>
