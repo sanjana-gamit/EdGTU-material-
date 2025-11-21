@@ -1,10 +1,11 @@
 <!doctype html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Admin Dashboard — EduBot GTU</title>  <!-- GTU Themed Admin Dashboard (single-file) -->  <style>
+  <title>Admin Dashboard — EduBot GTU</title>
+
+  <style>
     :root{
       --gtu-blue:#003366;
       --gtu-blue-2:#0059b3;
@@ -26,16 +27,16 @@
 
     /* Layout */
     .app{display:grid;grid-template-columns:260px 1fr;gap:24px;min-height:100vh;padding:22px}
-    @media(max-width:900px){.app{grid-template-columns:1fr;}}
+    @media(max-width:900px){.app{grid-template-columns:1fr;padding:12px}}
 
     /* Sidebar */
     .sidebar{background:linear-gradient(180deg,var(--gtu-blue),var(--gtu-blue-2));color:white;padding:20px;border-radius:12px;box-shadow:var(--shadow);height:calc(100vh - 44px);position:sticky;top:22px}
     .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px}
     .brand img{width:44px;height:44px;object-fit:cover;border-radius:6px}
     .nav{margin-top:20px;display:flex;flex-direction:column;gap:8px}
-    .nav button{background:transparent;border:0;color:rgba(255,255,255,0.95);padding:10px;border-radius:8px;text-align:left;cursor:pointer;font-weight:600}
-    .nav button:hover{background:rgba(255,255,255,0.06);transform:translateX(4px)}
-    .nav button.active{background:rgba(0,0,0,0.12)}
+    .nav .nav-item{background:transparent;border:0;color:rgba(255,255,255,0.95);padding:10px;border-radius:8px;text-align:left;cursor:pointer;font-weight:600}
+    .nav .nav-item:hover{background:rgba(255,255,255,0.06);transform:translateX(4px)}
+    .nav .nav-item.active{background:rgba(0,0,0,0.12)}
 
     /* Header inside main */
     .header{display:flex;align-items:center;justify-content:space-between;gap:12px}
@@ -86,176 +87,179 @@
     /* animations */
     .fade-in{animation:fadeIn .6s ease both}
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-  </style></head>
-<body><div class="app">
+
+    /* PDF UI styles */
+    .file-info{font-size:13px;color:var(--gtu-blue);margin-top:6px}
+    .progress{height:8px;background:#e6eefc;border-radius:6px;overflow:hidden;margin-top:8px}
+    .progress > div{height:100%;width:0;background:linear-gradient(90deg,var(--gtu-blue),var(--gtu-blue-2));transition:width .3s}
+  </style>
+</head>
+<body>
+
+<div class="app">
   <!-- SIDEBAR -->
   <aside class="sidebar fade-in">
-    <div class="brand"><img src="assets/logo.png" alt="logo"> EduBot GTU</div><nav class="nav" aria-label="Main navigation">
-  <button class="nav-item active" data-section="dashboard">🏠 Dashboard</button>
-  <button class="nav-item" data-section="add">➕ Add Material</button>
-  <button class="nav-item" data-section="manage">🗂 Manage Materials</button>
-  <button class="nav-item" data-section="units">📚 Units</button>
-  <button class="nav-item" data-section="settings">⚙️ Settings</button>
-</nav>
+    <div class="brand"><img src="assets/logo.png" alt="logo"> EduBot GTU</div>
+    <nav class="nav" aria-label="Main navigation">
+      <button class="nav-item active" data-section="dashboard">🏠 Dashboard</button>
+      <button class="nav-item" data-section="add">➕ Add Material</button>
+      <button class="nav-item" data-section="manage">🗂 Manage Materials</button>
+      <button class="nav-item" data-section="units">📚 Units</button>
+      <button class="nav-item" data-section="settings">⚙️ Settings</button>
+    </nav>
 
-<div class="spacer"></div>
+    <div class="spacer"></div>
 
-<div class="muted">Logged in as <strong>admin</strong></div>
-<div class="muted" style="margin-top:8px">Tip: export <code>materials.json</code> to update your GitHub repo.</div>
+    <div class="muted">Logged in as <strong>admin</strong></div>
+    <div class="muted" style="margin-top:8px">Tip: export <code>materials.json</code> to update your GitHub repo.</div>
 
-  </aside>  <!-- MAIN -->  <main>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
     <div class="header">
       <div class="left">
         <h2 style="margin:0">Admin Dashboard</h2>
         <div class="muted" style="margin-left:12px">GTU Portal • Manage study resources</div>
-      </div><div class="actions">
-    <input id="search" class="search" placeholder="Search subject, unit, type...">
-    <button id="importBtn" class="btn secondary">📥 Import JSON</button>
-    <button id="exportBtn" class="btn">📤 Export JSON</button>
-    <button id="darkToggle" class="btn secondary">🌙 Dark</button>
-  </div>
-</div>
-
-<!-- KPIs -->
-<div class="grid">
-  <div class="card">
-    <div class="kpi" id="kpiCount">0</div>
-    <div class="kpi-sub">Total Materials</div>
-  </div>
-
-  <div class="card">
-    <div class="kpi" id="kpiPDF">0</div>
-    <div class="kpi-sub">PDFs / Books</div>
-  </div>
-
-  <div class="card">
-    <div class="kpi" id="kpiPlay">0</div>
-    <div class="kpi-sub">Playlists</div>
-  </div>
-</div>
-
-<!-- Add Form -->
-<section id="section-add" class="fade-in">
-  <div class="card" style="margin-top:14px">
-    <strong>➕ Add / Upload Material</strong>
-    <p class="muted">Add new study resources. Use import to bulk load materials.json.</p>
-
-    <div class="form" style="margin-top:12px">
-      <div>
-        <label>Subject</label>
-        <input id="subject">
       </div>
 
-      <div>
-        <label>Type</label>
-        <select id="type">
-          <option>Notes</option>
-          <option>PDF</option>
-          <option>Book</option>
-          <option>PYQ</option>
-          <option>Playlist</option>
-          <option>Other</option>
-        </select>
+      <div class="actions">
+        <input id="search" class="search" placeholder="Search subject, unit, type...">
+        <button id="importBtn" class="btn secondary">📥 Import JSON</button>
+        <button id="exportBtn" class="btn">📤 Export JSON</button>
+        <button id="darkToggle" class="btn secondary">🌙 Dark</button>
+      </div>
+    </div>
+
+    <!-- KPIs -->
+    <div class="grid">
+      <div class="card">
+        <div class="kpi" id="kpiCount">0</div>
+        <div class="kpi-sub">Total Materials</div>
       </div>
 
-     <!-- PDF Upload Section (Add inside Add / Upload Material card) -->
-<div style="margin-top:16px">
-  <label><strong>Upload PDF File</strong></label>
-  <input type="file" id="pdfFile" accept="application/pdf" style="margin-top:6px">
-  <p class="muted">After selecting PDF, it will auto-generate a view link using Base64.</p>
-</div>
-
-<script>
-// Convert PDF to Base64 and auto-fill link
-const pdfInput = document.getElementById('pdfFile');
-
-pdfInput.addEventListener('change', function(){
-  const file = this.files[0];
-  if(!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e){
-    const base64 = e.target.result;
-    // Set Base64 as link
-    document.getElementById('link').value = base64;
-    alert('PDF converted to Base64 and added to link field!');
-  };
-  reader.readAsDataURL(file);
-});
-</script>
-
-
-      <div>
-        <label>Link (URL / Drive / YouTube)</label>
-        <input id="link">
+      <div class="card">
+        <div class="kpi" id="kpiPDF">0</div>
+        <div class="kpi-sub">PDFs / Books</div>
       </div>
 
-      <div style="grid-column:1 / -1">
-        <label>Description & Tags</label>
-        <textarea id="description" rows="3"></textarea>
+      <div class="card">
+        <div class="kpi" id="kpiPlay">0</div>
+        <div class="kpi-sub">Playlists</div>
       </div>
-
     </div>
 
-    <div style="display:flex;gap:10px;margin-top:12px">
-      <button id="uploadBtn" class="btn">✅ Upload Material</button>
-      <button id="clearBtn" class="btn secondary">🧹 Clear</button>
-      <div style="margin-left:auto" class="muted">Last saved: <span id="lastSaved">Never</span></div>
-    </div>
-  </div>
-</section>
+    <!-- Add Form -->
+    <section id="section-add" class="fade-in">
+      <div class="card" style="margin-top:14px">
+        <strong>➕ Add / Upload Material</strong>
+        <p class="muted">Add new study resources. Use import to bulk load materials.json.</p>
 
-<!-- Manage Table -->
-<section id="section-manage" class="fade-in">
-  <div class="table-wrap">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-      <strong>📂 Materials Library</strong>
-      <div class="muted">Total: <span id="totalCount">0</span></div>
-    </div>
+        <div class="form" style="margin-top:12px">
+          <div>
+            <label>Subject</label>
+            <input id="subject">
+          </div>
 
-    <table id="materialsTable">
-      <thead>
-        <tr><th>Subject</th><th>Type</th><th>Unit</th><th>Description</th><th>Link</th><th>Actions</th></tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+          <div>
+            <label>Type</label>
+            <select id="type">
+              <option>Notes</option>
+              <option>PDF</option>
+              <option>Book</option>
+              <option>PYQ</option>
+              <option>Playlist</option>
+              <option>Other</option>
+            </select>
+          </div>
 
-    <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
-      <button id="deleteAll" class="btn secondary">🗑️ Delete All</button>
-      <div class="muted">Tip: Export JSON and commit to GitHub to publish materials.</div>
-    </div>
-  </div>
-</section>
+          <div>
+            <label>Unit / Chapter</label>
+            <input id="unit">
+          </div>
 
-<!-- Units / Cards -->
-<section id="section-units" class="fade-in">
-  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-    <!-- Animated unit cards will be injected -->
-    <div id="unitsGrid" style="display:flex;gap:12px;flex-wrap:wrap"></div>
-  </div>
-</section>
+          <div>
+            <label>Link (URL / Drive / YouTube)</label>
+            <input id="link">
+          </div>
 
-<!-- Settings -->
-<section id="section-settings" class="fade-in" style="display:none;margin-top:12px">
-  <div class="card">
-    <strong>⚙️ Settings</strong>
-    <p class="muted">Dark mode, Import/Export and local persistence are available.</p>
-  </div>
-</section>
+          <!-- PDF Upload Section (placed inside form) -->
+          <div style="grid-column:1 / -1; margin-top:6px">
+            <label><strong>Upload PDF File (optional)</strong></label>
+            <input type="file" id="pdfFile" accept="application/pdf" style="margin-top:6px">
+            <div class="file-info" id="pdfInfoAdd" style="display:none"></div>
+            <div class="progress" id="pdfProgressAdd" style="display:none"><div></div></div>
+          </div>
 
-<footer>
-  <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
-    <a href="#" style="color:var(--gtu-blue);text-decoration:none;font-weight:700">Home</a>
-    <a href="#" class="muted">Study Material</a>
-    <a href="#" class="muted">GTU Official</a>
-    <a href="#" class="muted">Darshan Material</a>
-    <a href="#" class="muted">Contact</a>
-  </div>
-  <div style="margin-top:8px" class="muted">© 2025 EduBot GTU • Built for GTU Students</div>
-</footer>
+          <div style="grid-column:1 / -1">
+            <label>Description & Tags</label>
+            <textarea id="description" rows="3"></textarea>
+          </div>
+
+        </div>
+
+        <div style="display:flex;gap:10px;margin-top:12px">
+          <button id="uploadBtn" class="btn">✅ Upload Material</button>
+          <button id="clearBtn" class="btn secondary">🧹 Clear</button>
+          <div style="margin-left:auto" class="muted">Last saved: <span id="lastSaved">Never</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Manage Table -->
+    <section id="section-manage" class="fade-in">
+      <div class="table-wrap">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <strong>📂 Materials Library</strong>
+          <div class="muted">Total: <span id="totalCount">0</span></div>
+        </div>
+
+        <table id="materialsTable">
+          <thead>
+            <tr><th>Subject</th><th>Type</th><th>Unit</th><th>Description</th><th>Link</th><th>Actions</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+          <button id="deleteAll" class="btn secondary">🗑️ Delete All</button>
+          <div class="muted">Tip: Export JSON and commit to GitHub to publish materials.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Units / Cards -->
+    <section id="section-units" class="fade-in">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+        <!-- Animated unit cards will be injected -->
+        <div id="unitsGrid" style="display:flex;gap:12px;flex-wrap:wrap"></div>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section id="section-settings" class="fade-in" style="display:none;margin-top:12px">
+      <div class="card">
+        <strong>⚙️ Settings</strong>
+        <p class="muted">Dark mode, Import/Export and local persistence are available.</p>
+      </div>
+    </section>
+
+    <footer>
+      <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap">
+        <a href="#" style="color:var(--gtu-blue);text-decoration:none;font-weight:700">Home</a>
+        <a href="#" class="muted">Study Material</a>
+        <a href="#" class="muted">GTU Official</a>
+        <a href="#" class="muted">Darshan Material</a>
+        <a href="#" class="muted">Contact</a>
+      </div>
+      <div style="margin-top:8px" class="muted">© 2025 EduBot GTU • Built for GTU Students</div>
+    </footer>
 
   </main>
-</div><!-- Edit Modal --><div class="modal-backdrop" id="modal">
+</div>
+
+<!-- Edit Modal (includes PDF upload for edits) -->
+<div class="modal-backdrop" id="modal">
   <div class="modal">
     <h3>Edit Material</h3>
     <div style="margin-top:8px">
@@ -267,6 +271,13 @@ pdfInput.addEventListener('change', function(){
       <input id="editUnit">
       <label>Link</label>
       <input id="editLink">
+
+      <!-- PDF upload inside modal -->
+      <label style="margin-top:8px">Replace PDF (optional)</label>
+      <input type="file" id="editPdfFile" accept="application/pdf">
+      <div class="file-info" id="pdfInfoEdit" style="display:none"></div>
+      <div class="progress" id="pdfProgressEdit" style="display:none"><div></div></div>
+
       <label>Description</label>
       <textarea id="editDesc" rows="3"></textarea>
     </div>
@@ -275,8 +286,13 @@ pdfInput.addEventListener('change', function(){
       <button id="saveEdit" class="btn">Save</button>
     </div>
   </div>
-</div><!-- Toast --><div id="toast" style="position:fixed;right:18px;bottom:18px;background:var(--success);color:white;padding:10px 14px;border-radius:10px;display:none;box-shadow:var(--shadow)"></div><script>
-// Robust single-file admin dashboard script
+</div>
+
+<!-- Toast -->
+<div id="toast" style="position:fixed;right:18px;bottom:18px;background:var(--success);color:white;padding:10px 14px;border-radius:10px;display:none;box-shadow:var(--shadow)"></div>
+
+<script>
+// Robust single-file admin dashboard script with PDF upload in Add + Edit
 (function(){
   const STORAGE_KEY = 'gtu_materials_v2';
   const THEME_KEY = 'gtu_theme_v2';
@@ -301,14 +317,26 @@ pdfInput.addEventListener('change', function(){
   const unitsGrid = document.getElementById('unitsGrid');
   const modal = document.getElementById('modal');
 
+  // pdf elements
+  const pdfFileAdd = document.getElementById('pdfFile');
+  const pdfInfoAdd = document.getElementById('pdfInfoAdd');
+  const pdfProgressAdd = document.getElementById('pdfProgressAdd');
+  const editPdfFile = document.getElementById('editPdfFile');
+  const pdfInfoEdit = document.getElementById('pdfInfoEdit');
+  const pdfProgressEdit = document.getElementById('pdfProgressEdit');
+
   // data
   let materials = [];
   let editIndex = null;
 
-  // safe helpers
+  // helpers
   function showToast(msg){ toast.textContent = msg; toast.style.display = 'block'; setTimeout(()=> toast.style.display='none',2200); }
   function saveToStore(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(materials)); lastSaved.textContent = new Date().toLocaleString(); showToast('Saved locally'); updateKPIs(); }
   function loadFromStore(){ try{ const raw = localStorage.getItem(STORAGE_KEY); materials = raw ? JSON.parse(raw) : []; if(!Array.isArray(materials)) materials = []; }catch(e){ materials = []; } }
+
+  function esc(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function updateKPIs(){ kpiCount.textContent = materials.length; kpiPDF.textContent = materials.filter(m=> m.type && (m.type.toLowerCase().includes('pdf') || m.type.toLowerCase().includes('book'))).length; kpiPlay.textContent = materials.filter(m=> m.type && m.type.toLowerCase().includes('playlist')).length; }
 
   // render table
   function renderTable(filter){ tableBody.innerHTML=''; const list = materials.filter(m => {
@@ -316,15 +344,16 @@ pdfInput.addEventListener('change', function(){
   });
   list.forEach((m, idx) => {
     const tr = document.createElement('tr');
-    tr.innerHTML = `\n      <td>${esc(m.subject)}</td>\n      <td>${esc(m.type)}</td>\n      <td>${esc(m.unit)}</td>\n      <td>${esc(m.description)}</td>\n      <td><a href="${encodeURI(m.link)}" target="_blank">Open</a></td>\n      <td class="actions"><button data-idx="${idx}" class="edit">✏️ Edit</button><button data-idx="${idx}" class="del">🗑️</button></td>\n    `;
+    tr.innerHTML = `
+      <td>${esc(m.subject)}</td>
+      <td>${esc(m.type)}</td>
+      <td>${esc(m.unit)}</td>
+      <td>${esc(m.description)}</td>
+      <td>${m.link ? `<a href="${m.link}" target="_blank">Open</a>` : ''}</td>
+      <td class="actions"><button data-idx="${idx}" class="edit">✏️ Edit</button><button data-idx="${idx}" class="del">🗑️</button></td>
+    `;
     tableBody.appendChild(tr);
   }); totalCount.textContent = materials.length; updateKPIs(); }
-
-  // escape
-  function esc(s){ return (s||'').toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-
-  // update KPIs
-  function updateKPIs(){ kpiCount.textContent = materials.length; kpiPDF.textContent = materials.filter(m=> m.type.toLowerCase().includes('pdf') || m.type.toLowerCase().includes('book')).length; kpiPlay.textContent = materials.filter(m=> m.type.toLowerCase().includes('playlist')).length; }
 
   // units grid
   function renderUnits(){ unitsGrid.innerHTML=''; const groups = {}; materials.forEach(m=>{ const key = (m.unit||'General').trim(); if(!groups[key]) groups[key]=[]; groups[key].push(m); });
@@ -335,23 +364,63 @@ pdfInput.addEventListener('change', function(){
       unitsGrid.appendChild(card);
     }); }
 
-  function showUnitDetails(unitName, items){ const w = window.open('','_blank'); const html = `<!doctype html><html><head><title>${unitName}</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><h2>${unitName}</h2><ul>`+ items.map(i=>`<li><a href="${encodeURI(i.link)}" target="_blank">${esc(i.subject)} — ${esc(i.type)}</a></li>`).join('') + '</ul></body></html>'; w.document.write(html); }
+  function showUnitDetails(unitName, items){ const w = window.open('','_blank'); const html = `<!doctype html><html><head><title>${unitName}</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="font-family:Arial,sans-serif;padding:18px"><h2>${unitName}</h2><ul>`+ items.map(i=>`<li><a href="${i.link}" target="_blank">${esc(i.subject)} — ${esc(i.type)}</a></li>`).join('') + '</ul></body></html>'; w.document.write(html); }
+
+  // handle PDF -> Base64 for add form
+  if(pdfFileAdd){
+    pdfFileAdd.addEventListener('change', function(){
+      const file = this.files[0];
+      if(!file) return;
+      if(file.type !== 'application/pdf'){ alert('Only PDF files allowed.'); this.value=''; return; }
+      pdfInfoAdd.style.display='block'; pdfInfoAdd.textContent = `Selected: ${file.name} (${(file.size/1024/1024).toFixed(2)} MB)`;
+      pdfProgressAdd.style.display='block'; pdfProgressAdd.firstElementChild.style.width='0%';
+
+      const reader = new FileReader();
+      reader.onprogress = (e)=>{ if(e.lengthComputable){ const p = Math.round(e.loaded / e.total * 100); pdfProgressAdd.firstElementChild.style.width = p + '%'; } };
+      reader.onload = function(e){ document.getElementById('link').value = e.target.result; pdfProgressAdd.firstElementChild.style.width = '100%'; showToast('PDF converted to Base64 and set as link'); };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // handle PDF in edit modal
+  if(editPdfFile){
+    editPdfFile.addEventListener('change', function(){
+      const file = this.files[0];
+      if(!file) return;
+      if(file.type !== 'application/pdf'){ alert('Only PDF files allowed.'); this.value=''; return; }
+      pdfInfoEdit.style.display='block'; pdfInfoEdit.textContent = `Selected: ${file.name} (${(file.size/1024/1024).toFixed(2)} MB)`;
+      pdfProgressEdit.style.display='block'; pdfProgressEdit.firstElementChild.style.width='0%';
+
+      const reader = new FileReader();
+      reader.onprogress = (e)=>{ if(e.lengthComputable){ const p = Math.round(e.loaded / e.total * 100); pdfProgressEdit.firstElementChild.style.width = p + '%'; } };
+      reader.onload = function(e){ document.getElementById('editLink').value = e.target.result; pdfProgressEdit.firstElementChild.style.width = '100%'; showToast('PDF converted to Base64 and set as link (edit)'); };
+      reader.readAsDataURL(file);
+    });
+  }
 
   // add material
   if(uploadBtn) uploadBtn.addEventListener('click', ()=>{
-    const sub = document.getElementById('subject').value.trim(); const type = document.getElementById('type').value.trim(); const unit = document.getElementById('unit').value.trim(); const link = document.getElementById('link').value.trim(); const desc = document.getElementById('description').value.trim();
+    const sub = document.getElementById('subject').value.trim();
+    const type = document.getElementById('type').value.trim();
+    const unit = document.getElementById('unit').value.trim();
+    const link = document.getElementById('link').value.trim();
+    const desc = document.getElementById('description').value.trim();
     if(!sub || !link){ alert('Subject and Link are required'); return; }
-    materials.unshift({subject:sub,type,type,unit,link,description:desc,created:new Date().toISOString()}); saveToStore(); renderTable(searchInput.value||''); renderUnits(); document.getElementById('subject').value=''; document.getElementById('unit').value=''; document.getElementById('link').value=''; document.getElementById('description').value='';
+    materials.unshift({subject:sub, type:type, unit:unit, link:link, description:desc, created:new Date().toISOString()});
+    saveToStore(); renderTable(searchInput.value||''); renderUnits();
+    ['subject','unit','link','description'].forEach(id=>document.getElementById(id).value='');
+    // clear pdf inputs
+    if(pdfFileAdd) pdfFileAdd.value=''; pdfInfoAdd.style.display='none'; pdfProgressAdd.style.display='none';
   });
 
   // clear
-  if(clearBtn) clearBtn.addEventListener('click', ()=>{['subject','unit','link','description'].forEach(id=>document.getElementById(id).value=''); });
+  if(clearBtn) clearBtn.addEventListener('click', ()=>{['subject','unit','link','description'].forEach(id=>document.getElementById(id).value=''); if(pdfFileAdd) pdfFileAdd.value=''; pdfInfoAdd.style.display='none'; pdfProgressAdd.style.display='none'; });
 
   // table events
   tableBody.addEventListener('click', (e)=>{
     const idx = e.target.dataset.idx;
     if(e.target.classList.contains('del')){ if(confirm('Delete item?')){ materials.splice(idx,1); saveToStore(); renderTable(searchInput.value||''); renderUnits(); } }
-    if(e.target.classList.contains('edit')){ editIndex = Number(idx); const m = materials[editIndex]; document.getElementById('editSubject').value=m.subject; document.getElementById('editType').value=m.type; document.getElementById('editUnit').value=m.unit; document.getElementById('editLink').value=m.link; document.getElementById('editDesc').value=m.description; modal.style.display='flex'; }
+    if(e.target.classList.contains('edit')){ editIndex = Number(idx); const m = materials[editIndex]; document.getElementById('editSubject').value=m.subject; document.getElementById('editType').value=m.type; document.getElementById('editUnit').value=m.unit; document.getElementById('editLink').value=m.link||''; document.getElementById('editDesc').value=m.description||''; pdfInfoEdit.style.display='none'; pdfProgressEdit.style.display='none'; modal.style.display='flex'; }
   });
 
   // modal actions
@@ -369,7 +438,11 @@ pdfInput.addEventListener('change', function(){
   if(importBtn) importBtn.addEventListener('click', ()=>{ const input=document.createElement('input'); input.type='file'; input.accept='application/json'; input.onchange = (e)=>{ const f = e.target.files[0]; if(!f) return; const r = new FileReader(); r.onload = ()=>{ try{ const j = JSON.parse(r.result); if(!Array.isArray(j)) throw new Error('Invalid'); materials = j.concat(materials); saveToStore(); renderTable(); renderUnits(); showToast('Imported JSON'); }catch(err){ alert('Invalid JSON file'); } }; r.readAsText(f); }; input.click(); });
 
   // dark mode
-  if(darkToggle) darkToggle.addEventListener('click', ()=>{ document.documentElement.classList.toggle('dark'); localStorage.setItem(THEME_KEY, document.documentElement.classList.contains('dark')?'dark':'light'); });
+  if(darkToggle) {
+    darkToggle.addEventListener('click', ()=>{ document.documentElement.classList.toggle('dark'); localStorage.setItem(THEME_KEY, document.documentElement.classList.contains('dark')?'dark':'light'); });
+    // apply saved theme
+    const savedTheme = localStorage.getItem(THEME_KEY) || 'light'; if(savedTheme==='dark') document.documentElement.classList.add('dark');
+  }
 
   // search
   if(searchInput) searchInput.addEventListener('input', ()=> renderTable(searchInput.value));
@@ -384,5 +457,6 @@ pdfInput.addEventListener('change', function(){
   loadFromStore(); renderTable(); renderUnits(); updateKPIs();
 
 })();
-</script></body>
+</script>
+</body>
 </html>
