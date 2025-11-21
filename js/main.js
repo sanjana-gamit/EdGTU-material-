@@ -49,3 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // if page wants to auto-load without param
   if(document.getElementById('materials-list')) loadMaterials();
 });
+// Scroll reveal for cards
+const cards = document.querySelectorAll('.ai-card');
+
+window.addEventListener('scroll', () => {
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect().top;
+    if (rect < window.innerHeight - 50) {
+      card.classList.add('show');
+    }
+  });
+});
