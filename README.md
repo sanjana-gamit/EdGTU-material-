@@ -20,41 +20,43 @@ EduBot – GTU is designed to help Gujarat Technological University students acc
 It provides a clean interface, fast performance, animations, and an Admin Dashboard for managing materials.
 
 
----
-
 ✨ Features
 
-🎓 Student Features
+🔥 Student Features
 
-📘 Semester-wise & subject-wise materials
+One-click access to GTU material
 
-📥 Download notes, books, syllabus, PYQs, GTU papers
+AI answer system for direct explanations
 
-🔍 Search materials instantly
+Unit-wise and topic-wise categorization
 
-🤖 Access built-in AI Study Tools (ChatGPT, Gemini, Code Tools)
+Clean UI optimized for speed
+
+Supports PDF, Video, Notes, PYQs, Slides
 
 
-🔐 Admin Features
+🔧 Admin Features
 
-Secure Admin Login
+Add / edit materials
 
-Upload PDF / Notes / Book / PYQs
+Auto-generate JSON
 
-Auto-update materials.json
+Manage categories (semester, branch, subject)
 
-Edit/Delete materials
 
-Admin Dashboard with filters
 
-Slide management system
+---
 
-🧩 Tech Stack
+🚀 Tech Stack
 
-Layer	Technology
+Frontend: HTML, CSS, JavaScript
 
-Frontend	HTML, CSS, JavaScript
-Styling	Custom CSS + Animations
-Database	JSON file (materials.json)
-Hosting	GitHub Pages
-Automation	GitHub Actions (Auto-Commit Material Updates)
+Backend: Node.js / Python Flask
+
+AI: ChatGPT API, Gemini API
+
+Database: Firebase / MongoDB
+
+CI/CD: GitHub Actions
+
+Hosting: Vercel / Netlify / Heroku / Render
