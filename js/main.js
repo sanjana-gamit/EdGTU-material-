@@ -27,12 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 6000);
 
 
-  /* -------------------- NAV TOGGLE -------------------- */
-  document.querySelectorAll('.nav-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelector('.nav-links').classList.toggle('open');
+  /* -------------------- NAV TOGGLE (HAM menu) -------------------- */
+  const menuBtn = document.getElementById("navToggle");
+  const menu = document.querySelector(".nav-links");
+
+  if (menuBtn && menu) {
+    menuBtn.addEventListener("click", () => {
+      menu.classList.toggle("open");
     });
-  });
+  }
 
 
   /* -------------------- SHOW/HIDE PASSWORD -------------------- */
@@ -51,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* -------------------- ADMIN LOGIN (HASHED PASSWORD) -------------------- */
   const loginForm = document.getElementById('admin-login');
 
-  // SHA-256 hashed version of your password: "GTU@2025"
+  // SHA-256 hashed version of password: "GTU@2025"
   const ADMIN_PASS_HASH = "279fa3ad77cdad5f6a97d209b917c586ec1a0c327b71fc59f870ce1e6126ef77";
 
   async function sha256(text) {
@@ -82,49 +85,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* -------------------- LOAD MATERIALS -------------------- */
-  if (window.loadMaterials) return;
+  if (!window.loadMaterials) {
+    window.loadMaterials = function (type = null, targetId = null) {
+      fetch('/materials.json')
+        .then(r => r.json())
+        .then(data => {
+          const target = targetId
+            ? document.getElementById(targetId)
+            : document.getElementById('materials-list');
 
-  window.loadMaterials = function (type = null, targetId = null) {
-    fetch('/materials.json')
-      .then(r => r.json())
-      .then(data => {
-        const target = targetId
-          ? document.getElementById(targetId)
-          : document.getElementById('materials-list');
+          if (!target) return;
 
-        if (!target) return;
+          target.innerHTML = '';
 
-        target.innerHTML = '';
+          Object.keys(data).forEach(code => {
+            const item = data[code];
+            const mats = item.materials || [];
+            const filtered = type ? mats.filter(m => m.type === type) : mats;
 
-        Object.keys(data).forEach(code => {
-          const item = data[code];
-          const mats = item.materials || [];
-          const filtered = type ? mats.filter(m => m.type === type) : mats;
+            if (filtered.length === 0) return;
 
-          if (filtered.length === 0) return;
+            const section = document.createElement('div');
+            section.className = 'card';
 
-          const section = document.createElement('div');
-          section.className = 'card';
+            section.innerHTML =
+              `<h3>${item.title} (${code})</h3>` +
+              filtered.map(m =>
+                `<div class="mat">
+                  <div>
+                    <strong>${m.name}</strong>
+                    <div class="muted">${m.type}</div>
+                  </div>
+                  <div>
+                    <a href="${m.link}" target="_blank" class="btn">Open</a>
+                  </div>
+                </div>`
+              ).join('');
 
-          section.innerHTML =
-            `<h3>${item.title} (${code})</h3>` +
-            filtered.map(m =>
-              `<div class="mat">
-                <div>
-                  <strong>${m.name}</strong>
-                  <div class="muted">${m.type}</div>
-                </div>
-                <div>
-                  <a href="${m.link}" target="_blank" class="btn">Open</a>
-                </div>
-              </div>`
-            ).join('');
-
-          target.appendChild(section);
-        });
-      })
-      .catch(() => console.warn("materials.json not found or invalid."));
-  };
+            target.appendChild(section);
+          });
+        })
+        .catch(() => console.warn("materials.json not found or invalid."));
+    };
+  }
 
   if (document.getElementById('materials-list')) loadMaterials();
 });
