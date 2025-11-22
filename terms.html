@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms & Conditions – EduBot GTU</title>
+
+  <style>
+    :root {
+      --gtu-blue: #003366;
+      --gtu-light: #e6f0ff;
+      --white: #fff;
+      --shadow: 0 2px 12px rgba(0,0,0,0.12);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--gtu-light);
+    }
+
+    /* NAVBAR */
+    nav {
+      background: var(--gtu-blue);
+      color: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 22px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+    }
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* Hamburger Icon */
+    .hamburger {
+      width: 32px;
+      cursor: pointer;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .hamburger span {
+      height: 3px;
+      background: var(--white);
+      border-radius: 3px;
+    }
+
+    /* Mobile Menu */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        padding: 10px 0;
+        width: 100%;
+        background: var(--gtu-blue);
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* MAIN CONTAINER */
+    .container {
+      max-width: 900px;
+      background: #fff;
+      margin: 40px auto;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      line-height: 1.7;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--gtu-blue);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: var(--gtu-blue);
+      margin-top: 28px;
+      font-size: 20px;
+    }
+
+    p, li {
+      font-size: 16px;
+      color: #444;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--gtu-blue);
+      color: var(--white);
+      text-align: center;
+      padding: 14px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">EduBot GTU</div>
+
+    <div class="hamburger" id="menu-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="ai-tools.html">AI Tools</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- TERMS PAGE CONTENT -->
+  <div class="container">
+    <h1>Terms & Conditions</h1>
+
+    <p>
+      Welcome to <strong>EduBot GTU</strong>. These Terms & Conditions outline the rules and regulations for the use of our website and services.
+      By accessing this website, you agree to these terms. If you do not agree, please do not use our site.
+    </p>
+
+    <h2>1. Use of our Website</h2>
+    <p>
+      You may use the EduBot GTU website only for educational and personal purposes. Misuse or harmful actions 
+      (e.g., hacking, spamming, uploading harmful files) are strictly prohibited.
+    </p>
+
+    <h2>2. User Responsibilities</h2>
+    <ul>
+      <li>Provide accurate information when contacting or using forms.</li>
+      <li>Do not use automated bots or scripts to abuse the website.</li>
+      <li>Do not attempt to access restricted admin areas without authorization.</li>
+    </ul>
+
+    <h2>3. Intellectual Property</h2>
+    <p>
+      All content, design, graphics, notes, and resources on EduBot GTU are the property of the developers.
+      Copying or distributing without permission is not allowed.
+    </p>
+
+    <h2>4. External Links</h2>
+    <p>
+      Our site contains links to external websites (AI tools, PDFs, etc.).  
+      We are not responsible for the safety or content of these third-party websites.
+    </p>
+
+    <h2>5. Limitation of Liability</h2>
+    <p>
+      EduBot GTU is a student-developed project and provides study help "as-is".
+      We are not responsible for:
+    </p>
+    <ul>
+      <li>Incorrect information provided by third-party sources</li>
+      <li>Loss of data while using our site</li>
+      <li>Website downtime or technical issues</li>
+    </ul>
+
+    <h2>6. Changes to Terms</h2>
+    <p>
+      We may update or modify these Terms at any time.  
+      Continued use of the site means you accept the updated terms.
+    </p>
+
+    <h2>7. Contact Us</h2>
+    <p>
+      If you have any questions about these Terms, feel free to contact us at:  
+      <strong>support@edubotgtu.in</strong>
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 EduBot GTU — All Rights Reserved.
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const btn = document.getElementById("menu-btn");
+    const nav = document.getElementById("nav-links");
+
+    btn.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+  </script>
+
+</body>
+</html>
