@@ -3,11 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin Login – EduBot GTU</title><!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin Login – EduBot GTU</title>
 
   <style>
@@ -22,6 +17,7 @@
       --text-color: #000;
     }
 
+    /* Dark Mode Theme */
     body.dark {
       --gtu-light: #0c1a2b;
       --card-bg: #10243e;
@@ -32,252 +28,9 @@
       margin: 0;
       font-family: "Poppins", Arial, sans-serif;
       background: var(--gtu-light);
-      animation: fadeBody 1s ease-in-out;
-      transition: 0.3s;
       color: var(--text-color);
-    }
-
-    @keyframes fadeBody { from { opacity: 0; } to { opacity: 1; } }
-
-    /* HEADER */
-    header {
-      background: linear-gradient(135deg, #003366, #00264d);
-      padding: 15px 0;
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      animation: slideHeader 1s ease;
-    }
-
-    @keyframes slideHeader { from { transform: translateY(-40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-    .container {
-      width: 90%;
-      max-width: 1100px;
-      margin: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: white;
-      text-decoration: none;
-      font-size: 22px;
-      font-weight: 600;
-    }
-
-    nav a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      position: relative;
-    }
-    nav a::after {
-      content: "";
-      height: 3px;
-      width: 0;
-      background: #fff;
-      position: absolute;
-      left: 0;
-      bottom: -4px;
       transition: 0.3s;
-    }
-    nav a:hover::after { width: 100%; }
-
-    /* Floating Emojis */
-    .emoji {
-      position: absolute;
-      font-size: 28px;
-      animation: float 5s infinite ease-in-out;
-      opacity: 0.2;
-      z-index: -1;
-    }
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0); }
-    }
-
-    /* LOGIN BOX */
-    .login-box {
-      max-width: 400px;
-      margin: 90px auto;
-      background: var(--card-bg);
-      padding: 35px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      animation: slideUp 0.8s ease;
-      transition: 0.3s;
-    }
-
-    @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-    .login-box h2 {
-      text-align: center;
-      color: var(--gtu-blue);
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .typing {
-      width: 0;
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 3px solid var(--gtu-blue);
-      animation: typing 3s steps(30) forwards, blink 0.7s infinite;
-      margin: auto;
-      display: block;
-      text-align: center;
-    }
-
-    @keyframes typing { from { width: 0; } to { width: 230px; } }
-    @keyframes blink { 50% { border-color: transparent; } }
-
-    label { font-weight: 600; margin-top: 12px; display: block; }
-    input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 16px;
-      transition: 0.3s;
-    }
-    input:focus {
-      border-color: var(--gtu-blue);
-      box-shadow: 0 0 8px rgba(0,51,102,0.4);
-      transform: scale(1.03);
-    }
-
-    button {
-      margin-top: 18px;
-      width: 100%;
-      padding: 13px;
-      background: var(--gtu-blue);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.3s ease;
-    }
-    button:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
-      background: var(--gtu-blue-dark);
-    }
-
-    .mode-btn {
-      background: #fff;
-      color: #003366;
-      padding: 7px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    /* FOOTER */
-    footer {
-      background: #00284d;
-      padding: 25px 0;
-      color: white;
-      text-align: center;
-      margin-top: 70px;
-    }
-  </style>
-</head>
-
-<body>
-
-<!-- Floating Emojis -->
-<div class="emoji" style="top:20%; left:10%;">📘</div>
-<div class="emoji" style="top:60%; left:80%;">✨</div>
-<div class="emoji" style="top:40%; left:5%;">🎓</div>
-
-<header>
-  <div class="container">
-      <a href="index.html" class="brand">EduBot GTU</a>
-
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="study-material.html">Study Material</a>
-        <a href="ai-tools.html">AI Tools</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-
-      <div class="mode-btn" onclick="toggleDark()">🌙 Dark Mode</div>
-  </div>
-</header>
-
-<!-- LOGIN CARD -->
-<div class="login-box">
-  <h2 class="typing">Admin Login Panel</h2>
-
-  <label>Username</label>
-  <input id="adminUser" placeholder="Enter admin username">
-
-  <label>Password</label>
-  <input id="adminPass" type="password" placeholder="Enter password">
-
-  <button onclick="loginAdmin()">Login</button>
-</div>
-
-<footer>
-  © 2025 EduBot GTU – All Rights Reserved<br>
-  <a href="index.html" style="color:#9cf; text-decoration:none;">Go to Home</a>
-</footer>
-
-<script>
-function loginAdmin() {
-  let u = document.getElementById("adminUser").value;
-  let p = document.getElementById("adminPass").value;
-
-  if (u === "admin" && p === "password123") {
-      window.location.href = "admit-dashboard.html";
-  } else {
-      alert("❌ Wrong Username or Password!");
-  }
-}
-
-function toggleDark(){ document.body.classList.toggle("dark"); }
-</script>
-
-</body>
-</html>
-
-  <style>
-    :root {
-      --gtu-blue: #003366;
-      --gtu-blue-dark: #00264d;
-      --gtu-light: #e6f0ff;
-      --gtu-red: #cc0000;
-      --white: #fff;
-      --gray: #777;
-      --card-bg: #ffffff;
-      --text-color: #000;
-    }
-
-    /* ========= DARK MODE ========= */
-    body.dark {
-      --gtu-light: #0c1a2b;
-      --card-bg: #10243e;
-      --text-color: #fff;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Poppins", Arial, sans-serif;
-      background: var(--gtu-light);
       animation: fadeBody 1s ease-in-out;
-      transition: 0.3s;
-      color: var(--text-color);
     }
 
     @keyframes fadeBody {
@@ -285,7 +38,7 @@ function toggleDark(){ document.body.classList.toggle("dark"); }
       to { opacity: 1; }
     }
 
-    /* ================= HEADER ================= */
+    /* HEADER */
     header {
       background: linear-gradient(135deg, #003366, #00264d);
       padding: 15px 0;
@@ -311,53 +64,28 @@ function toggleDark(){ document.body.classList.toggle("dark"); }
     }
 
     .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
       color: white;
       text-decoration: none;
       font-size: 22px;
       font-weight: 600;
     }
 
-    /* Nav Hover Animation */
-    nav a {
-      color: white;
-      margin-left: 20px;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      position: relative;
-    }
-    nav a::after {
-      content: "";
-      height: 3px;
-      width: 0;
-      background: #fff;
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      transition: 0.3s;
-    }
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    /* ========== Floating Emojis ========== */
+    /* Floating Emojis */
     .emoji {
       position: absolute;
       font-size: 28px;
-      animation: float 5s infinite ease-in-out;
       opacity: 0.2;
+      animation: float 5s infinite ease-in-out;
       z-index: -1;
     }
+
     @keyframes float {
       0% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
       100% { transform: translateY(0); }
     }
 
-    /* ================= LOGIN BOX ================= */
+    /* LOGIN CARD */
     .login-box {
       max-width: 400px;
       margin: 90px auto;
@@ -366,7 +94,6 @@ function toggleDark(){ document.body.classList.toggle("dark"); }
       border-radius: 12px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
       animation: slideUp 0.8s ease;
-      transition: 0.3s;
     }
 
     @keyframes slideUp {
@@ -378,7 +105,6 @@ function toggleDark(){ document.body.classList.toggle("dark"); }
       text-align: center;
       color: var(--gtu-blue);
       font-weight: 700;
-      margin-bottom: 10px;
     }
 
     /* Typing Animation */
@@ -388,15 +114,15 @@ function toggleDark(){ document.body.classList.toggle("dark"); }
       white-space: nowrap;
       border-right: 3px solid var(--gtu-blue);
       animation: typing 3s steps(30) forwards, blink 0.7s infinite;
-      margin: auto;
-      display: block;
       text-align: center;
+      margin: auto;
     }
 
     @keyframes typing {
       from { width: 0; }
       to { width: 230px; }
     }
+
     @keyframes blink {
       50% { border-color: transparent; }
     }
@@ -405,7 +131,6 @@ function toggleDark(){ document.body.classList.toggle("dark"); }
       font-weight: 600;
       margin-top: 12px;
       display: block;
-      color: var(--text-color);
     }
 
     input {
@@ -413,9 +138,9 @@ function toggleDark(){ document.body.classList.toggle("dark"); }
       padding: 12px;
       border: 1px solid #ccc;
       border-radius: 8px;
-      font-size: 16px;
+      margin-top: 5px;
       transition: 0.3s;
-      background: var(--white);
+      font-size: 16px;
     }
 
     input:focus {
@@ -424,7 +149,6 @@ function toggleDark(){ document.body.classList.toggle("dark"); }
       transform: scale(1.03);
     }
 
-    /* BUTTON ANIMATION */
     button {
       margin-top: 18px;
       width: 100%;
@@ -433,42 +157,40 @@ function toggleDark(){ document.body.classList.toggle("dark"); }
       color: white;
       border: none;
       border-radius: 8px;
-      font-size: 16px;
       cursor: pointer;
+      font-size: 16px;
       font-weight: 600;
-      transition: 0.3s ease;
-    }
-    button:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
-      background: var(--gtu-blue-dark);
+      transition: 0.3s;
     }
 
-    /* DARK MODE TOGGLE BUTTON */
+    button:hover {
+      transform: translateY(-3px) scale(1.05);
+      background: var(--gtu-blue-dark);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+    }
+
     .mode-btn {
       background: #fff;
       color: #003366;
       padding: 7px 12px;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
     }
 
-    /* ================= FOOTER ================= */
+    /* FOOTER */
     footer {
       background: #00284d;
       padding: 25px 0;
-      color: white;
       text-align: center;
+      color: white;
       margin-top: 70px;
     }
-
   </style>
 </head>
 
 <body>
 
-<!-- Floating Emojis -->
+<!-- FLOATING EMOJIS -->
 <div class="emoji" style="top:20%; left:10%;">📘</div>
 <div class="emoji" style="top:60%; left:80%;">✨</div>
 <div class="emoji" style="top:40%; left:5%;">🎓</div>
@@ -476,12 +198,10 @@ function toggleDark(){ document.body.classList.toggle("dark"); }
 <header>
   <div class="container">
       <a href="#" class="brand">EduBot GTU</a>
-
       <div class="mode-btn" onclick="toggleDark()">🌙 Dark Mode</div>
   </div>
 </header>
 
-<!-- ================= LOGIN CARD ================= -->
 <div class="login-box">
   <h2 class="typing">Admin Login Panel</h2>
 
@@ -504,7 +224,7 @@ function loginAdmin() {
   let p = document.getElementById("adminPass").value;
 
   if (u === "admin" && p === "password123") {
-      window.location.href = "admit-dashboard.html";
+      window.location.href = "admin-dashboard.html";
   } else {
       alert("❌ Wrong Username or Password!");
   }
