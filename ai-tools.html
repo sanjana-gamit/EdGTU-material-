@@ -12,7 +12,18 @@
 
   <!-- ======== FIXED MOBILE + DESKTOP DROPDOWN MENU CSS ======== -->
   <style>
-    /* Mobile Menu Hidden by Default */
+    header {
+      background: #003366;
+      padding: 10px 0;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Mobile Styles */
     @media (max-width: 768px) {
       .nav-links {
         position: absolute;
@@ -21,7 +32,8 @@
         width: 100%;
         background: #00264d;
         flex-direction: column;
-        padding: 20px;
+        padding: 20px 0;
+        text-align: center;
         gap: 15px;
 
         display: flex;
@@ -30,7 +42,7 @@
         pointer-events: none;
 
         transition: opacity .3s ease, visibility .3s ease;
-        z-index: 999;
+        z-index: 9999;
       }
 
       .nav-links.open {
@@ -41,7 +53,7 @@
 
       .nav-toggle {
         display: block;
-        font-size: 30px;
+        font-size: 32px;
         background: none;
         border: none;
         color: #fff;
@@ -49,17 +61,19 @@
       }
     }
 
-    /* Desktop: Always show nav */
+    /* Desktop Styles */
     @media (min-width: 769px) {
       .nav-links {
         display: flex !important;
         position: static !important;
+        background: none !important;
+        flex-direction: row !important;
         opacity: 1 !important;
         visibility: visible !important;
         pointer-events: auto !important;
-        flex-direction: row !important;
-        background: transparent !important;
+        gap: 20px;
       }
+
       .nav-toggle {
         display: none;
       }
@@ -94,74 +108,53 @@
     </div>  
   </header>  
 
+
   <!-- ================= HERO SECTION ================= -->  
   <section class="hero container">  
-
     <div id="aiAnimation" class="hero-animation"></div>  
-
     <h1>Explore AI Toolkit</h1>  
-
-    <p>  
-      Smart tools to help GTU students study faster, learn deeper,  
-      and finish assignments like a pro.  
-    </p>  
-
+    <p>Smart tools to help GTU students study faster, learn deeper, and finish assignments like a pro.</p>  
   </section>  
+
 
   <!-- ================= MAIN CONTENT ================= -->  
   <main class="container">  
-
     <h2 class="section-title">Popular AI Tools</h2>  
-
     <div class="ai-grid">  
 
       <!-- ChatGPT -->  
       <div class="ai-card">  
         <img src="assets/chatgpt.png" class="ai-icon" alt="ChatGPT Logo">  
         <h3>ChatGPT</h3>  
-        <p>  
-          OpenAI’s assistant for explanations, coding, notes, and more.  
-        </p>  
-        <a href="https://chat.openai.com/" target="_blank" class="btn">  
-          Open ChatGPT  
-        </a>  
+        <p>OpenAI’s assistant for explanations, coding, notes, and more.</p>  
+        <a href="https://chat.openai.com/" target="_blank" class="btn">Open ChatGPT</a>  
       </div>  
 
       <!-- Gemini -->  
       <div class="ai-card">  
         <img src="assets/gemini.png" class="ai-icon" alt="Google Gemini Logo">  
         <h3>Google Gemini</h3>  
-        <p>  
-          Google’s AI for writing, brainstorming, and research.  
-        </p>  
-        <a href="https://gemini.google.com/app?hl=en-IN" target="_blank" class="btn">  
-          Open Gemini  
-        </a>  
+        <p>Google’s AI for writing, brainstorming, and research.</p>  
+        <a href="https://gemini.google.com/app?hl=en-IN" target="_blank" class="btn">Open Gemini</a>  
       </div>  
 
       <!-- Notes Generator -->  
       <div class="ai-card">  
         <img src="assets/notes.png" class="ai-icon" alt="AI Notes Generator Icon">  
         <h3>AI Notes Generator</h3>  
-        <p>  
-          Generate summarized study notes from PDFs or topics instantly.  
-        </p>  
+        <p>Generate summarized study notes from PDFs or topics instantly.</p>  
         <a href="#" class="btn btn-outline">Try Demo</a>  
       </div>  
 
     </div>  
-
   </main>  
+
 
   <!-- ================= FOOTER ================= -->  
   <footer class="site-footer">  
     <div class="footer-container">  
-
       <h3>EduBot GTU</h3>  
-
-      <p class="tagline">  
-        Made for students, by students — Learn Smart. Study Fast. Score High.  
-      </p>  
+      <p class="tagline">Made for students, by students — Learn Smart. Study Fast. Score High.</p>  
 
       <div class="footer-links">  
         <a href="about.html">About</a>  
@@ -171,25 +164,18 @@
       </div>  
 
       <div class="social-icons">  
-        <a href="https://instagram.com/" target="_blank" aria-label="Instagram">  
-          <img src="assets/icons/instagram.webp" alt="Instagram Icon">  
-        </a>  
-        <a href="https://github.com/" target="_blank" aria-label="GitHub">  
-          <img src="assets/icons/GitHub.png" alt="GitHub Icon">  
-        </a>  
-        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">  
-          <img src="assets/icons/linkedin.png" alt="LinkedIn Icon">  
-        </a>  
+        <a href="https://instagram.com/" target="_blank"><img src="assets/icons/instagram.webp"></a>  
+        <a href="https://github.com/" target="_blank"><img src="assets/icons/GitHub.png"></a>  
+        <a href="https://linkedin.com/" target="_blank"><img src="assets/icons/linkedin.png"></a>  
       </div>  
 
       <p class="copy">© 2025 EduBot GTU — All rights reserved.</p>  
-
     </div>  
   </footer>  
 
-  <!-- ================= SCRIPTS ================= -->  
+
+  <!-- Lottie Animation Script -->
   <script>  
-    // Lottie Animation  
     lottie.loadAnimation({  
       container: document.getElementById("aiAnimation"),  
       renderer: "svg",  
@@ -199,7 +185,16 @@
     });  
   </script>  
 
-  <script src="js/main.js"></script>  
+
+  <!-- ========== FIXED NAV MENU JS ========== -->
+  <script>
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelector(".nav-links");
+
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+  </script>
 
 </body>  
 </html>
