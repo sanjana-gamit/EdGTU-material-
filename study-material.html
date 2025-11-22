@@ -5,18 +5,77 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Study Material - EduBot GTU</title>
   <link rel="stylesheet" href="css/style.css">
+
   <style>
     body { background: #f4f6fb; }
-    footer {
-      background: #111; color: #fff; padding: 20px 0;
-      margin-top: 40px; text-align: center;
+
+    /* ---------------- NAVBAR DROPDOWN ---------------- */
+    .nav-wrap {
+      background: #003366;
+      padding: 10px 0;
+      color: #fff;
     }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      transition: 0.3s ease;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* MOBILE MENU HIDDEN */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #00264d;
+        flex-direction: column;
+        padding: 15px;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .nav-toggle {
+        display: block;
+        font-size: 26px;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+      }
+    }
+
+    /* DESKTOP MENU ALWAYS VISIBLE */
+    @media (min-width: 769px) {
+      .nav-toggle {
+        display: none;
+      }
+    }
+
+    /* ------- CARDS ------- */
     .subject-card {
       background: #fff; padding: 20px; margin: 15px 0;
       border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       transition: 0.3s;
     }
-    .subject-card:hover { transform: translateY(-5px); box-shadow: 0 4px 18px rgba(0,0,0,0.15); }
+    .subject-card:hover {
+      transform: translateY(-5px); box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    }
 
     .btn-download, .btn-view {
       display: inline-block; margin-right: 10px; padding: 8px 14px;
@@ -31,6 +90,11 @@
       transition:0.3s;
     }
     .cat:hover { background:#001f4d; }
+
+    footer {
+      background: #111; color: #fff; padding: 20px 0;
+      margin-top: 40px; text-align: center;
+    }
   </style>
 </head>
 
@@ -52,6 +116,7 @@
       <a href="admin-login.html" class="btn btn-outline">Admin</a>
     </nav>
 
+    <!-- 3 Line Menu -->
     <button class="nav-toggle">☰</button>
   </div>
 </header>
@@ -81,13 +146,24 @@
   <p>Email: sanjanabengamit123@gmail.com | Helpline: +91 9909771512</p>
 </footer>
 
+<!-- JS (Works with your main.js also) -->
 <script>
-  // Load admin-uploaded materials from materials.json
+  // Dropdown Navigation
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.querySelector(".nav-toggle");
+    const links = document.querySelector(".nav-links");
+
+    btn.addEventListener("click", () => {
+      links.classList.toggle("open");
+    });
+  });
+
+  // Load admin-uploaded materials
   fetch("data/materials.json")
     .then(response => response.json())
     .then(data => {
       const list = document.getElementById("materials-list");
-      list.innerHTML = ""; // clear loading text
+      list.innerHTML = ""; 
 
       data.forEach(item => {
         const card = document.createElement("div");
@@ -104,7 +180,6 @@
       });
     })
     .catch(err => {
-      console.error("Error loading materials.json:", err);
       document.getElementById("materials-list").innerHTML =
         "<p style='color:red;'>Failed to load materials. Please check JSON file.</p>";
     });
