@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Video Playlist – EduBot GTU</title>
+
+<link rel="stylesheet" href="style.css" />
+
+<style>
+.page-title {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--gtu-blue);
+}
+
+#playlist-list .card {
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.mat {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+
+.mat:last-child {
+  border-bottom: none;
+}
+
+.muted {
+  color: #666;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ====== NAVBAR ====== -->
+<nav class="navbar">
+  <div class="logo">EduBot GTU</div>
+
+  <button class="nav-toggle" id="navToggle">☰</button>
+
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="notes.html">Notes</a></li>
+    <li><a href="pyqs.html">PYQs</a></li>
+    <li><a href="syllabus.html">Syllabus</a></li>
+    <li><a href="playlist.html" class="active">Playlist</a></li>
+    <li><a href="contact.html">Support</a></li>
+  </ul>
+</nav>
+<!-- ===================== -->
+
+<h2 class="page-title">GTU Subject Playlists</h2>
+
+<div id="playlist-list" class="container">
+  <!-- Auto-loaded via main.js -->
+  <p style="text-align:center; color:#666;">Loading playlists...</p>
+</div>
+
+<script src="main.js"></script>
+
+<script>
+  // Load only items with type "playlist"
+  document.addEventListener("DOMContentLoaded", () => {
+    loadMaterials("playlist", "playlist-list");
+  });
+</script>
+
+</body>
+</html>
