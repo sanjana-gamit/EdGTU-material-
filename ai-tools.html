@@ -1,147 +1,197 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AI Tools - EduBot GTU</title>
+<!doctype html>  
+<html lang="en">  
+<head>  
+  <meta charset="utf-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1" />  
+  <title>AI Tools - EduBot GTU</title>  
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css">  
 
-  <!-- Lottie Animation -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
-</head>
+  <!-- Lottie Animation -->  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>  
 
-<body>
+  <!-- ======== NAVIGATION DROPDOWN STYLE ======== -->
+  <style>
+    /* MOBILE DROPDOWN */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #00264d;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s ease;
+        z-index: 999;
+      }
 
-  <!-- ================= NAVBAR ================= -->
-  <header class="nav-wrap">
-    <div class="nav container">
+      .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+      }
 
-      <a href="index.html" class="brand">
-        <img src="assets/logo.png" alt="GTU Logo" />
-        EduBot GTU
-      </a>
+      .nav-toggle {
+        display: block;
+        font-size: 28px;
+        background: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+      }
+    }
 
-      <nav class="nav-links" aria-label="Main Navigation">
-        <a href="index.html">Home</a>
-        <a href="study-material.html">Study Material</a>
-        <a href="ai-tools.html" class="active">AI Tools</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-        <a href="admin-login.html" class="btn btn-outline">Admin</a>
-      </nav>
+    /* DESKTOP ALWAYS SHOW MENU */
+    @media (min-width: 769px) {
+      .nav-links {
+        display: flex !important;
+        position: static !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        background: transparent !important;
+        flex-direction: row !important;
+      }
+      .nav-toggle { display: none; }
+    }
+  </style>
+</head>  
 
-      <button class="nav-toggle" aria-label="Toggle Navigation Menu">☰</button>
+<body>  
 
-    </div>
-  </header>
+  <!-- ================= NAVBAR ================= -->  
+  <header class="nav-wrap">  
+    <div class="nav container">  
 
-  <!-- ================= HERO SECTION ================= -->
-  <section class="hero container">
+      <a href="index.html" class="brand">  
+        <img src="assets/logo.png" alt="GTU Logo" />  
+        EduBot GTU  
+      </a>  
 
-    <div id="aiAnimation" class="hero-animation"></div>
+      <nav class="nav-links" aria-label="Main Navigation">  
+        <a href="index.html">Home</a>  
+        <a href="study-material.html">Study Material</a>  
+        <a href="ai-tools.html" class="active">AI Tools</a>  
+        <a href="about.html">About</a>  
+        <a href="contact.html">Contact</a>  
+        <a href="admin-login.html" class="btn btn-outline">Admin</a>  
+      </nav>  
 
-    <h1>Explore AI Toolkit</h1>
+      <!-- 3 Line Menu -->
+      <button class="nav-toggle" aria-label="Toggle Navigation Menu">☰</button>  
 
-    <p>
-      Smart tools to help GTU students study faster, learn deeper,
-      and finish assignments like a pro.
-    </p>
+    </div>  
+  </header>  
 
-  </section>
+  <!-- ================= HERO SECTION ================= -->  
+  <section class="hero container">  
 
-  <!-- ================= MAIN CONTENT ================= -->
-  <main class="container">
+    <div id="aiAnimation" class="hero-animation"></div>  
 
-    <h2 class="section-title">Popular AI Tools</h2>
+    <h1>Explore AI Toolkit</h1>  
 
-    <div class="ai-grid">
+    <p>  
+      Smart tools to help GTU students study faster, learn deeper,  
+      and finish assignments like a pro.  
+    </p>  
 
-      <!-- ChatGPT -->
-      <div class="ai-card">
-        <img src="assets/chatgpt.png" class="ai-icon" alt="ChatGPT Logo">
-        <h3>ChatGPT</h3>
-        <p>
-          OpenAI’s assistant for explanations, coding, notes, and more.
-        </p>
-        <a href="https://chat.openai.com/" target="_blank" class="btn">
-          Open ChatGPT
-        </a>
-      </div>
+  </section>  
 
-      <!-- Gemini -->
-      <div class="ai-card">
-        <img src="assets/gemini.png" class="ai-icon" alt="Google Gemini Logo">
-        <h3>Google Gemini</h3>
-        <p>
-          Google’s AI for writing, brainstorming, and research.
-        </p>
-        <a href="https://gemini.google.com/app?hl=en-IN" target="_blank" class="btn">
-          Open Gemini
-        </a>
-      </div>
+  <!-- ================= MAIN CONTENT ================= -->  
+  <main class="container">  
 
-      <!-- Notes Generator -->
-      <div class="ai-card">
-        <img src="assets/notes.png" class="ai-icon" alt="AI Notes Generator Icon">
-        <h3>AI Notes Generator</h3>
-        <p>
-          Generate summarized study notes from PDFs or topics instantly.
-        </p>
-        <a href="#" class="btn btn-outline">Try Demo</a>
-      </div>
+    <h2 class="section-title">Popular AI Tools</h2>  
 
-    </div>
+    <div class="ai-grid">  
 
-  </main>
+      <!-- ChatGPT -->  
+      <div class="ai-card">  
+        <img src="assets/chatgpt.png" class="ai-icon" alt="ChatGPT Logo">  
+        <h3>ChatGPT</h3>  
+        <p>  
+          OpenAI’s assistant for explanations, coding, notes, and more.  
+        </p>  
+        <a href="https://chat.openai.com/" target="_blank" class="btn">  
+          Open ChatGPT  
+        </a>  
+      </div>  
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="site-footer">
-    <div class="footer-container">
+      <!-- Gemini -->  
+      <div class="ai-card">  
+        <img src="assets/gemini.png" class="ai-icon" alt="Google Gemini Logo">  
+        <h3>Google Gemini</h3>  
+        <p>  
+          Google’s AI for writing, brainstorming, and research.  
+        </p>  
+        <a href="https://gemini.google.com/app?hl=en-IN" target="_blank" class="btn">  
+          Open Gemini  
+        </a>  
+      </div>  
 
-      <h3>EduBot GTU</h3>
+      <!-- Notes Generator -->  
+      <div class="ai-card">  
+        <img src="assets/notes.png" class="ai-icon" alt="AI Notes Generator Icon">  
+        <h3>AI Notes Generator</h3>  
+        <p>  
+          Generate summarized study notes from PDFs or topics instantly.  
+        </p>  
+        <a href="#" class="btn btn-outline">Try Demo</a>  
+      </div>  
 
-      <p class="tagline">
-        Made for students, by students — Learn Smart. Study Fast. Score High.
-      </p>
+    </div>  
 
-      <div class="footer-links">
-        <a href="about.html">About</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms</a>
-        <a href="contact.html">Contact</a>
-      </div>
+  </main>  
 
-      <div class="social-icons">
-        <a href="https://instagram.com/" target="_blank" aria-label="Instagram">
-          <img src="assets/icons/instagram.webp" alt="Instagram Icon">
-        </a>
-        <a href="https://github.com/" target="_blank" aria-label="GitHub">
-          <img src="assets/icons/GitHub.png" alt="GitHub Icon">
-        </a>
-        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
-          <img src="assets/icons/linkedin.png" alt="LinkedIn Icon">
-        </a>
-      </div>
+  <!-- ================= FOOTER ================= -->  
+  <footer class="site-footer">  
+    <div class="footer-container">  
 
-      <p class="copy">© 2025 EduBot GTU — All rights reserved.</p>
+      <h3>EduBot GTU</h3>  
 
-    </div>
-  </footer>
+      <p class="tagline">  
+        Made for students, by students — Learn Smart. Study Fast. Score High.  
+      </p>  
 
-  <!-- ================= SCRIPTS ================= -->
-  <script>
-    // Lottie Animation
-    lottie.loadAnimation({
-      container: document.getElementById("aiAnimation"),
-      renderer: "svg",
-      loop: true,
-      autoplay: true,
-      path: "assets/ai.json"
-    });
-  </script>
+      <div class="footer-links">  
+        <a href="about.html">About</a>  
+        <a href="#">Privacy Policy</a>  
+        <a href="#">Terms</a>  
+        <a href="contact.html">Contact</a>  
+      </div>  
 
-  <script src="js/main.js"></script>
+      <div class="social-icons">  
+        <a href="https://instagram.com/" target="_blank" aria-label="Instagram">  
+          <img src="assets/icons/instagram.webp" alt="Instagram Icon">  
+        </a>  
+        <a href="https://github.com/" target="_blank" aria-label="GitHub">  
+          <img src="assets/icons/GitHub.png" alt="GitHub Icon">  
+        </a>  
+        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">  
+          <img src="assets/icons/linkedin.png" alt="LinkedIn Icon">  
+        </a>  
+      </div>  
 
-</body>
+      <p class="copy">© 2025 EduBot GTU — All rights reserved.</p>  
+
+    </div>  
+  </footer>  
+
+  <!-- ================= SCRIPTS ================= -->  
+  <script>  
+    // Lottie Animation  
+    lottie.loadAnimation({  
+      container: document.getElementById("aiAnimation"),  
+      renderer: "svg",  
+      loop: true,  
+      autoplay: true,  
+      path: "assets/ai.json"  
+    });  
+  </script>  
+
+  <script src="js/main.js"></script>  
+
+</body>  
 </html>
