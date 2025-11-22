@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const show = i => {
     slides.forEach(s => s.classList.remove('active'));
-    slides[i].classList.add('active');
+    if (slides[i]) slides[i].classList.add('active');
   };
 
   document.getElementById('prev')?.addEventListener('click', () => {
@@ -27,13 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 6000);
 
 
-  /* -------------------- NAV TOGGLE (HAM menu) -------------------- */
-  const menuBtn = document.getElementById("navToggle");
-  const menu = document.querySelector(".nav-links");
+  /* -------------------- NAV TOGGLE (Hamburger Menu) -------------------- */
+  const navToggle = document.querySelector(".nav-toggle");
+  const navLinks = document.querySelector(".nav-links");
 
-  if (menuBtn && menu) {
-    menuBtn.addEventListener("click", () => {
-      menu.classList.toggle("open");
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
     });
   }
 
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleBtn.addEventListener('click', () => {
       const isText = passInput.type === "text";
       passInput.type = isText ? "password" : "text";
-      toggleBtn.innerText = isText ? "Show" : "Hide";
+      toggleBtn.textContent = isText ? "Show" : "Hide";
     });
   }
 
@@ -54,8 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
   /* -------------------- ADMIN LOGIN (HASHED PASSWORD) -------------------- */
   const loginForm = document.getElementById('admin-login');
 
-  // SHA-256 hashed version of password: "GTU@2025"
-  const ADMIN_PASS_HASH = "279fa3ad77cdad5f6a97d209b917c586ec1a0c327b71fc59f870ce1e6126ef77";
+  // SHA-256 hashed password for: GTU@2025
+  const ADMIN_PASS_HASH =
+    "279fa3ad77cdad5f6a97d209b917c586ec1a0c327b71fc59f870ce1e6126ef77";
 
   async function sha256(text) {
     const encoder = new TextEncoder();
@@ -95,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
             : document.getElementById('materials-list');
 
           if (!target) return;
-
           target.innerHTML = '';
 
           Object.keys(data).forEach(code => {
@@ -129,14 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  // auto-load on pages designed for materials
   if (document.getElementById('materials-list')) loadMaterials();
-});
-// ===== MOBILE NAV MENU TOGGLE =====
-const navToggle = document.querySelector(".nav-toggle");
-const navLinks = document.querySelector(".nav-links");
 
-if (navToggle) {
-  navToggle.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
-  });
-}
+});
