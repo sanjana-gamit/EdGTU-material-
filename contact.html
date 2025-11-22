@@ -9,6 +9,7 @@
 
   <!-- ==== RESPONSIVE NAVBAR CSS FIX ==== -->
   <style>
+
     /* NAVBAR GENERAL */
     .nav-wrap {
       background: #003366;
@@ -19,6 +20,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
     }
 
     .nav-links {
@@ -35,6 +37,7 @@
 
     /* MOBILE NAV */
     @media (max-width: 768px) {
+
       .nav-links {
         position: absolute;
         top: 70px;
@@ -42,20 +45,15 @@
         width: 100%;
         background: #00264d;
         flex-direction: column;
-        padding: 20px 0;
         gap: 15px;
+        padding: 20px 0;
 
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: 0.3s ease;
+        display: none; /* FIX */
         z-index: 999;
       }
 
       .nav-links.open {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
+        display: flex; /* FIX */
       }
 
       .nav-toggle {
@@ -73,9 +71,6 @@
       .nav-links {
         display: flex !important;
         position: static !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        pointer-events: auto !important;
         background: none !important;
       }
 
@@ -105,6 +100,7 @@
         <a href="admin-login.html" class="btn btn-outline">Admin</a>
       </nav>
 
+      <!-- 3 Line Menu -->
       <button class="nav-toggle">☰</button>
     </div>
   </header>
@@ -117,7 +113,6 @@
       We would love to hear from you! Reach out using any platform below.
     </p>
 
-    <!-- Contact Cards -->
     <div class="contact-grid">
 
       <div class="contact-card">
@@ -150,7 +145,6 @@
 
     </div>
 
-    <!-- Reference Websites -->
     <h2 class="section-title">Reference Study Websites</h2>
 
     <div class="button-row">
@@ -161,52 +155,59 @@
 
   </main>
 
-<!-- ===== FOOTER ===== -->
-<footer class="site-footer">
-  <div class="footer-container">
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-container">
 
-    <h2 class="footer-title">EduBot GTU </h2>
-    <p class="footer-tagline">
-      Your trusted academic companion for Notes, PYQs, GTU Books, AI Tools & Study Materials.
-    </p>
+      <h2 class="footer-title">EduBot GTU </h2>
+      <p class="footer-tagline">
+        Your trusted academic companion for Notes, PYQs, GTU Books, AI Tools & Study Materials.
+      </p>
 
-    <!-- Social Icons -->
-    <div class="footer-social">
-      <a href="https://www.instagram.com/__.sanjana.03?igsh=enNydGlsY2o3Zzhj"><img src="assets/icons/instagram.webp" alt="Instagram"></a>
-      <a href="https://github.com/sanjana-gamit"><img src="assets/icons/GitHub.png" alt="GitHub"></a>
-      <a href="https://www.linkedin.com/in/gec-bharuch-comp-dte-sanjana-gamit"><img src="assets/icons/linkedin.png" alt="LinkedIn"></a>
-      <a href="mailto:sanjanabengamit123@gmail.com"><img src="assets/icons/Email.png" alt="Email"></a>
+      <div class="footer-social">
+        <a href="https://www.instagram.com/__.sanjana.03?igsh=enNydGlsY2o3Zzhj"><img src="assets/icons/instagram.webp" alt="Instagram"></a>
+        <a href="https://github.com/sanjana-gamit"><img src="assets/icons/GitHub.png" alt="GitHub"></a>
+        <a href="https://www.linkedin.com/in/gec-bharuch-comp-dte-sanjana-gamit"><img src="assets/icons/linkedin.png" alt="LinkedIn"></a>
+        <a href="mailto:sanjanabengamit123@gmail.com"><img src="assets/icons/Email.png" alt="Email"></a>
+      </div>
+
+      <div class="footer-links">
+        <a href="study-material.html">Study Material</a>
+        <a href="ai-tools.html">AI Tools</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin-login.html">Admin</a>
+      </div>
+
+      <h3 class="useful-title">Useful GTU Resources</h3>
+
+      <ul class="useful-list">
+        <li><a href="https://www.gtu.ac.in/">📘 GTU Official Website</a></li>
+        <li><a href="https://ayanmemon296.github.io/GTU-Study-Mates/">🎓 GTU Study Mate</a></li>
+        <li><a href="https://www.darshan.ac.in/gtu-study-material">📚 Darshan Material</a></li>
+        <li><a href="https://gtustudy.in/">📝 GTU Study</a></li>
+      </ul>
+
+      <p class="footer-copy">© 2025 EduBot GTU — All rights reserved.</p>
+
     </div>
+  </footer>
 
-    <div class="footer-links">
-      <a href="study-material.html">Study Material</a>
-      <a href="ai-tools.html">AI Tools</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="admin-login.html">Admin</a>
-    </div>
+  <!-- FLOATING EMOJIS -->
+  <span class="floating-emoji" style="top: 20%; left: 10%;">📘</span>
+  <span class="floating-emoji" style="top: 50%; left: 80%;">✨</span>
+  <span class="floating-emoji" style="top: 70%; left: 30%;">🎓</span>
+  <span class="floating-emoji" style="top: 40%; left: 60%;">📚</span>
 
-    <h3 class="useful-title">Useful GTU Resources</h3>
+  <script>
+    // Mobile Menu Script
+    const navToggle = document.querySelector(".nav-toggle");
+    const navLinks = document.querySelector(".nav-links");
 
-    <ul class="useful-list">
-      <li><a href="https://www.gtu.ac.in/">📘 GTU Official Website</a></li>
-      <li><a href="https://ayanmemon296.github.io/GTU-Study-Mates/">🎓 GTU Study Mate</a></li>
-      <li><a href="https://www.darshan.ac.in/gtu-study-material">📚 Darshan Material</a></li>
-      <li><a href="https://gtustudy.in/">📝 GTU Study</a></li>
-    </ul>
-
-    <p class="footer-copy">© 2025 EduBot GTU — All rights reserved.</p>
-
-  </div>
-</footer>
-
-<!-- FLOATING EMOJIS -->
-<span class="floating-emoji" style="top: 20%; left: 10%;">📘</span>
-<span class="floating-emoji" style="top: 50%; left: 80%;">✨</span>
-<span class="floating-emoji" style="top: 70%; left: 30%;">🎓</span>
-<span class="floating-emoji" style="top: 40%; left: 60%;">📚</span>
-
-<script src="js/main.js"></script>
+    navToggle.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+  </script>
 
 </body>
 </html>
