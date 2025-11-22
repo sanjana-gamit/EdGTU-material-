@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syllabus – EduBot GTU</title>
+
+  <style>
+    :root {
+      --gtu-blue: #003366;
+      --gtu-blue-dark: #00264d;
+      --white: #fff;
+      --text: #000;
+      --card-bg: #ffffffee;
+    }
+
+    body.dark {
+      --text: #fff;
+      --card-bg: #1a2c45ee;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #e9f2ff;
+      color: var(--text);
+      transition: 0.3s;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #003366, #00264d);
+      padding: 15px 0;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      color: white;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* HAMBURGER */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 28px;
+      height: 3px;
+      background: white;
+      border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #00264d;
+        flex-direction: column;
+        padding: 20px 0;
+        text-align: center;
+      }
+      .nav-links.open {
+        display: block;
+      }
+    }
+
+    /* PAGE TITLE */
+    .title-box {
+      text-align: center;
+      padding: 30px;
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--gtu-blue-dark);
+    }
+
+    /* CARDS */
+    .syllabus-container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding-bottom: 40px;
+    }
+
+    .syllabus-card {
+      background: var(--card-bg);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    .syllabus-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .syllabus-card h3 {
+      margin: 0;
+      color: var(--gtu-blue);
+      font-size: 20px;
+    }
+
+    .btn {
+      margin-top: 15px;
+      display: inline-block;
+      padding: 10px 16px;
+      background: var(--gtu-blue);
+      color: white;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    footer {
+      background: #00264d;
+      color: white;
+      padding: 25px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #ffd700;
+      margin: 0 8px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <a href="#" class="brand">EduBot GTU</a>
+
+    <!-- HAMBURGER -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="nav-links" id="menu">
+      <a href="index.html">Home</a>
+      <a href="notes.html">Notes</a>
+      <a href="pyqs.html">PYQs</a>
+      <a href="playlist.html">Playlist</a>
+      <a href="syllabus.html">Syllabus</a>
+      <a href="contact.html">Contact</a>
+      <span class="mode-btn" onclick="toggleDark()">🌙</span>
+    </div>
+  </div>
+</header>
+
+<div class="title-box">📘 GTU Syllabus (All Semesters)</div>
+
+<div class="syllabus-container">
+
+  <!-- SEMESTER SYLLABUS CARDS -->
+  <div class="syllabus-card">
+    <h3>Semester 1 Syllabus</h3>
+    <p>All subjects official GTU syllabus.</p>
+    <a href="#" class="btn">View</a>
+  </div>
+
+  <div class="syllabus-card">
+    <h3>Semester 2 Syllabus</h3>
+    <p>Updated curriculum as per GTU.</p>
+    <a href="#" class="btn">View</a>
+  </div>
+
+  <div class="syllabus-card">
+    <h3>Semester 3 Syllabus</h3>
+    <p>CE/IT branch syllabus PDF.</p>
+    <a href="#" class="btn">View</a>
+  </div>
+
+  <div class="syllabus-card">
+    <h3>Semester 4 Syllabus</h3>
+    <p>Unit-wise topics overview.</p>
+    <a href="#" class="btn">View</a>
+  </div>
+
+  <div class="syllabus-card">
+    <h3>Semester 5 Syllabus</h3>
+    <p>ADA, CN, Python, IPDC syllabus.</p>
+    <a href="#" class="btn">View</a>
+  </div>
+
+  <div class="syllabus-card">
+    <h3>Semester 6 Syllabus</h3>
+    <p>SE, WP, ADA, CN syllabus.</p>
+    <a href="#" class="btn">View</a>
+  </div>
+
+  <div class="syllabus-card">
+    <h3>Semester 7 Syllabus</h3>
+    <p>AI, MAD, Compiler Design.</p>
+    <a href="#" class="btn">View</a>
+  </div>
+
+  <div class="syllabus-card">
+    <h3>Semester 8 Syllabus</h3>
+    <p>Final year + project syllabus.</p>
+    <a href="#" class="btn">View</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 EduBot GTU – All Rights Reserved</p>
+  <p>
+    <a href="privacy-policy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms</a> |
+    <a href="support.html">Support</a>
+  </p>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById("menu").classList.toggle("open");
+}
+
+function toggleDark() {
+  document.body.classList.toggle("dark");
+}
+</script>
+
+</body>
+</html>
