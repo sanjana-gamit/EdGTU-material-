@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy – EduBot GTU</title>
+
+  <style>
+    :root {
+      --gtu-blue: #003366;
+      --gtu-light: #e6f0ff;
+      --white: #ffffff;
+      --shadow: 0 2px 12px rgba(0,0,0,0.12);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--gtu-light);
+    }
+
+    /* NAVBAR */
+    nav {
+      background: var(--gtu-blue);
+      color: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 22px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+    }
+
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .hamburger {
+      width: 32px;
+      cursor: pointer;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hamburger span {
+      height: 3px;
+      background: var(--white);
+      border-radius: 3px;
+    }
+
+    /* MOBILE */
+    @media(max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        padding: 10px 0;
+        background: var(--gtu-blue);
+        width: 100%;
+      }
+      .nav-links.open {
+        display: flex;
+      }
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* PRIVACY POLICY CONTAINER */
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      line-height: 1.7;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--gtu-blue);
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: var(--gtu-blue);
+      margin-top: 28px;
+      font-size: 20px;
+    }
+
+    p, li {
+      font-size: 16px;
+      color: #333;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--gtu-blue);
+      color: var(--white);
+      text-align: center;
+      padding: 14px;
+      margin-top: 40px;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">EduBot GTU</div>
+
+    <div class="hamburger" id="menu-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="study-material.html">Study Material</a>
+      <a href="ai-tools.html">AI Tools</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </nav>
+
+  <!-- PRIVACY POLICY CONTENT -->
+  <div class="container">
+    <h1>Privacy Policy</h1>
+
+    <p>
+      At <strong>EduBot GTU</strong>, we respect your privacy and are committed to protecting
+      your personal information. This Privacy Policy explains how we collect, use,
+      and safeguard your data when you use our website.
+    </p>
+
+    <h2>1. Information We Collect</h2>
+    <p>We may collect the following information:</p>
+    <ul>
+      <li>Name</li>
+      <li>Email Address</li>
+      <li>Usage Data (pages visited, clicks, device type)</li>
+      <li>Messages sent via support forms</li>
+    </ul>
+
+    <h2>2. How We Use Your Information</h2>
+    <p>Your data is used for:</p>
+    <ul>
+      <li>Improving website performance</li>
+      <li>Responding to your support queries</li>
+      <li>Providing personalized study material suggestions</li>
+      <li>Enhancing user experience</li>
+    </ul>
+
+    <h2>3. Cookies</h2>
+    <p>
+      We use cookies to analyze website traffic and improve functionality.  
+      You can disable cookies through your browser settings.
+    </p>
+
+    <h2>4. Sharing of Information</h2>
+    <p>
+      We do <strong>not share</strong> your personal information with third parties,
+      except:
+    </p>
+    <ul>
+      <li>When required by law</li>
+      <li>To protect our website from abuse or attacks</li>
+    </ul>
+
+    <h2>5. Data Security</h2>
+    <p>
+      We use secure hosting and encryption practices to protect your data.
+      However, no system is 100% secure.
+    </p>
+
+    <h2>6. External Links</h2>
+    <p>
+      Our website may contain links to external sites.  
+      We are not responsible for the privacy policies of those websites.
+    </p>
+
+    <h2>7. Changes to This Policy</h2>
+    <p>
+      We may update our Privacy Policy from time to time.  
+      Any changes will be posted on this page.
+    </p>
+
+    <h2>8. Contact Us</h2>
+    <p>
+      If you have any questions about this Privacy Policy,  
+      please contact us at: <strong>support@edubotgtu.in</strong>
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 EduBot GTU — All Rights Reserved.
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const btn = document.getElementById("menu-btn");
+    const nav = document.getElementById("nav-links");
+
+    btn.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+  </script>
+
+</body>
+</html>
