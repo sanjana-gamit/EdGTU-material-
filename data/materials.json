@@ -1,0 +1,14 @@
+[
+  {
+    "subject": "Compiler Design",
+    "unit": "Unit 2",
+    "link": "uploads/cd_unit2.pdf",
+    "description": "Full notes + important diagrams"
+  },
+  {
+    "subject": "Python",
+    "unit": "Unit 4",
+    "link": "uploads/python_u4.pdf",
+    "description": "Python functions, OOP, examples"
+  }
+]
