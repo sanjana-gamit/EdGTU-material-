@@ -613,3 +613,55 @@ body {
     transform: translateY(-5px);
     box-shadow: 0 0 15px rgba(0,150,255,0.5);
 }
+/* ---------------- MOBILE NAVIGATION ---------------- */
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Desktop Navigation */
+.nav-links {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+
+    /* Show hamburger */
+    .nav-toggle {
+        display: block;
+    }
+
+    /* Hide menu initially */
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.85);
+        padding: 20px;
+        border-radius: 10px;
+        flex-direction: column;
+        gap: 15px;
+        width: 200px;
+        animation: fadeIn 0.3s ease;
+    }
+
+    /* When menu opens */
+    .nav-links.open {
+        display: flex;
+    }
+}
+
+/* Small Fade Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
