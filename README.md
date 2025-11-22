@@ -60,3 +60,7 @@ Database: Firebase / MongoDB
 CI/CD: GitHub Actions
 
 Hosting: Vercel / Netlify / Heroku / Render
+
+🧑‍🎓 Purpose
+
+Built for GTU students to simplify study preparation, reduce time searching for materials, and get accurate answers instantly using AI.
