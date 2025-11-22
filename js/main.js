@@ -131,3 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (document.getElementById('materials-list')) loadMaterials();
 });
+// ===== MOBILE NAV MENU TOGGLE =====
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+if (navToggle) {
+  navToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+  });
+}
