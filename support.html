@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support – EduBot GTU</title>
+
+  <style>
+    :root {
+      --gtu-blue: #003366;
+      --gtu-light: #e6f0ff;
+      --white: #ffffff;
+      --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--gtu-light);
+    }
+
+    /* NAVBAR */
+    nav {
+      background: var(--gtu-blue);
+      color: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 22px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      transition: 0.3s ease;
+    }
+
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* Hamburger */
+    .hamburger {
+      width: 32px;
+      cursor: pointer;
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hamburger span {
+      height: 3px;
+      background: var(--white);
+      border-radius: 3px;
+    }
+
+    /* MOBILE MENU */
+    @media(max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: var(--gtu-blue);
+        width: 100%;
+        padding: 10px 0;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* SUPPORT BOX */
+    .container {
+      max-width: 650px;
+      margin: 30px auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 22px;
+      color: var(--gtu-blue);
+      font-size: 26px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0 22px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    textarea {
+      height: 140px;
+      resize: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: var(--gtu-blue);
+      color: white;
+      border: none;
+      font-size: 17px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--gtu-blue);
+      color: var(--white);
+      text-align: center;
+      padding: 14px;
+      margin-top: 40px;
+      font-size: 15px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="logo">EduBot GTU</div>
+
+    <div class="hamburger" id="menu-btn">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Home</a>
+      <a href="materials.html">Materials</a>
+      <a href="support.html">Support</a>
+      <a href="admin.html">Admin</a>
+    </div>
+  </nav>
+
+  <!-- SUPPORT FORM -->
+  <div class="container">
+    <h2>Contact Support</h2>
+
+    <form>
+      <label>Name</label>
+      <input type="text" placeholder="Enter your name" required>
+
+      <label>Email</label>
+      <input type="email" placeholder="Enter your email" required>
+
+      <label>Message</label>
+      <textarea placeholder="Write your issue here..." required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 EduBot GTU – All Rights Reserved
+  </footer>
+
+  <script>
+    // MOBILE MENU SCRIPT
+    const btn = document.getElementById("menu-btn");
+    const nav = document.getElementById("nav-links");
+
+    btn.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+  </script>
+
+</body>
+</html>
