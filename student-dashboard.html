@@ -69,6 +69,51 @@
     }
 
     loadMaterials();
+// Save material from Admin Dashboard
+const form = document.getElementById("materialForm");
+
+if (form) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const material = {
+      title: document.getElementById("title").value,
+      subject: document.getElementById("subject").value,
+      description: document.getElementById("description").value,
+      link: document.getElementById("link").value
+    };
+
+    let list = JSON.parse(localStorage.getItem("materials")) || [];
+    list.push(material);
+
+    localStorage.setItem("materials", JSON.stringify(list));
+    alert("Material Added Successfully!");
+
+    form.reset();
+  });
+}
+
+// Display materials on Study Material page
+const materialsList = document.getElementById("materialsList");
+
+if (materialsList) {
+  let list = JSON.parse(localStorage.getItem("materials")) || [];
+
+  if (list.length === 0) {
+    materialsList.innerHTML = "<p>No materials added yet.</p>";
+  } else {
+    list.forEach((item) => {
+      materialsList.innerHTML += `
+        <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+          <h3>${item.title}</h3>
+          <p><strong>Subject:</strong> ${item.subject}</p>
+          <p>${item.description}</p>
+          <a href="${item.link}" target="_blank">Open Material</a>
+        </div>
+      `;
+    });
+  }
+}
   </script>
 </body>
 </html>
