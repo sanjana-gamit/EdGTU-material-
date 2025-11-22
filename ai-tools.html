@@ -10,9 +10,9 @@
   <!-- Lottie Animation -->  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>  
 
-  <!-- ======== NAVIGATION DROPDOWN STYLE ======== -->
+  <!-- ======== FIXED MOBILE + DESKTOP DROPDOWN MENU CSS ======== -->
   <style>
-    /* MOBILE DROPDOWN */
+    /* Mobile Menu Hidden by Default */
     @media (max-width: 768px) {
       .nav-links {
         position: absolute;
@@ -20,24 +20,28 @@
         left: 0;
         width: 100%;
         background: #00264d;
-        display: flex;
         flex-direction: column;
         padding: 20px;
         gap: 15px;
+
+        display: flex;
         opacity: 0;
         visibility: hidden;
-        transition: 0.3s ease;
+        pointer-events: none;
+
+        transition: opacity .3s ease, visibility .3s ease;
         z-index: 999;
       }
 
       .nav-links.open {
         opacity: 1;
         visibility: visible;
+        pointer-events: auto;
       }
 
       .nav-toggle {
         display: block;
-        font-size: 28px;
+        font-size: 30px;
         background: none;
         border: none;
         color: #fff;
@@ -45,19 +49,23 @@
       }
     }
 
-    /* DESKTOP ALWAYS SHOW MENU */
+    /* Desktop: Always show nav */
     @media (min-width: 769px) {
       .nav-links {
         display: flex !important;
         position: static !important;
         opacity: 1 !important;
         visibility: visible !important;
-        background: transparent !important;
+        pointer-events: auto !important;
         flex-direction: row !important;
+        background: transparent !important;
       }
-      .nav-toggle { display: none; }
+      .nav-toggle {
+        display: none;
+      }
     }
   </style>
+
 </head>  
 
 <body>  
