@@ -9,7 +9,7 @@ Built using HTML, CSS, JavaScript with a GTU official blue theme and modern UI a
 
 🚀 Live Demo
 
-🔗 Coming Soon (GitHub Pages Deploy)
+🔗 https://sanjana-gamit.github.io/EdGTU-material-/index.html
 
 
 ---
