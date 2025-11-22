@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<title>Subjects – EduBot GTU</title>
+
+<style>
+body { font-family: Poppins; margin: 0; background: #f7faff;}
+.box { width: 90%; max-width: 900px; margin: auto; padding-top: 40px; }
+.title { text-align:center; font-size:28px; font-weight:600; margin-bottom:20px; }
+
+.list { margin-top:30px; }
+.item {
+  background:#fff;
+  padding:18px;
+  margin-bottom:15px;
+  border-radius:10px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.15);
+}
+
+.item a {
+  background:#003366;
+  color:white;
+  padding:8px 15px;
+  border-radius:6px;
+  text-decoration:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1 class="title" id="titleName"></h1>
+
+  <div class="list" id="subjectList">
+    <!-- Subjects load here -->
+  </div>
+</div>
+
+<script>
+const url = new URLSearchParams(window.location.search);
+const sem = url.get("sem");
+const dept = url.get("dept");
+
+// Page title
+document.getElementById("titleName").innerText =
+  "Semester " + sem + " – " + dept.toUpperCase() + " Notes";
+
+// SUBJECTS DATA
+const data = {
+  "ce": {
+    "1": [
+      { name: "Physics", link: "YOUR_DRIVE_LINK" },
+      { name: "Maths 1", link: "YOUR_DRIVE_LINK" },
+      { name: "Basic Electrical", link: "YOUR_DRIVE_LINK" }
+    ],
+    "5": [
+      { name: "ADA", link: "YOUR_DRIVE_LINK" },
+      { name: "CN", link: "YOUR_DRIVE_LINK" },
+      { name: "Python", link: "YOUR_DRIVE_LINK" }
+    ]
+  },
+
+  "it": {
+    "4": [
+      { name: "DBMS", link: "YOUR_DRIVE_LINK" },
+      { name: "OS", link: "YOUR_DRIVE_LINK" }
+    ]
+  }
+};
+
+// Load subjects
+const subjects = data[dept][sem] || [];
+let html = "";
+
+subjects.forEach(s => {
+  html += `
+    <div class="item">
+      <h3>${s.name}</h3>
+      <a href="${s.link}" target="_blank">Open PDF</a>
+    </div>`;
+});
+
+document.getElementById("subjectList").innerHTML = html;
+</script>
+
+</body>
+</html>
