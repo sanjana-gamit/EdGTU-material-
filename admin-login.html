@@ -5,7 +5,191 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin Login – EduBot GTU</title>
 
-      
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fa;
+      transition: 0.3s ease;
+    }
+
+    body.dark {
+      background: #0d1117;
+      color: #ddd;
+    }
+
+    /* NAVBAR */
+    header {
+      background: #003366;
+      padding: 15px 0;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header .container {
+      width: 90%;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-size: 22px;
+      font-weight: 600;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #d1e8ff;
+    }
+
+    .mode-btn {
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* HAMBURGER */
+    .hamburger {
+      width: 30px;
+      cursor: pointer;
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      height: 3px;
+      background: white;
+      border-radius: 5px;
+    }
+
+    /* MOBILE MENU */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: #00264d;
+        flex-direction: column;
+        padding: 20px 30px;
+        display: none;
+        border-radius: 0 0 0 15px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+    }
+
+    /* LOGIN BOX */
+    .login-box {
+      width: 350px;
+      margin: 80px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: 0.3s ease;
+    }
+
+    body.dark .login-box {
+      background: #161b22;
+      color: #fff;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.05);
+    }
+
+    .login-box h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #003366;
+    }
+
+    body.dark .login-box h2 {
+      color: #58a6ff;
+    }
+
+    .login-box label {
+      font-weight: bold;
+      margin-top: 10px;
+      display: block;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px 12px;
+      margin: 8px 0 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background: #003366;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .login-box button:hover {
+      background: #00264d;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background: #003366;
+      color: white;
+      padding: 30px 0;
+      margin-top: 60px;
+    }
+
+    .footer-container {
+      text-align: center;
+      width: 90%;
+      margin: auto;
+    }
+
+    .footer-links a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    .social-icons img {
+      width: 25px;
+      margin: 0 8px;
+    }
+
+    .copy {
+      margin-top: 20px;
+      opacity: 0.8;
+    }
+  </style>
 </head>
 
 <body>
@@ -14,19 +198,17 @@
   <div class="container">
       <a href="#" class="brand">EduBot GTU</a>
 
-      <!-- HAMBURGER -->
       <div class="hamburger" onclick="toggleMenu()">
         <span></span>
         <span></span>
         <span></span>
       </div>
 
-      <!-- NAV LINKS -->
       <div class="nav-links" id="menu">
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
-        <span class="mode-btn" onclick="toggleDark()">🌙 Dark Mode</span>
+        <span class="mode-btn" onclick="toggleDark()">🌙</span>
       </div>
   </div>
 </header>
@@ -43,37 +225,35 @@
   <button onclick="loginAdmin()">Login</button>
 </div>
 
-  <!-- ================= FOOTER ================= -->  
-  <footer class="site-footer">  
-    <div class="footer-container">  
-      <h3>EduBot GTU</h3>  
-      <p class="tagline">Made for students, by students — Learn Smart. Study Fast. Score High.</p>  
+<footer class="site-footer">
+  <div class="footer-container">
+    <h3>EduBot GTU</h3>
+    <p class="tagline">Made for students, by students — Learn Smart. Study Fast. Score High.</p>
 
-      <div class="footer-links">  
-        <a href="about.html">About</a>  
-        <a href="privacy-policy.html">Privacy Policy</a>  
-        <a href="terms.html">Terms</a>  
-        <a href="contact.html">Contact</a>  
-      </div>  
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </div>
 
-      <div class="social-icons">  
-        <a href="https://instagram.com/" target="_blank"><img src="assets/icons/instagram.webp"></a>  
-        <a href="https://github.com/" target="_blank"><img src="assets/icons/GitHub.png"></a>  
-        <a href="https://linkedin.com/" target="_blank"><img src="assets/icons/linkedin.png"></a>  
-      </div>  
+    <div class="social-icons">
+      <a href="#"><img src="assets/icons/instagram.webp"></a>
+      <a href="#"><img src="assets/icons/GitHub.png"></a>
+      <a href="#"><img src="assets/icons/linkedin.png"></a>
+    </div>
 
-      <p class="copy">© 2025 EduBot GTU — All rights reserved.</p>  
-    </div>  
-  </footer>  
-
+    <p class="copy">© 2025 EduBot GTU — All rights reserved.</p>
+  </div>
+</footer>
 
 <script>
 function loginAdmin() {
-  let u = document.getElementById("adminUser").value;
-  let p = document.getElementById("adminPass").value;
+  let u = document.getElementById("adminUser").value.trim();
+  let p = document.getElementById("adminPass").value.trim();
 
   if (u === "admin" && p === "password123") {
-      window.location.href = "admit-dashboard.html";
+      window.location.href = "admin-dashboard.html";
   } else {
       alert("❌ Wrong Username or Password!");
   }
@@ -83,7 +263,6 @@ function toggleDark() {
   document.body.classList.toggle("dark");
 }
 
-/* MOBILE MENU SCRIPT */
 function toggleMenu() {
   document.getElementById("menu").classList.toggle("open");
 }
