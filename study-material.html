@@ -1,95 +1,62 @@
-<!-- Updated full HTML with student upload functionality added -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Study Material - EduBot GTU</title>
-  <link rel="stylesheet" href="css/style.css">
 
   <style>
-    body { background: #f4f6fb; }
-
-    .nav-wrap { background: #003366; padding: 10px 0; color: #fff; }
+    body { background: #f4f6fb; font-family: Arial; }
+    .nav-wrap { background: #003366; padding: 12px 0; color: white; }
     .nav { display: flex; justify-content: space-between; align-items: center; }
-    .nav-links { display: flex; gap: 20px; transition: 0.3s ease; }
-    .nav-links a { color: #fff; text-decoration: none; font-weight: 500; }
-
-    @media (max-width: 768px) {
-      .nav-links { position: absolute; top: 70px; left: 0; width: 100%; background: #00264d;
-        flex-direction: column; padding: 15px; opacity: 0; visibility: hidden; }
-      .nav-links.open { opacity: 1; visibility: visible; }
-      .nav-toggle { display: block; font-size: 26px; background: none; border: none; color: white; cursor: pointer; }
-    }
-
-    @media (min-width: 769px) { .nav-toggle { display: none; } }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { color: #fff; text-decoration: none; }
 
     .subject-card {
       background: #fff; padding: 20px; margin: 15px 0;
       border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: 0.3s;
-    }
-    .subject-card:hover {
-      transform: translateY(-5px); box-shadow: 0 4px 18px rgba(0,0,0,0.15);
     }
 
-    .btn-download, .btn-view, .btn-delete {
-      display: inline-block; margin-right: 10px; padding: 8px 14px;
-      border-radius: 6px; text-decoration: none; color: #fff;
-    }
+    .btn { padding: 8px 14px; border-radius: 6px; text-decoration:none; color:white; }
     .btn-download { background:#007bff; }
     .btn-view { background:#28a745; }
     .btn-delete { background:#d9534f; }
 
-    .upload-box {
-      background: #fff; padding: 20px; margin-top: 20px;
-      border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    footer { background: #111; color: #fff; padding: 20px 0; margin-top: 40px; text-align: center; }
+    .upload-box { background:white; padding:20px; border-radius:10px; margin-top:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
   </style>
 </head>
-
 <body>
+
 <header class="nav-wrap">
   <div class="nav container">
-    <a href="index.html" class="brand">
-      <img src="assets/logo.png" alt="GTU Logo"/> EduBot GTU
-    </a>
-
+    <h2 style="color:white;">EduBot GTU</h2>
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="study-material.html" class="active">Study Material</a>
       <a href="ai-tools.html">AI Tools</a>
       <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="admin-login.html" class="btn btn-outline">Admin</a>
     </nav>
-
-    <button class="nav-toggle">☰</button>
   </div>
 </header>
 
 <main class="container">
   <h1>Study Material</h1>
-  <p class="lead">Materials loaded from <b>materials.json</b> + Students can upload their files.</p>
+  <p>Admin uploaded + Student self-uploaded materials</p>
 
-  <section id="materials-list"><h2>Loading materials...</h2></section>
+  <section id="materials-list"><h2>Loading...</h2></section>
 
   <!-- STUDENT UPLOAD SECTION -->
   <div class="upload-box">
     <h2>Upload Your Study Material</h2>
     <form id="uploadForm">
+
       <label>Subject:</label><br>
       <input type="text" id="subject" required><br><br>
 
       <label>Description:</label><br>
       <textarea id="description" required></textarea><br><br>
 
-      <label>Select File:</label><br>
-      <input type="file" id="fileInput" required><br><br>
-
-      <label>Document Type:</label>
+      <label>Document Type:</label><br>
       <select id="doctype" required>
         <option value="Notes">Notes</option>
         <option value="Book">Book</option>
@@ -98,88 +65,80 @@
         <option value="Other">Other</option>
       </select><br><br>
 
+      <label>Select File:</label><br>
+      <input type="file" id="fileInput" required><br><br>
+
       <button type="submit" class="btn-view">Upload</button>
     </form>
   </div>
 
 </main>
 
-<footer class="site-footer">
-  <div class="footer-container">
-    <h3>EduBot GTU</h3>
-    <p>Made for students, by students.</p>
-  </div>
-</footer>
-
 <script>
-  /* NAV MENU */
-  document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.querySelector(".nav-toggle");
-    const links = document.querySelector(".nav-links");
-    btn.addEventListener("click", () => links.classList.toggle("open"));
+// Load admin materials
+let adminData = [];
+let studentUploads = JSON.parse(localStorage.getItem("studentUploads") || "[]");
+
+function loadAll() {
+  const list = document.getElementById("materials-list");
+  list.innerHTML = "";
+
+  const all = [...adminData, ...studentUploads];
+
+  all.forEach((item, index) => {
+    const card = document.createElement("div");
+    card.className = "subject-card";
+
+    card.innerHTML = `
+      <h3>${item.subject} (${item.type})</h3>
+      <p>${item.description}</p>
+      <a class="btn btn-download" href="${item.link}" download>Download</a>
+      <a class="btn btn-view" href="${item.link}" target="_blank">View</a>
+      ${item.from === "student" ? `<button class="btn btn-delete" onclick="deleteUpload(${index - adminData.length})">Delete</button>` : ""}
+    `;
+
+    list.appendChild(card);
   });
+}
 
-  /* LOAD DEFAULT ADMIN MATERIALS */
-  let studentUploads = JSON.parse(localStorage.getItem("studentUploads") || "[]");
+// Fetch admin JSON
+fetch("data/materials.json")
+  .then(r => r.json())
+  .then(data => { adminData = data; loadAll(); })
+  .catch(() => document.getElementById("materials-list").innerHTML = "<p style='color:red;'>Failed to load admin materials</p>");
 
-  function renderMaterials(defaultData = []) {
-    const list = document.getElementById("materials-list");
-    list.innerHTML = "";
+// Upload student material
 
-    const allData = [...defaultData, ...studentUploads];
+document.getElementById("uploadForm").addEventListener("submit", function(e) {
+  e.preventDefault();
 
-    allData.forEach((item, index) => {
-      const card = document.createElement("div");
-      card.className = "subject-card";
+  const file = document.getElementById("fileInput").files[0];
+  const reader = new FileReader();
 
-      card.innerHTML = `
-        <h3>${item.subject} (${item.type || "Admin"})</h3>
-        <p>${item.description}</p>
-        <a href="${item.link}" class="btn-download" download>Download</a>
-        <a href="${item.link}" class="btn-view" target="_blank">View</a>
-        ${item.from === "student" ? `<button class='btn-delete' onclick='deleteUpload(${index - defaultData.length})'>Delete</button>` : ""}
-      `;
-
-      list.appendChild(card);
-    });
-  }
-
-  /* FETCH ADMIN MATERIAL */
-  fetch("data/materials.json")
-    .then(r => r.json())
-    .then(data => renderMaterials(data))
-    .catch(() => document.getElementById("materials-list").innerHTML = "<p style='color:red;'>Could not load materials.json</p>");
-
-  /* STUDENT UPLOAD */
-  document.getElementById("uploadForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const file = document.getElementById("fileInput").files[0];
-    const reader = new FileReader();
-
-    reader.onload = function() {
-      const upload = {
-        subject: document.getElementById("subject").value,
-        description: document.getElementById("description").value,
-        link: reader.result,
-        type: document.getElementById("doctype").value,
-        from: "student"
-      };
-
-      studentUploads.push(upload);
-      localStorage.setItem("studentUploads", JSON.stringify(studentUploads));
-      location.reload();
+  reader.onload = function() {
+    const obj = {
+      subject: document.getElementById("subject").value,
+      description: document.getElementById("description").value,
+      type: document.getElementById("doctype").value,
+      link: reader.result,
+      from: "student"
     };
 
-    reader.readAsDataURL(file);
-  });
-
-  /* DELETE ONLY SELF-UPLOADED FILE */
-  function deleteUpload(index) {
-    studentUploads.splice(index, 1);
+    studentUploads.push(obj);
     localStorage.setItem("studentUploads", JSON.stringify(studentUploads));
-    location.reload();
-  }
+    loadAll();
+  };
+
+  reader.readAsDataURL(file);
+});
+
+// Delete ONLY self-uploaded items
+function deleteUpload(i) {
+  studentUploads.splice(i, 1);
+  localStorage.setItem("studentUploads", JSON.stringify(studentUploads));
+  loadAll();
+}
+
 </script>
 
 </body>
