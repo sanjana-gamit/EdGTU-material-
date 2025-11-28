@@ -5,140 +5,202 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Study Material - EduBot GTU</title>
 
-  <style>
-    body { background: #f4f6fb; font-family: Arial; }
-    .nav-wrap { background: #003366; padding: 12px 0; color: white; }
-    .nav { display: flex; justify-content: space-between; align-items: center; }
-    .nav-links { display: flex; gap: 20px; }
-    .nav-links a { color: #fff; text-decoration: none; }
+  <link rel="stylesheet" href="css/style.css">
 
-    .subject-card {
-      background: #fff; padding: 20px; margin: 15px 0;
-      border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  <style>
+    body { background: #f4f6fb; }
+
+    .nav-wrap {
+      background: #003366;
+      padding: 10px 0;
+      color: #fff;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      transition: 0.3s ease;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
     }
 
-    .btn { padding: 8px 14px; border-radius: 6px; text-decoration:none; color:white; }
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #00264d;
+        flex-direction: column;
+        padding: 15px;
+        opacity: 0;
+        visibility: hidden;
+      }
+      .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+      }
+      .nav-toggle {
+        display: block;
+        font-size: 26px;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .nav-toggle {
+        display: none;
+      }
+    }
+
+    .subject-card {
+      background: #fff;
+      padding: 20px;
+      margin: 15px 0;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+    .subject-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    }
+
+    .btn-download, .btn-view {
+      display: inline-block;
+      margin-right: 10px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #fff;
+    }
     .btn-download { background:#007bff; }
     .btn-view { background:#28a745; }
-    .btn-delete { background:#d9534f; }
 
-    .upload-box { background:white; padding:20px; border-radius:10px; margin-top:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+    .cat {
+      background: #003366;
+      padding: 10px 18px;
+      display: inline-block;
+      color: #fff;
+      margin: 5px;
+      border-radius: 6px;
+      text-decoration:none;
+      transition:0.3s;
+    }
+    .cat:hover { background:#001f4d; }
+
+    footer {
+      background: #111;
+      color: #fff;
+      padding: 20px 0;
+      margin-top: 40px;
+      text-align: center;
+    }
   </style>
 </head>
+
 <body>
 
 <header class="nav-wrap">
   <div class="nav container">
-    <h2 style="color:white;">EduBot GTU</h2>
+    <a href="index.html" class="brand">
+      <img src="assets/logo.png" alt="GTU Logo"/> EduBot GTU
+    </a>
+
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="study-material.html" class="active">Study Material</a>
       <a href="ai-tools.html">AI Tools</a>
       <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="admin-login.html" class="btn btn-outline">Admin</a>
     </nav>
+
+    <button class="nav-toggle">☰</button>
   </div>
 </header>
 
 <main class="container">
   <h1>Study Material</h1>
-  <p>Admin uploaded + Student self-uploaded materials</p>
+  <p class="lead">Materials below are automatically loaded from <b>materials.json</b> uploaded by admin.</p>
 
-  <section id="materials-list"><h2>Loading...</h2></section>
+  <section class="material-categories">
+    <a class="cat" href="notes.html">Notes</a>
+    <a class="cat" href="books.html">Books</a>
+    <a class="cat" href="syllabus.html">Syllabus</a>
+    <a class="cat" href="pyqs.html">PYQs</a>
+    <a class="cat" href="playlist.html">Playlists</a>
+  </section>
 
-  <!-- STUDENT UPLOAD SECTION -->
-  <div class="upload-box">
-    <h2>Upload Your Study Material</h2>
-    <form id="uploadForm">
-
-      <label>Subject:</label><br>
-      <input type="text" id="subject" required><br><br>
-
-      <label>Description:</label><br>
-      <textarea id="description" required></textarea><br><br>
-
-      <label>Document Type:</label><br>
-      <select id="doctype" required>
-        <option value="Notes">Notes</option>
-        <option value="Book">Book</option>
-        <option value="Syllabus">Syllabus</option>
-        <option value="PYQ">PYQ</option>
-        <option value="Other">Other</option>
-      </select><br><br>
-
-      <label>Select File:</label><br>
-      <input type="file" id="fileInput" required><br><br>
-
-      <button type="submit" class="btn-view">Upload</button>
-    </form>
-  </div>
-
+  <section id="materials-list" class="materials-list">
+    <h2>Loading materials...</h2>
+  </section>
 </main>
 
+<footer class="site-footer">
+  <div class="footer-container">
+    <h3>EduBot GTU</h3>
+    <p class="tagline">Made for students, by students — Learn Smart. Study Fast. Score High.</p>
+
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="social-icons">
+      <a href="https://instagram.com/" target="_blank"><img src="assets/icons/instagram.webp"></a>
+      <a href="https://github.com/" target="_blank"><img src="assets/icons/GitHub.png"></a>
+      <a href="https://linkedin.com/" target="_blank"><img src="assets/icons/linkedin.png"></a>
+    </div>
+
+    <p class="copy">© 2025 EduBot GTU — All rights reserved.</p>
+  </div>
+</footer>
+
 <script>
-// Load admin materials
-let adminData = [];
-let studentUploads = JSON.parse(localStorage.getItem("studentUploads") || "[]");
-
-function loadAll() {
-  const list = document.getElementById("materials-list");
-  list.innerHTML = "";
-
-  const all = [...adminData, ...studentUploads];
-
-  all.forEach((item, index) => {
-    const card = document.createElement("div");
-    card.className = "subject-card";
-
-    card.innerHTML = `
-      <h3>${item.subject} (${item.type})</h3>
-      <p>${item.description}</p>
-      <a class="btn btn-download" href="${item.link}" download>Download</a>
-      <a class="btn btn-view" href="${item.link}" target="_blank">View</a>
-      ${item.from === "student" ? `<button class="btn btn-delete" onclick="deleteUpload(${index - adminData.length})">Delete</button>` : ""}
-    `;
-
-    list.appendChild(card);
+  document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.querySelector(".nav-toggle");
+    const links = document.querySelector(".nav-links");
+    btn.addEventListener("click", () => {
+      links.classList.toggle("open");
+    });
   });
-}
 
-// Fetch admin JSON
-fetch("data/materials.json")
-  .then(r => r.json())
-  .then(data => { adminData = data; loadAll(); })
-  .catch(() => document.getElementById("materials-list").innerHTML = "<p style='color:red;'>Failed to load admin materials</p>");
+  fetch("data/materials.json")
+    .then(response => response.json())
+    .then(data => {
+      const list = document.getElementById("materials-list");
+      list.innerHTML = "";
 
-// Upload student material
+      data.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "subject-card";
 
-document.getElementById("uploadForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const file = document.getElementById("fileInput").files[0];
-  const reader = new FileReader();
-
-  reader.onload = function() {
-    const obj = {
-      subject: document.getElementById("subject").value,
-      description: document.getElementById("description").value,
-      type: document.getElementById("doctype").value,
-      link: reader.result,
-      from: "student"
-    };
-
-    studentUploads.push(obj);
-    localStorage.setItem("studentUploads", JSON.stringify(studentUploads));
-    loadAll();
-  };
-
-  reader.readAsDataURL(file);
-});
-
-// Delete ONLY self-uploaded items
-function deleteUpload(i) {
-  studentUploads.splice(i, 1);
-  localStorage.setItem("studentUploads", JSON.stringify(studentUploads));
-  loadAll();
-}
-
+        card.innerHTML = `
+          <h3>${item.subject}</h3>
+          <p>${item.description}</p>
+          <a href="${item.link}" class="btn-download" download>Download</a>
+          <a href="${item.link}" class="btn-view" target="_blank">View</a>
+        `;
+        list.appendChild(card);
+      });
+    })
+    .catch(() => {
+      document.getElementById("materials-list").innerHTML =
+        "<p style='color:red;'>Failed to load materials. Please check JSON file.</p>";
+    });
 </script>
 
 </body>
