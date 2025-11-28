@@ -1,3 +1,4 @@
+<!-- Updated full HTML with student upload functionality added -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -9,65 +10,20 @@
   <style>
     body { background: #f4f6fb; }
 
-    /* ---------------- NAVBAR DROPDOWN ---------------- */
-    .nav-wrap {
-      background: #003366;
-      padding: 10px 0;
-      color: #fff;
-    }
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      transition: 0.3s ease;
-    }
-    .nav-links a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-    }
+    .nav-wrap { background: #003366; padding: 10px 0; color: #fff; }
+    .nav { display: flex; justify-content: space-between; align-items: center; }
+    .nav-links { display: flex; gap: 20px; transition: 0.3s ease; }
+    .nav-links a { color: #fff; text-decoration: none; font-weight: 500; }
 
-    /* MOBILE MENU HIDDEN */
     @media (max-width: 768px) {
-      .nav-links {
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        background: #00264d;
-        flex-direction: column;
-        padding: 15px;
-        opacity: 0;
-        visibility: hidden;
-      }
-
-      .nav-links.open {
-        opacity: 1;
-        visibility: visible;
-      }
-
-      .nav-toggle {
-        display: block;
-        font-size: 26px;
-        background: none;
-        border: none;
-        color: white;
-        cursor: pointer;
-      }
+      .nav-links { position: absolute; top: 70px; left: 0; width: 100%; background: #00264d;
+        flex-direction: column; padding: 15px; opacity: 0; visibility: hidden; }
+      .nav-links.open { opacity: 1; visibility: visible; }
+      .nav-toggle { display: block; font-size: 26px; background: none; border: none; color: white; cursor: pointer; }
     }
 
-    /* DESKTOP MENU ALWAYS VISIBLE */
-    @media (min-width: 769px) {
-      .nav-toggle {
-        display: none;
-      }
-    }
+    @media (min-width: 769px) { .nav-toggle { display: none; } }
 
-    /* ------- CARDS ------- */
     .subject-card {
       background: #fff; padding: 20px; margin: 15px 0;
       border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -77,30 +33,24 @@
       transform: translateY(-5px); box-shadow: 0 4px 18px rgba(0,0,0,0.15);
     }
 
-    .btn-download, .btn-view {
+    .btn-download, .btn-view, .btn-delete {
       display: inline-block; margin-right: 10px; padding: 8px 14px;
       border-radius: 6px; text-decoration: none; color: #fff;
     }
     .btn-download { background:#007bff; }
     .btn-view { background:#28a745; }
+    .btn-delete { background:#d9534f; }
 
-    .cat {
-      background: #003366; padding: 10px 18px; display: inline-block;
-      color: #fff; margin: 5px; border-radius: 6px; text-decoration:none;
-      transition:0.3s;
+    .upload-box {
+      background: #fff; padding: 20px; margin-top: 20px;
+      border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    .cat:hover { background:#001f4d; }
 
-    footer {
-      background: #111; color: #fff; padding: 20px 0;
-      margin-top: 40px; text-align: center;
-    }
+    footer { background: #111; color: #fff; padding: 20px 0; margin-top: 40px; text-align: center; }
   </style>
 </head>
 
 <body>
-
-<!-- HEADER -->
 <header class="nav-wrap">
   <div class="nav container">
     <a href="index.html" class="brand">
@@ -116,90 +66,120 @@
       <a href="admin-login.html" class="btn btn-outline">Admin</a>
     </nav>
 
-    <!-- 3 Line Menu -->
     <button class="nav-toggle">☰</button>
   </div>
 </header>
 
-<!-- MAIN CONTENT -->
 <main class="container">
   <h1>Study Material</h1>
-  <p class="lead">Materials below are automatically loaded from <b>materials.json</b> uploaded by admin.</p>
+  <p class="lead">Materials loaded from <b>materials.json</b> + Students can upload their files.</p>
 
-  <section class="material-categories">
-    <a class="cat" href="notes.html">Notes</a>
-    <a class="cat" href="books.html">Books</a>
-    <a class="cat" href="syllabus.html">Syllabus</a>
-    <a class="cat" href="pyqs.html">PYQs</a>
-    <a class="cat" href="playlist.html">Playlists</a>
-  </section>
+  <section id="materials-list"><h2>Loading materials...</h2></section>
 
-  <section id="materials-list" class="materials-list">
-    <h2>Loading materials...</h2>
-  </section>
+  <!-- STUDENT UPLOAD SECTION -->
+  <div class="upload-box">
+    <h2>Upload Your Study Material</h2>
+    <form id="uploadForm">
+      <label>Subject:</label><br>
+      <input type="text" id="subject" required><br><br>
+
+      <label>Description:</label><br>
+      <textarea id="description" required></textarea><br><br>
+
+      <label>Select File:</label><br>
+      <input type="file" id="fileInput" required><br><br>
+
+      <label>Document Type:</label>
+      <select id="doctype" required>
+        <option value="Notes">Notes</option>
+        <option value="Book">Book</option>
+        <option value="Syllabus">Syllabus</option>
+        <option value="PYQ">PYQ</option>
+        <option value="Other">Other</option>
+      </select><br><br>
+
+      <button type="submit" class="btn-view">Upload</button>
+    </form>
+  </div>
+
 </main>
 
-  <!-- ================= FOOTER ================= -->  
-  <footer class="site-footer">  
-    <div class="footer-container">  
-      <h3>EduBot GTU</h3>  
-      <p class="tagline">Made for students, by students — Learn Smart. Study Fast. Score High.</p>  
+<footer class="site-footer">
+  <div class="footer-container">
+    <h3>EduBot GTU</h3>
+    <p>Made for students, by students.</p>
+  </div>
+</footer>
 
-      <div class="footer-links">  
-        <a href="about.html">About</a>  
-        <a href="privacy-policy.html">Privacy Policy</a>  
-        <a href="terms.html">Terms</a>  
-        <a href="contact.html">Contact</a>  
-      </div>  
-
-      <div class="social-icons">  
-        <a href="https://instagram.com/" target="_blank"><img src="assets/icons/instagram.webp"></a>  
-        <a href="https://github.com/" target="_blank"><img src="assets/icons/GitHub.png"></a>  
-        <a href="https://linkedin.com/" target="_blank"><img src="assets/icons/linkedin.png"></a>  
-      </div>  
-
-      <p class="copy">© 2025 EduBot GTU — All rights reserved.</p>  
-    </div>  
-  </footer>  
-
-
-<!-- JS (Works with your main.js also) -->
 <script>
-  // Dropdown Navigation
+  /* NAV MENU */
   document.addEventListener("DOMContentLoaded", () => {
     const btn = document.querySelector(".nav-toggle");
     const links = document.querySelector(".nav-links");
-
-    btn.addEventListener("click", () => {
-      links.classList.toggle("open");
-    });
+    btn.addEventListener("click", () => links.classList.toggle("open"));
   });
 
-  // Load admin-uploaded materials
-  fetch("data/materials.json")
-    .then(response => response.json())
-    .then(data => {
-      const list = document.getElementById("materials-list");
-      list.innerHTML = ""; 
+  /* LOAD DEFAULT ADMIN MATERIALS */
+  let studentUploads = JSON.parse(localStorage.getItem("studentUploads") || "[]");
 
-      data.forEach(item => {
-        const card = document.createElement("div");
-        card.className = "subject-card";
+  function renderMaterials(defaultData = []) {
+    const list = document.getElementById("materials-list");
+    list.innerHTML = "";
 
-        card.innerHTML = `
-          <h3>${item.subject}</h3>
-          <p>${item.description}</p>
-          <a href="${item.link}" class="btn-download" download>Download</a>
-          <a href="${item.link}" class="btn-view" target="_blank">View</a>
-        `;
+    const allData = [...defaultData, ...studentUploads];
 
-        list.appendChild(card);
-      });
-    })
-    .catch(err => {
-      document.getElementById("materials-list").innerHTML =
-        "<p style='color:red;'>Failed to load materials. Please check JSON file.</p>";
+    allData.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.className = "subject-card";
+
+      card.innerHTML = `
+        <h3>${item.subject} (${item.type || "Admin"})</h3>
+        <p>${item.description}</p>
+        <a href="${item.link}" class="btn-download" download>Download</a>
+        <a href="${item.link}" class="btn-view" target="_blank">View</a>
+        ${item.from === "student" ? `<button class='btn-delete' onclick='deleteUpload(${index - defaultData.length})'>Delete</button>` : ""}
+      `;
+
+      list.appendChild(card);
     });
+  }
+
+  /* FETCH ADMIN MATERIAL */
+  fetch("data/materials.json")
+    .then(r => r.json())
+    .then(data => renderMaterials(data))
+    .catch(() => document.getElementById("materials-list").innerHTML = "<p style='color:red;'>Could not load materials.json</p>");
+
+  /* STUDENT UPLOAD */
+  document.getElementById("uploadForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const file = document.getElementById("fileInput").files[0];
+    const reader = new FileReader();
+
+    reader.onload = function() {
+      const upload = {
+        subject: document.getElementById("subject").value,
+        description: document.getElementById("description").value,
+        link: reader.result,
+        type: document.getElementById("doctype").value,
+        from: "student"
+      };
+
+      studentUploads.push(upload);
+      localStorage.setItem("studentUploads", JSON.stringify(studentUploads));
+      location.reload();
+    };
+
+    reader.readAsDataURL(file);
+  });
+
+  /* DELETE ONLY SELF-UPLOADED FILE */
+  function deleteUpload(index) {
+    studentUploads.splice(index, 1);
+    localStorage.setItem("studentUploads", JSON.stringify(studentUploads));
+    location.reload();
+  }
 </script>
 
 </body>
